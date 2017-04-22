@@ -1,0 +1,19 @@
+%menu-btn-bar {
+    height:        3px;
+    border-radius: 5px;
+    position:      relative;
+    z-index:       1;
+    background:    #fff;
+    display:       block;
+}
+
+.btn {
+    border:        none;
+    background:    #fff;
+    border-radius: 1.1em;
+    height:        2.2em;
+    text-align:    center;
+    cursor:        pointer;
+    font-weight:   bold;
+    color:         $color-primary-1;
+}

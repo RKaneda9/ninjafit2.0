@@ -1,0 +1,21 @@
+%textbox {
+    @extend %clear-browser-defaults;
+
+    resize:        none;
+    border-radius: 1.1em;
+    text-indent:   0.8em;
+    padding:       0.5em 0;
+    width:         100%;
+    max-width:     100%;
+    flex:          0 1 100%;
+}
+
+input[type=text] { 
+    @extend %textbox;
+    height: 1.2em; 
+}
+
+textarea {
+    @extend %textbox; 
+    height: 7em;
+}

@@ -1,0 +1,10 @@
+$show-overflow: false;
+$app-width: 350px;
+$app-aspect: 0.562;
+$app-height: $app-width / $app-aspect;
+// $app-width: 100vw;
+// $app-height: 100vh;
+$general-padding: $app-width / 18;
+$general-padding-half: $general-padding / 2;
+$color-primary-1: #323232;
+$color-primary-2: #693590;

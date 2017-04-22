@@ -1,0 +1,347 @@
+- var ext = minified ? ".min" : '';
+
+mixin app(view)
+    div(class=`app${view ? ` ${view}-view` : ''}`)
+
+        +menu()
+
+        +home-section()
+        +about-section()
+        +ninja-section()
+        +obstacle-section()
+        +functional-section()
+        +kids-section()
+        +events-section()
+        +testimonials-section()
+        +join-section()
+        +map-section()
+        +contact-section()
+
+        +footer()
+
+mixin menu() 
+    section(class="menu")
+        button(class="close-btn")
+            span(class="bar")
+            span(class="bar")
+
+        div(class="background")
+            div(class="portion")
+            div(class="portion")
+            div(class="portion")
+
+        div(class="content")
+            nav(class="nav")
+                a(class="link") 
+                    span(class="fa fa-users")
+                    span(class="text") About Us
+
+                a(class="link") 
+                    span(class="fa fa-building")
+                    span(class="text") What We offer
+
+                a(class="link") 
+                    span(class="fa fa-calendar")
+                    span(class="text") Schedule
+
+                a(class="link") 
+                    span(class="fa fa-envelope")
+                    span(class="text") Contact
+
+                a(class="link") 
+                    span(class="fa fa-money")
+                    span(class="text") Join Us
+
+                a(class="link") 
+                    span(class="fa fa-sign-in")
+                    span(class="text") Login
+
+            nav(class="social")
+                a(class="link") 
+                    div(class="social-item")
+                        span(class="fa fa-facebook")
+
+                a(class="link") 
+                    div(class="social-item")
+                        span(class="fa fa-instagram")
+
+                a(class="link") 
+                    div(class="social-item")
+                        span(class="fa fa-twitter")
+
+                a(class="link")
+                    div(class="social-item")
+                        span(class="fa fa-youtube")
+
+
+mixin home-section()
+    section(class="home")
+        header(class="header")
+            p(class="main") NinjaFit
+            p(class="sub") Gym
+
+        button(class="menu-btn")
+            +triangle('left', 'background', 'small')
+            div(class="bars")
+                span(class="bar")
+                span(class="bar")
+                span(class="bar")
+
+        div(class="image-slider")
+            div(class="image")
+
+        button(class="scroll-down-btn")
+            svg(class="icon" viewBox="0 0 100 100")
+                path(fill-rule="even-odd" d="M0,50 A50,50 0 0 1 100,50 A50,50 0 0 1 0,50 Z M70,40 L30,40 L50,60 Z")
+
+mixin about-section()
+    section(class="about")
+        header(class="header") What is NinjaFit Gym?
+
+        div(class="content")
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+        footer(class="footer")
+            button(class="btn") Play Intro
+            button(class="btn") Explore More
+
+mixin ninja-section() 
+    section(class="ninja-training")
+        div(class="background")
+            div(class="main")
+                +triangle('right')
+            div(class="triangle")
+                +triangle('left', null, 'small')
+
+        div(class="image")
+
+        header(class="header") Ninja Warrior Training
+
+        div(class="content")
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+mixin obstacle-section() 
+    section(class="obstacle-training")
+
+        div(class="image")
+
+        header(class="header") Obstacle Training
+
+        div(class="content")
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+mixin functional-section() 
+    section(class="functional-training")
+        div(class="background")
+            div(class="top")    
+                +trianglehalf('right')
+            div(class="middle")
+            div(class="bottom")
+                +trianglehalf('down')
+
+        div(class="image")
+
+        header(class="header") Functional Training
+
+        div(class="content")
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+mixin kids-section() 
+    section(class="kids")
+        div(class="background")
+            div(class="triangle")
+                +triangle('right', null, 'small')
+
+        header(class="header") NinjaFit Kids
+
+        div(class="content")
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+        footer(class="footer")
+            button(class="btn") Explore More
+
+mixin events-section() 
+    section(class="events")
+        div(class="background")
+            div(class="triangle")
+                +triangle('left', null, 'small')
+
+        header(class="header") Special Events
+
+        div(class="content")
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+        footer(class="footer")
+            button(class="btn") Explore More
+
+mixin testimonials-section()
+    section(class="testimonials")
+        div(class="background")
+            div(class="top")    
+                +trianglehalf('left')
+            div(class="middle")
+            div(class="bottom")
+                +trianglehalf('down')
+
+        header(class="header") Testimonials
+
+        div(class="content")
+            div(class="quote")
+                div(class="text") Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                div(class="author") Marguerite Torrenga
+
+mixin join-section()
+    section(class="join")
+        div(class="header") Join the Fitness Revolution
+        div(class="footer")
+            button(class="btn") See Pricing
+
+
+mixin map-section()
+    section(class="map")
+        div(class="image-wrapper")
+            div(class="image")
+
+mixin contact-section() 
+    section(class="contact")
+        div(class="background")
+            div(class="main")
+                +triangle('right')
+            div(class="triangle")
+                +triangle('left', null, 'small')
+
+        header(class="header") Get In Touch
+
+        div(class="content")
+                div(class="row")
+                    div(class="col")
+                        input(type="text" maxlength="99" placeholder="First Name")
+
+                    div(class="col")
+                        input(type="text" maxlength="99" placeholder="Last Name")
+
+                div(class="row")
+                    div(class="col")
+                        input(type="text" maxlength="199" placeholder="Your Email")
+
+                div(class="row")
+                    div(class="col")
+                        textarea(maxlength="999" placeholder="What would you like to ask?")
+
+        footer(class="footer")
+            button(class="btn") Send
+
+mixin footer()
+    footer(class="page-footer")
+        div(class="logo")
+            div(class="title") NinjaFit Gym
+            div(class="copyright") NinjaFit Gym © 2017
+
+        div(class="nav")
+            div(class="title") Menu
+
+            a(class="link") About Us
+            a(class="link") What We Offer
+            a(class="link") Schedule
+            a(class="link") Contact
+            a(class="link") Join Us
+            a(class="link") Login
+
+        div(class="nav")
+            div(class="title") Connect With Us
+
+            a(class="link") 
+                span(class="fa fa-facebook")
+                span(class="text") Facebook
+
+            a(class="link") 
+                span(class="fa fa-instagram")
+                span(class="text") Instagram
+
+            a(class="link") 
+                span(class="fa fa-twitter")
+                span(class="text") Twitter
+
+            a(class="link")
+                span(class="fa fa-youtube")
+                span(class="text") Youtube
+
+
+- var tw = 500; // triangle width
+- var tx = 0;     // x offset
+- var th = tw * 2 / Math.sqrt(3);
+- var ty = 0;
+- var tf = "#dropshadow-";
+
+mixin triangle(dir, c, size) 
+    - var f = "url(#triangle-dropshadow)";
+
+    svg(class=c viewBox=`0 0 ${tw} ${th}`)
+
+        if dir == 'left'
+            path(filter=`url(${tf}${size || 'large'})` d=`M${tw - tx},${ty} L${tw - tx},${th - ty} L${tx},${th / 2} Z`)
+
+        else if dir == 'right'
+            path(filter=`url(${tf}${size || 'large'})` d=`M${tx},${ty} L${tw - tx},${th / 2} L${tx},${th - ty} Z`)
+
+mixin trianglehalf(dir, c, size)
+    - var w = tw;
+    - var h = th / 2;
+    - var x = tx;
+    - var y = ty / 2;
+
+    if dir == 'left'
+        svg(class=c viewBox=`0 0 ${w} ${h}`)
+            path(filter=`url(${tf}${size || 'large'})` d=`M${w - x},${y} L${w - x},${h - y} L${x},${h - y} Z`)
+
+    else if dir == 'right'
+        svg(class=c viewBox=`0 0 ${w} ${h}`)
+            path(filter=`url(${tf}${size || 'large'})` d=`M${x},${y} L${w - x},${h - y} L${x},${h - y} Z`)
+
+    else if dir == 'down'
+        svg(class=c viewBox=`0 0 ${w} ${h/2}`)
+            path(filter=`url(${tf}${size || 'large'})` d=`M${x},${y} L${w - x},${y} L${w / 2},${(h - y) / 2} Z`)
+
+
+mixin defs() 
+    svg(class="defs" xmlns="http://www.w3.org/2000/svg")
+        defs
+            filter#dropshadow-small(height="150%")
+                feGaussianBlur(in="SourceAlpha" stdDeviation="25")
+                feMerge 
+                    feMergeNode
+                    feMergeNode(in="SourceGraphic")
+
+            filter#dropshadow-large(height="150%")
+                feGaussianBlur(in="SourceAlpha" stdDeviation="5")
+                feMerge 
+                    feMergeNode
+                    feMergeNode(in="SourceGraphic")
+
+            linearGradient#grad-2(x1="0%" y1="0%" x2="0%" y2="100%")
+                stop(stop-color="#7c2db9" stop-opacity="1" offset="0%")
+                stop(stop-color="#6e448e" stop-opacity="1" offset="100%")
+
+//- document
+doctype html
+html
+    head
+        title NinjaFit Gym
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+        link(href=`https://fonts.googleapis.com/css?family=Titillium+Web` rel="stylesheet")
+        link(href=`https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css` rel="stylesheet")
+        link(href=`./css/main${ext}.css` rel="stylesheet")
+        script(async type="text/javascript" src=`./js/main${ext}.js`)
+
+    body
+        +defs()
+        +app()

@@ -1,0 +1,20 @@
+{
+    "css": {
+        "inputdir": "./lib/scss/",
+        "outputdir": "css/"
+    },
+
+    "html": {
+        "inputdir": "./views/",
+        "outputdir": ""
+    },
+
+    "js": {
+        "inputfiles": ["main"],
+        "inputdir": "./src/",
+        "outputdir": "js/"
+    },
+
+    "outputdir": "./build/",
+    "port": 3500
+}
