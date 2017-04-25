@@ -42,6 +42,7 @@ let service = module.exports = {
 
         let results = null, 
             timer   = Timer.startNew();
+            
 
         this.settings.inputFiles.forEach(file => {
 
@@ -52,6 +53,8 @@ let service = module.exports = {
                     outFile:     this.settings.outputPath,
                     outputStyle: "nested",
                     sourceMap:   false
+                }, (error, result) => {
+                    if (err) { console.log(err); }
                 });
 
                 fs.writeFileSync(this.getOutputFilename(file), result.css);
@@ -64,6 +67,8 @@ let service = module.exports = {
                     outFile:     this.settings.outputPath,
                     outputStyle: "compressed",
                     sourceMap:   false
+                }, (error, result) => {
+                    if (err) { console.log(err); }
                 });
 
                 fs.writeFileSync(this.getOutputFilename(file, true), result.css);

@@ -79,20 +79,23 @@ mixin home-section()
         header(class="header")
             p(class="main") NinjaFit
             p(class="sub") Gym
-
-        button(class="menu-btn")
-            +triangle('left', 'background', 'small')
-            div(class="bars")
-                span(class="bar")
-                span(class="bar")
-                span(class="bar")
+            button(class="menu-btn")
+                +triangle('left', 'background', 'small')
+                div(class="bars")
+                    span(class="bar")
+                    span(class="bar")
+                    span(class="bar")
 
         div(class="image-slider")
-            div(class="image")
+            div(class="image-wrapper")
+                div(class="image")
 
-        button(class="scroll-down-btn")
-            svg(class="icon" viewBox="0 0 100 100")
-                path(fill-rule="even-odd" d="M0,50 A50,50 0 0 1 100,50 A50,50 0 0 1 0,50 Z M70,40 L30,40 L50,60 Z")
+        div(class="content")
+
+        footer(class="footer")
+            button(class="scroll-down-btn")
+                svg(class="icon" viewBox="0 0 100 100")
+                    path(fill-rule="even-odd" d="M0,50 A50,50 0 0 1 100,50 A50,50 0 0 1 0,50 Z M70,40 L30,40 L50,60 Z")
 
 mixin about-section()
     section(class="about")
@@ -216,7 +219,7 @@ mixin contact-section()
             div(class="main")
                 +triangle('right')
             div(class="triangle")
-                +triangle('left', null, 'small')
+                +triangle('left', null, 'medium')
 
         header(class="header") Get In Touch
 
@@ -320,6 +323,12 @@ mixin defs()
                     feMergeNode
                     feMergeNode(in="SourceGraphic")
 
+            filter#dropshadow-medium(height="150%")
+                feGaussianBlur(in="SourceAlpha" stdDeviation="15")
+                feMerge 
+                    feMergeNode
+                    feMergeNode(in="SourceGraphic")
+
             filter#dropshadow-large(height="150%")
                 feGaussianBlur(in="SourceAlpha" stdDeviation="5")
                 feMerge 
@@ -329,6 +338,12 @@ mixin defs()
             linearGradient#grad-2(x1="0%" y1="0%" x2="0%" y2="100%")
                 stop(stop-color="#7c2db9" stop-opacity="1" offset="0%")
                 stop(stop-color="#6e448e" stop-opacity="1" offset="100%")
+
+            clipPath#image-slider-clip(clipPathUnits="objectBoundingBox")
+                polygon
+
+            clipPath#map-clip(clipPathUnits="objectBoundingBox")
+                polygon
 
 //- document
 doctype html

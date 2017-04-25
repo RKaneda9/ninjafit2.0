@@ -68,6 +68,7 @@
     top:        2px;
     position: relative;
     z-index: 1;
+    max-height: $app-width * 0.6;
 }
 
 %svg-bg-piece-fix {
@@ -106,7 +107,6 @@ body {
     // flex-flow: column;
     // align-items: center;
     overflow:   auto;
-    background: $color-primary-1;
     color:      #fff;
 }
 
@@ -137,3 +137,16 @@ button {
 
     .author:before { content: ' - '; }
 }
+
+// TODO: forces portrait
+// @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+//   html {
+//     transform: rotate(-90deg);
+//     transform-origin: left top;
+//     width: 100vh;
+//     overflow-x: hidden;
+//     position: absolute;
+//     top: 100%;
+//     left: 0;
+//   }
+// }
