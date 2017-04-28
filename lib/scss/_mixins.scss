@@ -13,3 +13,9 @@
     bottom:   0;
     right:    0;
 }
+
+@mixin media($queryString) {
+    @media #{$queryString} {
+        @content;
+    }
+}

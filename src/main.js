@@ -17,15 +17,15 @@
 
 })(function () {
   
-    var menuBtnShow     = document.querySelector('.home .menu-btn');
-    var menuBtnRemove   = document.querySelector('.menu .close-btn');
-    var menu            = document.querySelector('.menu');
-    var header          = document.querySelector('.home .header');
-    var footer          = document.querySelector('.home .footer');
-    var imageSlider     = document.querySelector('.home .image-slider');
-    var imageSliderClip = document.querySelector('#image-slider-clip polygon');
-    var map             = document.querySelector('.map .image-wrapper');
-    var mapClip         = document.querySelector('#map-clip polygon');
+    var home          = document.querySelector('.home');
+    var menuBtnShow   = document.querySelector('.home .menu-btn');
+    var menuBtnRemove = document.querySelector('.menu .close-btn');
+    var menu          = document.querySelector('.menu');
+    var header        = document.querySelector('.home .header');
+    var imageSlider   = document.querySelector('.home .image-slider');
+    var map           = document.querySelector('.map .image-wrapper');
+    var mapClip       = document.querySelector('#map-clip polygon');
+    var sqrt3 = Math.sqrt(3);
 
     menuBtnShow.addEventListener('click', function (e) {
        menu.classList.add('open');
@@ -35,41 +35,38 @@
        menu.classList.remove('open');
     });
 
-    function resize() {
-        var bounds = imageSlider.getBoundingClientRect();
-        var w      = bounds.width;
-        var h      = bounds.height;
-        var mod    = Math.sqrt(3);
+    var resizeTimeout = null;
 
-        var headerBounds = header.getBoundingClientRect();
-        var footerBounds = footer.getBoundingClientRect();
+    function onResize() {
+        if (resizeTimeout) { clearTimeout(resizeTimeout); }
 
-        // 30 60 90 triangle
-        var headerWidth = headerBounds.height * mod;
-        var footerWidth = footerBounds.height * mod;
-
-        var points = [
-            [0,0],
-            [(w - headerWidth) / w, 0],
-            [1,headerBounds.height / h],
-            [1,1],
-            [0,(h - w/Math.sqrt(3)) / h]
-        ].map(function (p) { return p.join(','); });
-
-        imageSliderClip.setAttribute('points', points.join(' '));
-
-        var mapBounds = map.getBoundingClientRect();
-
-        points = [
-            [0,0],
-            [1,mapBounds.width / (mod * mapBounds.height)],
-            [1,1],
-            [0,(mapBounds.height - (mapBounds.width / mod)) / mapBounds.height]
-        ].map(function (p) { return p.join(','); });
-
-        mapClip.setAttribute('points', points.join(' '));
+        resizeTimeout = setTimeout(resize, 500);
     }
 
-    window.addEventListener('resize', resize);
+    function resize() {
+        resizeTimeout = null;
+
+        var homeBounds   = home  .getBoundingClientRect();
+        var headerBounds = header.getBoundingClientRect();
+        var x1 = homeBounds.width;
+        var y1 = headerBounds.height;
+        var x2 = homeBounds.width  / 2;
+        var y2 = homeBounds.height / 2;
+
+        var y = - (sqrt3 / 4) * (x1 - y1 * sqrt3 - x2 - y2 / sqrt3);
+        var x = sqrt3 * y - y1 * sqrt3 + x1;
+
+        var r = Math.sqrt(Math.pow(x - x2, 2) + Math.pow(y - y2, 2));
+
+        var h = 2 * r;
+        var x3 = x2 - r / 2;
+        var r2 = 2 / sqrt3 * (homeBounds.width - x3);
+        var w  = 2 * r2;
+
+        imageSlider.style.height = h + 'px';
+        imageSlider.style.width  = w + 'px';
+    }
+
+    window.addEventListener('resize', onResize);
     resize();
 });

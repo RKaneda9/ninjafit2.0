@@ -43,39 +43,41 @@ let service = module.exports = {
         let results = null, 
             timer   = Timer.startNew();
             
+        try {
+            this.settings.inputFiles.forEach(file => {
 
-        this.settings.inputFiles.forEach(file => {
+                if (unminified) {
+                    
+                    result = sass.renderSync({
+                        file:        `${this.settings.inputDir}${file}`,
+                        outFile:     this.settings.outputPath,
+                        outputStyle: "nested",
+                        sourceMap:   false
+                    }, (error, result) => {
+                        if (err) { console.log(err); }
+                    });
 
-            if (unminified) {
-                
-                result = sass.renderSync({
-                    file:        `${this.settings.inputDir}${file}`,
-                    outFile:     this.settings.outputPath,
-                    outputStyle: "nested",
-                    sourceMap:   false
-                }, (error, result) => {
-                    if (err) { console.log(err); }
-                });
+                    fs.writeFileSync(this.getOutputFilename(file), result.css);
+                }
 
-                fs.writeFileSync(this.getOutputFilename(file), result.css);
-            }
+                if (minified) {
 
-            if (minified) {
+                    result = sass.renderSync({
+                        file:        `${this.settings.inputDir}${file}`,
+                        outFile:     this.settings.outputPath,
+                        outputStyle: "compressed",
+                        sourceMap:   false
+                    }, (error, result) => {
+                        if (err) { console.log(err); }
+                    });
 
-                result = sass.renderSync({
-                    file:        `${this.settings.inputDir}${file}`,
-                    outFile:     this.settings.outputPath,
-                    outputStyle: "compressed",
-                    sourceMap:   false
-                }, (error, result) => {
-                    if (err) { console.log(err); }
-                });
+                    fs.writeFileSync(this.getOutputFilename(file, true), result.css);
+                }
+            });
 
-                fs.writeFileSync(this.getOutputFilename(file, true), result.css);
-            }
-        });
-
-        console.log(`Finished compiling css in ${timer.finish()} ms`);
+            console.log(`Finished compiling css in ${timer.finish()} ms`);
+        }
+        catch (ex) { console.error(ex); }
     },
 
     run ({ minified, unminified, watch }) {
