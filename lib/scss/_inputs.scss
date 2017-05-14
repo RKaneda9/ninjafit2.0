@@ -13,9 +13,11 @@
 input[type=text] { 
     @extend %textbox;
     height: 1.2em; 
+    min-height: 1.2em;
 }
 
 textarea {
     @extend %textbox; 
     height: 7em;
+    min-height: 7em;
 }

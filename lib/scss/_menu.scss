@@ -7,26 +7,8 @@
 
     .close-btn {
         position: absolute;
-        cursor:   pointer;
-        width:    3em;
-        height:   3em;
-        top:      0;
-        right:    0;
-        z-index:  3;
-        transform-origin: top right;
-
-        .bar {
-            @extend %menu-btn-bar;
-            transform-origin: center;
-            position: absolute;
-            top:  50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 20px;
-
-            &:nth-child(1) { transform: translate(-50%, -50%) rotate( 45deg); }
-            &:nth-child(2) { transform: translate(-50%, -50%) rotate(-45deg); }
-        }
+        top:   0;
+        right: 0;
     }
     
     .background {
@@ -57,7 +39,7 @@
         height:    100%;
         z-index:     2;
 
-        & > *:last-child { margin-bottom: $app-height * 0.04; }
+        & > *:last-child { margin-bottom: $app-height * 0.1; }
     }
 
     .nav {
@@ -75,12 +57,12 @@
 
             .fa { 
                 width: 3em; 
-                font-size: 1.6em; 
+                font-size: 1.3em; 
                 text-align: center;
             }
 
             .text { 
-                font-size: 1.6em;
+                font-size: 1.2em;
             }
         }
     }
@@ -120,7 +102,7 @@
         transition: z-index 0.01s ease-in-out 0.6s;
         z-index: -1;
         
-        & + .home .menu-btn .bar {
+        & + .page .menu-btn .bar {
             opacity: 1;
             transition: transform 0.3s ease-in-out 0.2s, opacity 0.15s ease-in-out 0.2s;
         }
@@ -149,7 +131,7 @@
         transition: z-index 0.01s ease-in-out 0.3s;
         z-index: 5;
         
-        & + .home .menu-btn .bar {
+        & + .page .menu-btn .bar {
             transition: transform 0.3s ease-in-out, opacity 0.15s ease-in-out 0.15s;
             opacity: 0;
             

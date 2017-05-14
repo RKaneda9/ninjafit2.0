@@ -1,72 +1,105 @@
-(function (callback) {
+                    require('helpers/polyfill');
+const Inferno     = require('inferno');
+const Component   = require('inferno-component');
+const {App, Defs} = require('components/app');
+const Menu        = require('containers/menu');
+const utils       = require('helpers/utils');
+const settings    = require('helpers/settings');
+const constants   = require('helpers/constants');
+const Pages       = require('pages');
+const {commands}  = require('services/event-system');
+// const Pages = { 
+//     home: require('pages/home')
+// };
 
-    // browser event has already occurred.
-    if (document.readyState === "complete") {
-        return setTimeout(callback);
+const rootElement = document.getElementById('app');
+
+class Application extends Component {
+    constructor(props) {
+        super(props);
+
+        this. redirect = this. redirect.bind(this);
+        this. openMenu = this. openMenu.bind(this);
+        this.closeMenu = this.closeMenu.bind(this);
+
+        this.onHashChanged = this.onHashChanged.bind(this);
+        
+        this.state = { 
+            route:    this.getRoute(),
+            menuOpen: false
+        };
     }
 
-    // Mozilla, Opera and webkit style
-    if (window.addEventListener) {
-        return window.addEventListener("load", callback, false);
+    getRoute() {
+        let route = location.hash
+            .replace('#/', '')
+            .replace('#',  '').split('/');
+
+        if (!route.length || !Pages[route[0]]) route = [constants.pages.home];
+
+        return route;
     }
 
-    // If IE event model is used
-    if (window.attachEvent) {
-        return window.attachEvent("onload", callback);
+    componentDidMount() {
+        commands. openMenu.subscribe(this. openMenu);
+        commands.closeMenu.subscribe(this.closeMenu);
+        commands. redirect.subscribe(this.redirect);
+
+        window.addEventListener("hashchange", this.onHashChanged);
     }
 
-})(function () {
-  
-    var home          = document.querySelector('.home');
-    var menuBtnShow   = document.querySelector('.home .menu-btn');
-    var menuBtnRemove = document.querySelector('.menu .close-btn');
-    var menu          = document.querySelector('.menu');
-    var header        = document.querySelector('.home .header');
-    var imageSlider   = document.querySelector('.home .image-slider');
-    var map           = document.querySelector('.map .image-wrapper');
-    var mapClip       = document.querySelector('#map-clip polygon');
-    var sqrt3 = Math.sqrt(3);
+    componentWillUnmount() {
+        commands. openMenu.unsubscribe(this. openMenu);
+        commands.closeMenu.unsubscribe(this.closeMenu);
+        commands. redirect.unsubscribe(this.redirect);
 
-    menuBtnShow.addEventListener('click', function (e) {
-       menu.classList.add('open');
-    });
-
-    menuBtnRemove.addEventListener('click', function (e) {
-       menu.classList.remove('open');
-    });
-
-    var resizeTimeout = null;
-
-    function onResize() {
-        if (resizeTimeout) { clearTimeout(resizeTimeout); }
-
-        resizeTimeout = setTimeout(resize, 500);
+        window.removeEventListener("hashchange", this.onHashChanged);
     }
 
-    function resize() {
-        resizeTimeout = null;
+    onHashChanged() {
+        let route = this.getRoute();
 
-        var homeBounds   = home  .getBoundingClientRect();
-        var headerBounds = header.getBoundingClientRect();
-        var x1 = homeBounds.width;
-        var y1 = headerBounds.height;
-        var x2 = homeBounds.width  / 2;
-        var y2 = homeBounds.height / 2;
-
-        var y = - (sqrt3 / 4) * (x1 - y1 * sqrt3 - x2 - y2 / sqrt3);
-        var x = sqrt3 * y - y1 * sqrt3 + x1;
-
-        var r = Math.sqrt(Math.pow(x - x2, 2) + Math.pow(y - y2, 2));
-
-        var h = 2 * r;
-        var x3 = x2 - r / 2;
-        var r2 = 2 / sqrt3 * (homeBounds.width - x3);
-        var w  = 2 * r2;
-
-        imageSlider.style.height = h + 'px';
-        imageSlider.style.width  = w + 'px';
+        if (route.join('/') != this.state.route.join('/')) {
+            this.setState({ route: route });
+        }
     }
 
-    window.addEventListener('resize', onResize);
-    resize();
-});
+     openMenu() { if (!this.state.menuOpen) this.setState({ menuOpen: true  }); }
+    closeMenu() { if ( this.state.menuOpen) this.setState({ menuOpen: false }); }
+
+    redirect() {
+        let route = Array.makeArray(arguments);
+
+        if (!route.length) { return; }
+
+        if (!Pages[route[0]]) { return console.error(`Page: ${route[0]} does not exist!`); }
+
+        window.location.hash = '#/' + route.join('/');
+
+        // window.scrollTo(0,0);
+        rootElement.scrollTop = 0;
+
+        this.setState({ route: route, menuOpen: false });
+    }
+
+    render() { 
+        let Page = Pages[this.state.route[0]];
+
+        return (
+            <App>
+                <Defs />
+                <Menu 
+                    page={this.state.route[0]}
+                    opened={this.state.menuOpen} 
+                    socialLinks={settings.social} />
+
+                <Page socialLinks={settings.social} />
+            </App>
+        );
+    }
+}
+
+Inferno.render(
+    <Application />,
+    rootElement
+);

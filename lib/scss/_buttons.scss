@@ -17,3 +17,67 @@
     font-weight:   bold;
     color:         $color-primary-1;
 }
+
+.menu-btn {
+    width:           $menu-btn-size;
+    height:          $menu-btn-size;
+    display:         flex;
+    flex-flow:       column;
+    align-items:     center;
+    justify-content: center;
+    align-self:      flex-end;
+    cursor:          pointer;
+    position:        absolute;
+    z-index:         3;
+    right:           0;
+
+    .background {
+        fill:     $color-primary-2;
+        display:  block;
+        position: absolute;
+        top:      0;
+        right:    0;
+        left:     auto;
+        height:   100%;
+    }
+
+    .bars {
+        position: absolute;
+        top:   50%;
+        right: 30%;
+        transform: translate(50%, -50%);
+        display: flex;
+        flex-flow: column;
+        align-items: flex-end;
+    }
+    
+    .bar { 
+        @extend %menu-btn-bar;
+        width: 16px;
+    
+        &:not(:last-child) { margin-bottom: 3px; }
+        &:nth-child(2) { width: 24px; }
+    }
+}
+
+.close-btn {
+    cursor:   pointer;
+    width:    3em;
+    height:   3em;
+    z-index:  3;
+    transform-origin: top right;
+    position: relative;
+
+    .bar {
+        @extend %menu-btn-bar;
+        transform-origin: center;
+        position: absolute;
+        top:  50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+
+        &:nth-child(1) { transform: translate(-50%, -50%) rotate( 45deg); }
+        &:nth-child(2) { transform: translate(-50%, -50%) rotate(-45deg); }
+    }
+}

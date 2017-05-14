@@ -1,16 +1,22 @@
 $show-overflow: false;
-// $app-width: 350px;
-// $app-aspect: 0.562;
-// $app-height: $app-width / $app-aspect;
+
 $app-width: 100vw;
 $app-height: 100vh;
-$general-padding: 30px;
-$general-padding-half: 15px;
-//$general-padding: $app-width / 18;
-//$general-padding-half: $general-padding / 2;
+
 $color-primary-1: #323232;
 $color-primary-2: #693590;
+$color-primary-3: #212121;
+$color-primary-4: #434343;
+$color-primary-5: #864db1;
+$color-primary-6: #373737;
+$color-footer-menu-title: #aaa;
+
+$header-bar-height: 30px;
+$menu-btn-size: 6em;
+
 $sqrt-3: 1.7320508;
+$general-padding: 30px;
+$general-padding-half: 15px;
 
 $color-facebook:   #3b5998;
 $color-twitter:    #00aced;

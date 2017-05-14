@@ -15,6 +15,6 @@
         "outputdir": "js/"
     },
 
-    "outputdir": "./build/",
+    "outputdir": "build/",
     "port": 3500
 }

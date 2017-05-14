@@ -29,6 +29,7 @@
 }
 
 %landing-section {
+    flex: 0 0 auto;
     position: relative;
     text-shadow: 0 -1px rgba(0,0,0,0.3);
     
@@ -63,7 +64,7 @@
 }
 
 %section-image {
-    margin: $general-padding-half $general-padding 0 $general-padding;
+    margin: 0 $general-padding 0 $general-padding;
     height: $app-height / 3.45;
     top:        2px;
     position: relative;
@@ -93,21 +94,31 @@
     &:after { @extend %svg-bg-piece-fix; top: 100%; }
 }
 
-html, body {
+html, body, #app {
     width:  100%;
     height: 100%;
     margin:   0;
     padding:  0;
 }
 
-body {
+#app {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+html {
     font-size:  14px;
     font-family: Titillium Web, sans-serif; 
-    // display: flex;
-    // flex-flow: column;
-    // align-items: center;
-    overflow:   auto;
     color:      #fff;
+}
+
+body { 
+    overflow: hidden; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 
 p { 
@@ -121,10 +132,19 @@ svg {
     display:  block;
 }
 
+ul, li { 
+    list-style: none;
+    margin:     0;
+    padding:    0;
+}
+
 button { 
     @extend %clear-browser-defaults; 
     background: none;
 }
+
+a,
+a:hover { text-decoration: none; color: inherit; }
 
 .defs {
     height: 0;

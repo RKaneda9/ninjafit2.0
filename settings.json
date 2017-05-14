@@ -1,0 +1,184 @@
+{
+    "staff": [
+        {
+            "image": "http://www.ninjafitgyms.com/images/casey.jpg",
+            "name": "Casey Seland",
+            "title": "Trainer",
+            "bio": "Training and competing have been a focal point for me throughout my entire life. I competed in gymnastics at a high level until I was 9 years old and decided to switch sports. I began swimming competitively at this point and did so throughout college and beyond. My middle school and high school years were devoted to competing on various national teams and training for a chance to earn a spot on the US Olympic Team. I competed in the 2000, 2004 and 2008 US Olympic Trials in the 100 and 200m butterfly. During this time, I swam at the University of Florida, where I was an All-American. When I decided to retire from swimming I took on running competitively. I’ve run in a variety of races including the New York City Marathon; and also qualified for the Boston Marathon. I recently started to compete in Obstacle Course Racing and will be competing in the US Nationals in Miami to earn a spot on Team USA. I’ll also be competing in OCR World’s in Canada. I’ve also set a goal to start competing in Ninja competitions in the near future.\nThroughout my years of competing I found my passion for helping others achieve their own goals in fitness and health. I’m a NASM (National Academy of Sports Medicine) Certified Personal Trainer, with a specialization in Sports Nutrition. I’ve committed myself to being a student and constantly growing, learning and seeking education so that I can help others with my passion and the knowledge I attain. I’ve also worked at DC Fitness in Los Angeles, CA along with Lake Mary Fit Club.\nWhen I’m not coaching you can still find me at the gym quite frequently along with running, doing yoga, rock climbing, kickboxing, surfing at the beach, or teaching swim lessons! I’m also involved in the Special Needs ministry at my church."
+        },
+        {
+            "image": "http://www.ninjafitgyms.com/images/rebekah.jpg",
+            "name": "Rebekah Myers",
+            "title": "Trainer",
+            "bio": "As a lifelong student of fitness and sports, I've committed my experience to teaching, training, and empowering my students through movement and self-awareness. I work towards enhancing the well-being of my clients by empowering them with the knowledge, skills, support, guidance and resources to assist and inspire them on their journey to a healthier life.\nAs second oldest of seven children an active lifestyle, sports, and sharing my passions started at a very young age. My love of fitness has led me on a journey that has included running an ultra marathon, duathalon, triathlon, the Chicago marathon, and numerous Spartan and Mud races. This year I will be heading to Canada to compete at OCR (obstacle Course racing) worlds and Miami to try out for team USA!\nWhen I'm not coaching you will find me playing ultimate frisbee, doing yoga, rock climbing, gymnastics, kickboxing, or cross training. Outside of training myself I've coached for Camp Gladiator Bootcamp, Dekalb County YMCA, Nick Parker Bootcamp, Lake Mary Fit Club and have studied nutrition and healthy eating for the past 8 years. I continually seek to achieve a balance through constant practice, education, and a state of compassion and gratitude."
+        },
+        {
+            "image": "http://www.ninjafitgyms.com/images/kat.jpg",
+            "name": "Kathryn Ciresi",
+            "title": "Trainer",
+            "bio": "Kathryn (Kat) was born in Columbus, Ohio and grew up most of her life in St. Petersburg, Florida. She holds a Bachelors in Science from The University of Florida in Health/Human Performance and is a former UF Cheerleader. She is a fun loving energetic (NASM) Certified Personal Trainer and an IFBB Masters Bikini Pro that holds numerous certifications in the fitness field including TRX Suspension Training, Kettlebell, Speed and Osteoblast Training, Core Conditioning, Kickboxing, and Nutrition. Her passion is Health and Fitness and her greatest desire is to help others live a healthy strong life for as many years as possible."
+        },
+        {
+            "image": "http://www.ninjafitgyms.com/images/profile_pic.png",
+            "name": "Chad Young",
+            "title": "Owner/Head Trainer",
+            "bio": "I am a husband and father with three kids. I have an athletic background. I played college basketball, and designed strength and conditioning programs for many athletes for over 11 years. My passion is strength and conditioning, program design and weightlifting. I have many certifications including NASM CES (corrective exercise specialist), a BS in Kinesiology and a MS in Exercise Science and Research."
+        },
+        {
+            "image": "http://www.ninjafitgyms.com/images/dan.jpeg",
+            "name": "Dan Goldstein",
+            "title": "Owner",
+            "bio": "I am originally from the Chicagoland area. I have been involved in athletics for my entire life. While attending Northwestern University, I was a member of the cheerleading squad. I have loved physical fitness and exercise for many years. After college I became certified as a Fitness Trainer through ISSA. "
+        },
+        {
+            "image": "http://www.ninjafitgyms.com/images/profile_pic.png",
+            "name": "Donna Zeitler",
+            "title": "Owner",
+            "bio": "Coming soon!"
+        }
+    ],
+
+    "social": {
+        "Instagram": "https://www.instagram.com/ninjafitgym/",
+        "Facebook": "https://www.facebook.com/NinjaFitGym/",
+        "Youtube": "https://www.youtube.com/channel/UCCViVDZ9jMeUqEgpY1rAVSQ",
+        "Twitter": "https://twitter.com/NinjaFitGym/"
+    },
+
+    "obstacles": [
+        {
+            "title": "Rock Wall",
+            "images": [
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg" 
+            ],
+
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        },
+        {
+            "title": "Warped Walls",
+            "images": [
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg" 
+            ],
+
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        },
+        {
+            "title": "Goliath",
+            "images": [
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg" 
+            ],
+
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        },
+        {
+            "title": "50ft Rig",
+            "images": [
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg" 
+            ],
+
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        },
+        {
+            "title": "2nd Rig",
+            "images": [
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg" 
+            ],
+
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        }
+    ],
+
+    "functionalEquipment": [
+        {
+            "title": "Olympic Lifting Area",
+            "images": [
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg" 
+            ],
+
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        },
+        {
+            "title": "Rowers",
+            "images": [
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg" 
+            ],
+
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        },
+        {
+            "title": "Air Bike",
+            "images": [
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg" 
+            ],
+
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        },
+        {
+            "title": "Sleds",
+            "images": [
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg" 
+            ],
+
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        }
+    ],
+
+    "homePage": {
+        "home": {
+            "images": [
+
+            ]
+        },
+        "about": {
+            "headerText": "What is NinjaFit Gym?",
+            "contentText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        },
+        "mainSection1": {
+            "headerText": "Ninja Warrior Training",
+            "contentText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "image": "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg"  
+        },
+        "mainSection2": {
+            "headerText": "Obstacle Training",
+            "contentText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "image": "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/15802716_253884945025372_5272580072513994752_n.jpg"
+        },
+        "mainSection3": {
+            "headerText": "Functional Training",
+            "contentText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "image": "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg"
+        },
+        "shortSection1": {
+            "headerText": "NinjaFit Kids",
+            "contentText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        },
+        "shortSection2": {
+            "headerText": "Special Events",
+            "contentText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        },
+        "testimonials": [
+            {
+                "author": "Marguerite Torrenga",
+                "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            }
+        ]
+    }
+}

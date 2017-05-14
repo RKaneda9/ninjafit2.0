@@ -7,11 +7,11 @@ let service = module.exports = {
     init (settings) { 
         let error = msg => { throw `/services/html init() error. ${msg}. Please see readme for how to setup /server/settings.json` };
 
-        if (!utils.isObj   (settings))                 { error('No settings were passed in'); }
-        if (!utils.isObj   (settings.html))            { error('"settings.html" is required'); }
-        if (!utils.isString(settings.html.outputdir)) { error('"settings.html.outputdir" is required'); }
-        if (!utils.isString(settings.html.inputdir))  { error('"settings.html.inputdir" is required'); }
-        if (!utils.isString(settings.outputdir))     { error('"settings.outputdir" is required'); }
+        if (!utils.isObj   (settings))                { error('No settings were passed in'); }
+        if (!utils.isObj   (settings.html))           { error('"settings.html" is missing or is in an incorrect format'); }
+        if (!utils.isString(settings.html.outputdir)) { error('"settings.html.outputdir" is missing or is in an incorrect format'); }
+        if (!utils.isString(settings.html.inputdir))  { error('"settings.html.inputdir" is missing or is in an incorrect format'); }
+        if (!utils.isString(settings.outputdir))      { error('"settings.outputdir" is missing or is in an incorrect format'); }
 
         // setup localsettings
         this.settings = {
@@ -27,7 +27,6 @@ let service = module.exports = {
 
     getInputFilenames (path) {
 
-        // only include file names that aren't scss partials
         return fs
             .readdirSync(path || this.settings.inputDir)
             .filter(file => file.length && file[0] != '_' && file.includes('.pug'));
@@ -37,33 +36,39 @@ let service = module.exports = {
 
         console.log('Compiling html files.');
 
-        let results = null,
-            data    = {},   // TODO: html input data
-            timer   = Timer.startNew(),
-            build, result;
+        try {
 
-        this.settings.inputFiles.forEach(file => {
+            let results = null,
+                data    = {},   // TODO: html input data
+                timer   = Timer.startNew(),
+                build, result;
 
-            if (unminified) {
+            this.settings.inputFiles.forEach(file => {
 
-                data.minified = false;
-                build         = pug.compileFile(`${this.settings.inputDir}${file}`, { pretty: true });
-                result        = build(data);
+                if (unminified) {
 
-                fs.writeFileSync(this.getOutputFilename(file, false), result);
-            }
+                    data.minified = false;
+                    build         = pug.compileFile(`${this.settings.inputDir}${file}`, { pretty: true });
+                    result        = build(data);
 
-            if (minified) {
+                    fs.writeFileSync(this.getOutputFilename(file, false), result);
+                }
 
-                data.minified = true;
-                build         = pug.compileFile(`${this.settings.inputDir}${file}`);
-                result        = build(data);
+                if (minified) {
 
-                fs.writeFileSync(this.getOutputFilename(file, true), result);
-            }
-        });
+                    data.minified = true;
+                    build         = pug.compileFile(`${this.settings.inputDir}${file}`);
+                    result        = build(data);
 
-        console.log(`Finished compiling html files in ${timer.finish()} ms`);
+                    fs.writeFileSync(this.getOutputFilename(file, true), result);
+                }
+            });
+
+            console.log(`Finished compiling html files in ${timer.finish()} ms`);
+        }
+        catch (ex) {
+            console.error("Error while compiling html files: ", ex);
+        }
     },
 
     run ({ minified, unminified, watch }) {

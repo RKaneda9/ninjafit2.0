@@ -1,7 +1,8 @@
 let webpack          = require('webpack'),
     path             = require('path'),
     utils            = require('../helpers/utils'),
-    UnminifiedPlugin = require('unminified-webpack-plugin');
+    UnminifiedPlugin = require('unminified-webpack-plugin'),
+    Webpack2Polyfill = require('webpack2-polyfill-plugin');
 
 let service = module.exports = {
     init (settings) {
@@ -29,27 +30,31 @@ let service = module.exports = {
         let config = {
             entry: {},
             module: {
-                loaders: [
+                rules: [
                     {
-                        test: /\.json$/,
-                        loader: 'json-loader'
-                    },
-                    {
-                        test: /\.js$/,
-                        exclude: ["node_modules", "server"],
+                        test: /\.(js|jsx)$/,
+                        exclude: /node_modules/,
                         loader: 'babel-loader'
                     }
                 ]
             },
             resolve: {
-                extensions: ['', '.js', '.jsx', '.json'],
-                alias: {}
+                extensions: ['.js', '.jsx', '.json'],
+                alias: {
+                    'components': path.resolve(__dirname, '../../src/components'),
+                    'containers': path.resolve(__dirname, '../../src/containers'),
+                    'helpers':    path.resolve(__dirname, '../../src/helpers'),
+                    'pages':      path.resolve(__dirname, '../../src/pages'),
+                    'services':   path.resolve(__dirname, '../../src/services'),
+                    'support':    path.resolve(__dirname, '../../src/support'),
+                    'settings':   path.resolve(__dirname, '../../settings.json')
+                }
             },
             output: {
-                path: this.settings.outputPath,
+                path: path.resolve(__dirname, '../../' + this.settings.outputPath),
                 filename: `[name]${minified ? '.min' : ''}.js`
             },
-            plugins: []
+            plugins: [new Webpack2Polyfill()]
         };
 
         utils.foreach(this.settings.inputFiles, file => {
