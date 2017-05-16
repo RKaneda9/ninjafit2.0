@@ -13,6 +13,8 @@ const utils = module.exports = {
 
     toPath() { return "M" + utils.map(arguments, pos => pos.join(',')).join(' L') + ' Z'; },
 
+    toBgUrl(url) { return `url("${url}")`},
+
     toFixed: (val, accuracy) => parseFloat(val.toFixed(accuracy || 3)),
 
     foreach: (array, callback) => {

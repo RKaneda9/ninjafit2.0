@@ -8,5 +8,8 @@ const constants = module.exports = {
         contact:     'contact',
         joinUs:      'join-us',
         logIn:       'log-in'
-    }
+    },
+
+    imageSliderTimeout: 15000,
+    testimonialTimeout: 15000
 };

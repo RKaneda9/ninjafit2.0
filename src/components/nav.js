@@ -12,8 +12,8 @@ export const SocialLinks = ({ children }) => (
     <nav className="social">{children}</nav>
 );
 
-export const MenuLink = ({ children, onClick }) => (
-    <a onClick={onClick} className="link">{children}</a>
+export const MenuLink = ({ selected, children, onClick }) => (
+    <a onClick={onClick} className={`link${selected ? " selected": ""}`}>{children}</a>
 );
 
 export const SocialLink = ({ href, children }) => (

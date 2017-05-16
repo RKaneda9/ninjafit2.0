@@ -13,48 +13,48 @@ const {
 
 } = require('components/nav');
 
-module.exports = ({ opened, socialLinks }) => (
+module.exports = ({ opened, page, socialLinks }) => (
     <Menu
         opened={opened}
         onClose={commands.closeMenu.emit}>
 
         <MenuLinks>
-            <MenuLink onClick={() => commands.redirect.emit(pages.home)}>
+            <MenuLink selected={page == pages.home} onClick={() => commands.redirect.emit(pages.home)}>
                 <span className="fa fa-home"></span>
                 <Text>Home</Text>
             </MenuLink>
 
-            <MenuLink onClick={() => commands.redirect.emit(pages.aboutUs)}>
+            <MenuLink selected={page == pages.aboutUs} onClick={() => commands.redirect.emit(pages.aboutUs)}>
                 <span className="fa fa-users"></span>
                 <Text>About Us</Text>
             </MenuLink>
 
-            <MenuLink onClick={() => commands.redirect.emit(pages.whatWeOffer)}>
+            <MenuLink selected={page == pages.whatWeOffer} onClick={() => commands.redirect.emit(pages.whatWeOffer)}>
                 <span className="fa fa-building"></span>
                 <Text>What We Offer</Text>
             </MenuLink>
 
-            <MenuLink onClick={() => commands.redirect.emit(pages.schedule)}>
+            <MenuLink selected={page == pages.schedule} onClick={() => commands.redirect.emit(pages.schedule)}>
                 <span className="fa fa-calendar"></span>
                 <Text>Schedule</Text>
             </MenuLink>
 
-            <MenuLink onClick={() => commands.redirect.emit(pages.wod)}>
+            <MenuLink selected={page == pages.wod} onClick={() => commands.redirect.emit(pages.wod)}>
                 <span className="fa fa-calendar"></span>
                 <Text>WOD</Text>
             </MenuLink>
 
-            <MenuLink onClick={() => commands.redirect.emit(pages.contact)}>
+            <MenuLink selected={page == pages.contact} onClick={() => commands.redirect.emit(pages.contact)}>
                 <span className="fa fa-envelope"></span>
                 <Text>Contact</Text>
             </MenuLink>
 
-            <MenuLink onClick={() => commands.redirect.emit(pages.joinUs)}>
-                <span className="fa fa-money"></span>
+            <MenuLink selected={page == pages.joinUs} onClick={() => commands.redirect.emit(pages.joinUs)}>
+                <span className="fa fa-thumbs-up"></span>
                 <Text>Join Us</Text>
             </MenuLink>
 
-            <MenuLink onClick={() => commands.redirect.emit(pages.login)}>
+            <MenuLink selected={page == pages.login} onClick={() => commands.redirect.emit(pages.login)}>
                 <span className="fa fa-sign-in"></span>
                 <Text>Login</Text>
             </MenuLink>

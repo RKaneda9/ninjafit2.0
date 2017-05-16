@@ -29,10 +29,12 @@ module.exports = class WhatWeOffer extends Component {
     constructor(props) {
         super(props);
 
-        this.onResize   = this.onResize  .bind(this);
-        this.scrollDown = this.scrollDown.bind(this);
-        this.view       = this.view      .bind(this);
-        this.closePopup = this.closePopup.bind(this);
+        this.onResize     = this.onResize    .bind(this);
+        this.scrollDown   = this.scrollDown  .bind(this);
+        this.view         = this.view        .bind(this);
+        this.closePopup   = this.closePopup  .bind(this);
+        this.prevSelected = this.prevSelected.bind(this);
+        this.nextSelected = this.nextSelected.bind(this);
 
         this.state = {
 
@@ -53,9 +55,9 @@ module.exports = class WhatWeOffer extends Component {
         
     }
 
-    view(item, i, size) {
-        item.index      = i;
-        item.parentSize = size;
+    view(item, i, parent) {
+        item.index = i;
+        this.selectedEquipmentParent = parent;
 
         this.setState({ selectedEquipment: item });
     }
@@ -68,8 +70,35 @@ module.exports = class WhatWeOffer extends Component {
         console.log("TODO");
     }
 
+    prevSelected() {
+        if (this.state.selectedEquipment &&
+            this.selectedEquipmentParent) {
+
+            let keys   = Object.keys(this.selectedEquipmentParent);
+            let index  = this.state.selectedEquipment.index - 1; if (index < 0) index = keys.length - 1;
+            let item   = this.selectedEquipmentParent[keys[index]];
+            item.index = index;
+
+            this.setState({ selectedEquipment: item });
+        }
+    }
+
+    nextSelected() {
+        if (this.state.selectedEquipment &&
+            this.selectedEquipmentParent) {
+
+            let keys   = Object.keys(this.selectedEquipmentParent);
+            let index  = (this.state.selectedEquipment.index + 1) % keys.length;
+            let item   = this.selectedEquipmentParent[keys[index]];
+            item.index = index;
+
+            this.setState({ selectedEquipment: item });
+        }
+    }
+
     render() {
-        let i = 0;
+        let i        = 0, 
+            selected = this.state.selectedEquipment || {};
 
         return (
             <Page name="what-we-offer">
@@ -112,7 +141,7 @@ module.exports = class WhatWeOffer extends Component {
 
                                 <div className="title">{props.title}</div>
                                 <footer className="footer">
-                                    <Button onClick={e => this.view(props, i, Object.keys(settings.obstacles).length)}>View</Button>
+                                    <Button onClick={e => this.view(props, i, settings.obstacles)}>View</Button>
                                 </footer>
                             </li>
                         )}
@@ -145,7 +174,7 @@ module.exports = class WhatWeOffer extends Component {
 
                                 <div className="title">{props.title}</div>
                                 <footer className="footer">
-                                    <Button onClick={e => this.view(props, i, Object.keys(settings.functionalEquipment).length)}>View</Button>
+                                    <Button onClick={e => this.view(props, i, settings.functionalEquipment)}>View</Button>
                                 </footer>
                             </li>
                         )}
@@ -158,31 +187,35 @@ module.exports = class WhatWeOffer extends Component {
 
                 <div className={`popup equipment ${this.state.selectedEquipment ? "open" : ""}`}>
                     <header className="header">
-                        <div className="title">{this.state.selectedEquipment ? this.state.selectedEquipment.title : null}</div>
+                        <div className="title">{selected.title}</div>
                         <CloseButton onClick={this.closePopup} />
                     </header>
                     <ul className="equipment-images">
-                        {this.state.selectedEquipment ? utils.map(this.state.selectedEquipment.images, image => 
+                        {utils.map(selected.images, image => 
                             <li className="image-item">
                                 <div className="image-wrapper">
                                     <div className="image" style={{ backgroundImage: `url("${image}")`}} />
                                 </div>
                             </li>
-                        ) : null}
+                        )}
                     </ul>
 
                     <div className="content">
-                        {this.state.selectedEquipment ? utils.map(this.state.selectedEquipment.description.split('\n'), text => 
+                        {utils.map((selected.description || "").split('\n'), text => 
                             <p>{text}</p>
-                        ) : null}
+                        )}
                     </div>
 
                     <div className="footer">
-                        <button className="option-btn fa fa-angle-left" />
-                        <div className="details">{this.state.selectedEquipment ?
-                            `${this.state.selectedEquipment.index + 1}/${this.state.selectedEquipment.parentSize}`
-                        : ''}</div>
-                        <button className="option-btn fa fa-angle-right" />
+                        <button 
+                            className="option-btn fa fa-angle-left"
+                            onClick={this.prevSelected} />
+
+                        <div className="details">{`${(selected.index || 0) + 1}/${(this.selectedEquipmentParent || []).length}`}</div>
+
+                        <button 
+                            className="option-btn fa fa-angle-right"
+                            onClick={this.nextSelected} />
                     </div>
                 </div>
                 <div className="popup-cover" />

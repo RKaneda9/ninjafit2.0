@@ -45,6 +45,16 @@
         "Twitter": "https://twitter.com/NinjaFitGym/"
     },
 
+    "gymHours": {
+        "monday":    [{ "start": "0600", "end": "1100" },{ "start": "1530", "end": "2030" }],
+        "tuesday":   [{ "start": "0600", "end": "1100" },{ "start": "1745", "end": "2030" }],
+        "wednesday": [{ "start": "0600", "end": "1100" },{ "start": "1530", "end": "2030" }],
+        "thursday":  [{ "start": "0600", "end": "1100" },{ "start": "1745", "end": "2030" }],
+        "friday":    [{ "start": "0600", "end": "1100" },{ "start": "1530", "end": "2030" }],
+        "saturday":  [{ "start": "0800", "end": "1200" }],
+        "sunday":    []
+    },
+
     "obstacles": [
         {
             "title": "Rock Wall",
@@ -144,10 +154,19 @@
     "homePage": {
         "home": {
             "images": [
-
+                {
+                    "url": "https://scontent-atl3-1.xx.fbcdn.net/v/t31.0-8/16903117_1844616032419052_2489319948486629962_o.jpg?oh=6eebec213f686c5aae1b76e1f3433cd7&oe=59944936"
+                },
+                {
+                    "url": "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg"
+                },
+                {
+                    "url": "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/15802716_253884945025372_5272580072513994752_n.jpg"
+                }
             ]
         },
         "about": {
+            "introVideo": "https://www.youtube.com/embed/Eugn8dCR26Q?feature=player_embedded&rel=0&autoplay=1",
             "headerText": "What is NinjaFit Gym?",
             "contentText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
         },
@@ -177,7 +196,19 @@
         "testimonials": [
             {
                 "author": "Marguerite Torrenga",
-                "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                "quote": "Lasdfafdorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            },
+            {
+                "author": "Josh Torrenga",
+                "quote": "Loasdfsadrem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            },
+            {
+                "author": "Baris Canyas",
+                "quote": "Loreqqewrqrwerem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            },
+            {
+                "author": "Raiden Kaneda",
+                "quote": "Lo------rem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
             }
         ]
     }

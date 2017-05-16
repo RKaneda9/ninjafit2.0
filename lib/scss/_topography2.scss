@@ -296,6 +296,7 @@
         font-size: 1.34rem;
         color: #fff;
         cursor: pointer;
+        flex: 0 0 auto;
     }
 }
 
@@ -401,10 +402,10 @@
 }
 
 .calendar-header {
-    flex: 0 0 20%;
-    min-height: 175px;
     display: flex;
     flex-flow: column;
+    transition: height 0.2s ease-in-out;
+    height: 175px;
 
     .row { flex: 1; align-items: stretch; }
 
@@ -447,7 +448,6 @@
         text-transform: uppercase; 
         margin-right: 10px; 
         font-size: 0.9rem;
-        &:after { content: ':'; }
     }
 
     .value {
@@ -487,7 +487,6 @@
 .event-list {
     flex: 1 0 30%;
     background: $color-primary-3;
-    margin-bottom: $general-padding;
     padding-bottom: 2px;
 }
 
@@ -741,7 +740,305 @@
     }
 }
 
-.contact-page {
+.popup.player {
+    $offset: 3em;
+    top:    0;
+    left:   0;
+    right:  0;
+    bottom: 0;
+    background: #000;
+    padding-top: $offset;
+    
+    .frame {
+        width:  100%;
+        height: 100%;
+    }
 
+    .close-btn {
+        position: absolute;
+        z-index: 1;
+        top:    0;
+        right: 10px;
+    }
 }
+
+.schedule-page .month-view .calendar {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+    justify-content: center;
+    background: $color-primary-4;
+    box-shadow: 0 0 0 2px $color-primary-3;
+
+    .title, 
+    .day {
+        flex: 0 1 (100% / 7);
+    }
+
+    .title {
+        padding: 10px 0;
+        text-transform: uppercase;
+        font-size: 1.16rem;
+        text-align: center;
+    }
+
+    .day {
+        position: relative;
+        height: 0px;
+        padding-bottom: (100% / 7 * 1.2);
+
+        .text { 
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        &.open:after {
+            $size: 0.5rem;
+            content:  '';
+            display:  block;
+            width:    $size;
+            height:   $size;
+            border-radius: $size;
+            position: absolute;
+            top:      75%;
+            left:     50%;
+            transform: translateX(-50%);
+            background: $color-primary-11;
+            z-index:    1;
+        }
+
+        &.today .text {
+            width: 2em;
+            height: 2em;
+            border-radius: 2em;
+            background: #fff;
+            color: $color-primary-5;
+            text-align: center;
+            line-height: 2em;
+        }
+
+        &.diff-month .text {
+            color: $color-primary-10;
+        }
+
+        &.diff-month.today .text {
+            background: $color-primary-11;
+        }
+    }
+}
+
+.month-view .calendar-header { height: 120px; }
+
+.schedule-page .weekly-hours {
+    @extend %landing-section;
+    padding-top: $general-padding;
+
+    .header { text-align: center; }
+
+    .content {
+        margin: 0 auto;
+    }
+
+    .day-item {
+        .title { color: $color-footer-menu-title; }
+        .hours { padding: 0 5px; }
+    }
+}
+
+.schedule-page .page-footer,
+.wod-page .page-footer,
+.join-us-page .page-footer {
+    padding-top: 2 * $general-padding;
+}
+
+
+.join-us-page .pricing {
+    @extend %landing-section;
+
+    .header { text-align: center; }
+}
+
+.pricing-list {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pricing-item {
+    $width: 300px;
+    height: 60vh;
+
+    box-shadow: 0 0 15px 0 #212121;
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+    position: relative;
+    background: $color-primary-4;
+    flex: 0 0 auto;
+    max-width: $width;
+    margin-right: -($width / 2);
+    margin-left:  -($width / 2);
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    transform-origin: center;
+    opacity: 0;
+
+    &.curr { 
+        opacity: 1;
+        transform: translate(0,0);
+    }
+
+    &.left {
+        opacity: 1;
+        transform: translate(-$width, 0%) scale(0.83);
+    }
+
+    &.right {
+        opacity: 1;
+        transform: translate($width, 0%) scale(0.83);
+    }
+
+    &.left2 {
+        opacity: 0;
+        transform: translate(-2 * $width, 0%) scale(0.83);
+    }
+
+    &.right2 {
+        opacity: 0;
+        transform: translate(2 * $width, 0%) scale(0.83);
+    }
+
+    &.hidden {
+        display: none;
+        opacity: 0;
+        transform: translate(2 * $width, 0%) scale(0,0);
+        // z-index: -1;
+        // opacity: 0;
+        // transition: transform 0.1s ease-in-out, opacity 0.1s ease-in-out 0.1s;
+    }
+
+    .item-header {
+        flex: 0 0 auto;
+        background: $color-primary-5;
+        background: -moz-linear-gradient(left, $color-primary-2 0%, $color-primary-5 100%);
+        background: -webkit-linear-gradient(left, $color-primary-2 0%,$color-primary-5 100%);
+        background: linear-gradient(to right, $color-primary-2 0%,$color-primary-5 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$color-primary-2}', endColorstr='#{$color-primary-5}',GradientType=1 );
+        text-align: center;
+        padding: $general-padding-half;
+    }
+
+    .item-title { 
+        font-size: 1.67rem; 
+        line-height: 1em;
+    }
+
+    .item-price {
+        display: flex;
+        flex-flow: row;
+        align-items: flex-end;
+        justify-content: center;
+        padding-top: 3px;
+
+        .price { 
+            font-weight: bold;
+        }
+
+        .unit {
+            margin-left: 5px;
+            color: $color-primary-12;
+
+            &:before {
+                content: '/';
+                margin-right: 5px;
+                font-size: 1.34rem;
+                line-height: 1rem;
+                position: relative;
+                top: 2px;
+            }
+        }
+    }
+
+    .item-content { 
+        flex: 1 1 auto; 
+        box-shadow: inset 0 1px 0 0 #212121;
+    }
+
+    .item-desc {
+        padding: $general-padding-half $general-padding;
+        text-align: center;
+    }
+
+    .item-prop-list {
+        margin: 0 $general-padding;
+        padding: $general-padding-half 0;
+        text-align: center;
+        border-top: 1px solid $color-primary-11;
+    }
+
+    .item-prop {
+        padding: 5px 0;
+    }
+
+    .item-footer {
+        // position: absolute;
+        // top: 100%;
+        // margin-top: 15px;
+        // width: 100%;
+        // left: 0; 
+        // right: 0;
+        flex: 0 0 auto;
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+        padding: $general-padding-half;
+
+        .btn {
+            flex: 1 1 100%;
+            //flex: 0 0 80%;
+            height: 40px;
+            border-radius: 20px;
+        }
+    }
+}
+
+.price-selector-list {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    margin-top: $general-padding-half;
+}
+
+.price-selector {
+    $size: 16px;
+    flex: 0 0 auto;
+    width: $size;
+    height: $size;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+
+    &:before {
+        content: '';
+        $size: 4px;
+        background: $color-primary-11;
+        width: $size;
+        height: $size;
+        border-radius: $size;
+        transition: background 0.2s ease-in-out;
+    }
+    
+    &.active:before { background: $color-primary-5; }
+}
+
+
+
+
+
+
 

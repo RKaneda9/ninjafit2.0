@@ -1,7 +1,7 @@
 const Inferno   = require('inferno');
 const Component = require('inferno-component');
-// const utils                    = require('helpers/utils');
-// const settings                 = require('helpers/settings');
+const utils                    = require('helpers/utils');
+const settings                 = require('helpers/settings');
 const {commands}               = require('services/event-system');
 // const constants                = require('helpers/constants');
 const PageFooter               = require('containers/page-footer');
@@ -40,15 +40,31 @@ const {
 // } = require('components/pages/home');
 
 
+const views = {
+    month: 'month',
+    day:   'day'
+};
+
 module.exports = class Schedule extends Component {
     constructor(props) {
         super(props);
 
         this.showTomorrow  = this.showTomorrow .bind(this);
         this.showYesterday = this.showYesterday.bind(this);
+        this.showNextMonth = this.showNextMonth.bind(this);
+        this.showPrevMonth = this.showPrevMonth.bind(this);
+        this.viewDay       = this.viewDay      .bind(this);
+        this.viewMonth     = this.viewMonth    .bind(this);
+
+        let date   = new Date();
+        let events = this.getEvents(date);
+
+        this.month = this.getMonth(date);
 
         this.state = {
-            date: new Date()
+            date:   date,
+            view:   views.day,
+            events: events
         };
     }
 
@@ -60,6 +76,111 @@ module.exports = class Schedule extends Component {
 
     componentWillUnmount() {
         //window.removeEventListener('resize', this.onResize);
+    }
+
+    getEvents(date) {
+        return [
+            {
+                title:    "Group Training (WOD)",
+                start:    "0600",
+                end:      "0700",
+                duration: "0100"
+            },
+            {
+                title:    "Group Training (WOD)",
+                start:    "0700",
+                end:      "0800",
+                duration: "0100"
+            },
+            {
+                title:    "Group Training (WOD)",
+                start:    "0800",
+                end:      "0900",
+                duration: "0100"
+            },
+            {
+                title:    "Group Training (WOD)",
+                start:    "0900",
+                end:      "1000",
+                duration: "0100"
+            },
+            {
+                title:    "Group Training (WOD)",
+                start:    "1000",
+                end:      "1100",
+                duration: "0100"
+            },
+            {
+                title:    "Group Training (WOD)",
+                start:    "1100",
+                end:      "1200",
+                duration: "0100"
+            },
+            {
+                title:    "Private Events",
+                start:    "1200",
+                end:      "1300",
+                duration: "0100"
+            },
+            {
+                title:    "NinjaFit Kids",
+                start:    "1400",
+                end:      "1500",
+                duration: "0100"
+            },
+            {
+                title:    "NinjaFit Kids",
+                start:    "1500",
+                end:      "1600",
+                duration: "0100"
+            },
+            {
+                title:    "NinjaFit Kids",
+                start:    "1600",
+                end:      "1700",
+                duration: "0100"
+            },
+            {
+                title:    "NinjaFit Kids",
+                start:    "1700",
+                end:      "1800",
+                duration: "0100"
+            },
+            {
+                title:    "Group Training (WOD)",
+                start:    "1800",
+                end:      "1900",
+                duration: "0100"
+            },
+            {
+                title:    "Group Training (WOD)",
+                start:    "1900",
+                end:      "2000",
+                duration: "0100"
+            }
+        ];
+    }
+
+    getMonth(date) {
+        if (!date) date = new Date();
+
+        let temp     = date.clone().toStartOfMonth().toStartOfWeek();
+        let end      = date.clone()  .toEndOfMonth()  .toEndOfWeek();
+        let month    = date.getMonth();
+        let todayKey = new Date().getDateKey();
+        let days     = [];
+
+        do { 
+            days.push({
+                diffMonth: temp.getMonth() != month,
+                isToday:   temp.getDateKey() == todayKey,
+                isOpen:   (settings.gymHours[temp.getDayText().toLowerCase()] || []).length,
+                day:       temp
+            }); 
+
+        } while ((temp = temp.getTomorrow()) <= end);
+
+        return days;
     }
 
     getDateText() {
@@ -106,22 +227,75 @@ module.exports = class Schedule extends Component {
         }
     }
 
-    showTomorrow() {
-        let date = this.state.date;
-        date.setDate(date.getDate() + 1);
+    getTimeText(timekey) {
+        let hour = parseInt(timekey.substr(0, 2)),
+            min  = parseInt(timekey.substr(2, 4)),
+            ampm = hour < 12 ? 'am' : 'pm',
+            str;
+
+             if (hour > 12) hour -= 12;
+        else if (hour == 0) hour = 12;
+
+        str = hour.toString();
+
+        if (min) str += ':' + min;
+
+        str += ampm;
+
+        return str;
+    }
+
+    showNextMonth () {
+        let date = this.state.date.clone().toStartOfMonth().addMonths(1);
+
+        this.month = this.getMonth(date);
 
         this.setState({ date: date });
     }
 
-    showYesterday() {
-        let date = this.state.date;
-        date.setDate(date.getDate() - 1);
+    showPrevMonth () {
+        let date = this.state.date.clone().toStartOfMonth().addMonths(-1);
+
+        this.month = this.getMonth(date);
 
         this.setState({ date: date });
+    }
+
+    showTomorrow () { 
+        let date = this.state.date.getTomorrow();
+
+        if (date.getMonth() != this.state.date.getMonth()) {
+            this.month = this.getMonth(date);
+        }
+
+        this.setState({ date: date }); 
+    }
+
+    showYesterday() { 
+        let date = this.state.date.getYesterday();
+
+        if (date.getMonth() != this.state.date.getMonth()) {
+            this.month = this.getMonth(date);
+        }
+
+        this.setState({ date: date }); 
+    }
+
+    viewMonth() {
+        this.setState({
+            view: views.month
+        });
+    }
+
+    viewDay(day) {
+        this.setState({
+            date: day.clone(),
+            view: views.day
+        });
     }
 
     render() {
-        let i = 0;
+        let todayHours = (settings.gymHours[this.state.date.getDayText().toLowerCase()] || []);
 
         return (
             <div className="page schedule-page">
@@ -129,268 +303,130 @@ module.exports = class Schedule extends Component {
                     <p className="title">Schedule</p>
                     <MenuButton onClick={commands.openMenu.emit} />
                 </header>
+                
+                {this.state.view == views.month ? (
 
-                <div className="calendar-header">
-                    <div className="row">
-                        <button 
-                            onClick={this.showYesterday}
-                            className="option-btn fa fa-angle-left" />
-                        <div className="day-details">
-                            <p className="title">{this.getDayText()}</p>
-                            <p className="sub">{`${this.getMonthText()} ${this.getDateText()}, ${this.state.date.getFullYear()}`}</p>
-                        </div>
-                        <button 
-                            onClick={this.showTomorrow}
-                            className="option-btn fa fa-angle-right" />
-                    </div>
-                </div>
-                <div className="open-hours">
-                    <div className="title open">Open</div>
-                    <div className="value">6am - 11am, 3:30pm - 8:30pm</div>
-                    <button className="btn">View Month</button>
-                </div>
-                <div className="event-list">
-                    <div className="event-item">
-                        <div className="content">
-                            <div className="title">Group Training (WOD)</div>
-                            <div className="details">
-                                <p className="prop">
-                                    <span className="icon fa fa-clock-o" />
-                                    <span className="value">6:00am - 7:00am</span>
-                                </p>
-                                <p className="prop">
-                                    <span className="icon fa fa-hourglass" />
-                                    <span className="value">1 hour</span>
-                                </p>
+                    <div className="month-view">
+                        <div className="calendar-header">
+                            <div className="row">
+                                <button 
+                                    onClick={this.showPrevMonth}
+                                    className="option-btn fa fa-angle-left" />
+
+                                <div className="day-details">
+                                    <p className="title">{this.state.date.getMonthText() + ', ' + this.state.date.getFullYear()}</p>
+                                </div>
+
+                                <button 
+                                    onClick={this.showNextMonth}
+                                    className="option-btn fa fa-angle-right" />
                             </div>
                         </div>
-                        <div className="options">
-                            <button className="btn">
-                                <span>Attend</span>
-                                <span className="icon fa fa-long-arrow-right" />
-                            </button>
-                        </div>
+
+                        <ul className="calendar">
+                            <li className="title">Sun</li>
+                            <li className="title">Mon</li>
+                            <li className="title">Tue</li>
+                            <li className="title">Wed</li>
+                            <li className="title">Thu</li>
+                            <li className="title">Fri</li>
+                            <li className="title">Sat</li>
+
+                            {utils.map(this.month, props => {
+                                let className = "day";
+
+                                if (props.isOpen)    { className += ' open';       }
+                                if (props.isToday)   { className += ' today';      }
+                                if (props.diffMonth) { className += ' diff-month'; }
+
+                                return (
+                                    <li 
+                                        onClick={() => this.viewDay(props.day)}
+                                        className={className}>
+
+                                        <span className="text">{props.day.getDate()}</span>
+                                    </li>
+                                );
+                            })}
+                        </ul>
                     </div>
 
-                    <div className="event-item">
-                        <div className="content">
-                            <div className="title">Group Training (WOD)</div>
-                            <div className="details">
-                                <p className="prop">
-                                    <span className="icon fa fa-clock-o" />
-                                    <span className="value">7:00am - 8:00am</span>
-                                </p>
-                                <p className="prop">
-                                    <span className="icon fa fa-hourglass" />
-                                    <span className="value">1 hour</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div className="options">
-                            <button className="btn">
-                                <span>Attend</span>
-                                <span className="icon fa fa-long-arrow-right" />
-                            </button>
-                        </div>
-                    </div>
+                ) : (
 
-                    <div className="event-item">
-                        <div className="content">
-                            <div className="title">Group Training (WOD)</div>
-                            <div className="details">
-                                <p className="prop">
-                                    <span className="icon fa fa-clock-o" />
-                                    <span className="value">8:00am - 9:00am</span>
-                                </p>
-                                <p className="prop">
-                                    <span className="icon fa fa-hourglass" />
-                                    <span className="value">1 hour</span>
-                                </p>
+                    <div className="day-view">
+                        <div className="calendar-header">
+                            <div className="row">
+                                <button 
+                                    onClick={this.showYesterday}
+                                    className="option-btn fa fa-angle-left" />
+                                <div className="day-details">
+                                    <p className="title">{this.getDayText()}</p>
+                                    <p className="sub">{`${this.getMonthText()} ${this.getDateText()}, ${this.state.date.getFullYear()}`}</p>
+                                </div>
+                                <button 
+                                    onClick={this.showTomorrow}
+                                    className="option-btn fa fa-angle-right" />
                             </div>
                         </div>
-                        <div className="options">
-                            <button className="btn">
-                                <span>Attend</span>
-                                <span className="icon fa fa-long-arrow-right" />
-                            </button>
-                        </div>
-                    </div>
 
-                    <div className="event-item">
-                        <div className="content">
-                            <div className="title">Group Training (WOD)</div>
-                            <div className="details">
-                                <p className="prop">
-                                    <span className="icon fa fa-clock-o" />
-                                    <span className="value">10:00am -11:00am</span>
-                                </p>
-                                <p className="prop">
-                                    <span className="icon fa fa-hourglass" />
-                                    <span className="value">1 hour</span>
-                                </p>
-                            </div>
+                        <div className="open-hours">
+                            <div className="title">{todayHours.length ? "Open:" : "Closed Today"}</div>
+                            <div className="value">{utils.map(todayHours, span => `${this.getTimeText(span.start)} - ${this.getTimeText(span.end)}`).join(', ')}</div>
+                            <button 
+                                onClick={this.viewMonth}
+                                className="btn">View Month</button>
                         </div>
-                        <div className="options">
-                            <button className="btn">
-                                <span>Attend</span>
-                                <span className="icon fa fa-long-arrow-right" />
-                            </button>
+
+                        <div className="event-list">
+
+                            {utils.map(this.state.events, event => {
+
+                                return (
+                                    <div className="event-item">
+                                        <div className="content">
+                                            <div className="title">{event.title}</div>
+                                            <div className="details">
+                                                <p className="prop">
+                                                    <span className="icon fa fa-clock-o" />
+                                                    <span className="value">{`${this.getTimeText(event.start)} - ${this.getTimeText(event.end)}`}</span>
+                                                </p>
+                                                <p className="prop">
+                                                    <span className="icon fa fa-hourglass" />
+                                                    <span className="value">{parseInt(event.end.substr(0,2)) - parseInt(event.start.substr(0,2))} hour</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className="options">
+                                            <button className="btn">
+                                                <span>Attend</span>
+                                                <span className="icon fa fa-long-arrow-right" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
 
-                    <div className="event-item">
-                        <div className="content">
-                            <div className="title">Group Training (WOD)</div>
-                            <div className="details">
-                                <p className="prop">
-                                    <span className="icon fa fa-clock-o" />
-                                    <span className="value">11:00am - 12:00pm</span>
-                                </p>
-                                <p className="prop">
-                                    <span className="icon fa fa-hourglass" />
-                                    <span className="value">1 hour</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div className="options">
-                            <button className="btn">
-                                <span>Attend</span>
-                                <span className="icon fa fa-long-arrow-right" />
-                            </button>
-                        </div>
-                    </div>
+                )}
 
-                    <div className="event-item">
-                        <div className="content">
-                            <div className="title">Private Events</div>
-                            <div className="details">
-                                <p className="prop">
-                                    <span className="icon fa fa-clock-o" />
-                                    <span className="value">12:00pm - 1:00pm</span>
-                                </p>
-                                <p className="prop">
-                                    <span className="icon fa fa-hourglass" />
-                                    <span className="value">1 hour</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div className="options">
-                            <button className="btn">
-                                <span>Attend</span>
-                                <span className="icon fa fa-long-arrow-right" />
-                            </button>
-                        </div>
-                    </div>
+                <div className="weekly-hours">
+                    <div className="header">Gym Hours</div>
 
-                    <div className="event-item">
-                        <div className="content">
-                            <div className="title">NinjaFit Kids</div>
-                            <div className="details">
-                                <p className="prop">
-                                    <span className="icon fa fa-clock-o" />
-                                    <span className="value">3:00pm - 4:00pm</span>
-                                </p>
-                                <p className="prop">
-                                    <span className="icon fa fa-hourglass" />
-                                    <span className="value">1 hour</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div className="options">
-                            <button className="btn">
-                                <span>Attend</span>
-                                <span className="icon fa fa-long-arrow-right" />
-                            </button>
-                        </div>
-                    </div>
+                    <table className="content">
+                        <tbody>
+                            {utils.map(settings.gymHours, (hours, day) => {
+                                let text = utils.map(hours, span => `${this.getTimeText(span.start)} - ${this.getTimeText(span.end)}`).join(', ');
 
-                    <div className="event-item">
-                        <div className="content">
-                            <div className="title">NinjaFit Kids</div>
-                            <div className="details">
-                                <p className="prop">
-                                    <span className="icon fa fa-clock-o" />
-                                    <span className="value">4:00pm - 5:00pm</span>
-                                </p>
-                                <p className="prop">
-                                    <span className="icon fa fa-hourglass" />
-                                    <span className="value">1 hour</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div className="options">
-                            <button className="btn">
-                                <span>Attend</span>
-                                <span className="icon fa fa-long-arrow-right" />
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="event-item">
-                        <div className="content">
-                            <div className="title">NinjaFit Kids</div>
-                            <div className="details">
-                                <p className="prop">
-                                    <span className="icon fa fa-clock-o" />
-                                    <span className="value">5:00pm - 6:00pm</span>
-                                </p>
-                                <p className="prop">
-                                    <span className="icon fa fa-hourglass" />
-                                    <span className="value">1 hour</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div className="options">
-                            <button className="btn">
-                                <span>Attend</span>
-                                <span className="icon fa fa-long-arrow-right" />
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="event-item">
-                        <div className="content">
-                            <div className="title">Group Training (WOD)</div>
-                            <div className="details">
-                                <p className="prop">
-                                    <span className="icon fa fa-clock-o" />
-                                    <span className="value">6:00pm - 7:00pm</span>
-                                </p>
-                                <p className="prop">
-                                    <span className="icon fa fa-hourglass" />
-                                    <span className="value">1 hour</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div className="options">
-                            <button className="btn">
-                                <span>Attend</span>
-                                <span className="icon fa fa-long-arrow-right" />
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="event-item">
-                        <div className="content">
-                            <div className="title">Group Training (WOD)</div>
-                            <div className="details">
-                                <p className="prop">
-                                    <span className="icon fa fa-clock-o" />
-                                    <span className="value">7:00pm - 8:00pm</span>
-                                </p>
-                                <p className="prop">
-                                    <span className="icon fa fa-hourglass" />
-                                    <span className="value">1 hour</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div className="options">
-                            <button className="btn">
-                                <span>Attend</span>
-                                <span className="icon fa fa-long-arrow-right" />
-                            </button>
-                        </div>
-                    </div>
+                                return (
+                                    <tr className="day-item">
+                                        <td className="title">{day[0].toUpperCase() + day.slice(1)}:</td>
+                                        <td className="hours">{text || "Closed"}</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
                 </div>
 
                 <PageFooter socialLinks={this.props.socialLinks} />
