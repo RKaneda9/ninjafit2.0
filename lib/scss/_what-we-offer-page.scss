@@ -1,10 +1,35 @@
 $container: '.what-we-offer-page';
+$padding: $app-width / $sqrt-3;
 
-#{$container} > section {
+#{$container} > .landing {
     .header { text-align: center; }
 }
 
-#{$container} > .obstacle-training,
+#{$container} > .obstacle-training {
+    padding-top: $padding;
+    padding-bottom: $padding;
+
+    .image-wrapper { background: $color-primary-12; }
+}
+
 #{$container} > .functional-training {
     padding-top: $menu-btn-size / 2;
+    padding-bottom: 4 * $general-padding;
+
+    .header { text-align: right; }
+}
+
+#{$container} > .kids {
+    padding-top: 15px;
+    padding-bottom: $padding;
+}
+
+#{$container} > .hourly-workout {
+    padding-top: 2 * $general-padding;
+    padding-bottom: 2 * $general-padding;
+}
+
+#{$container} > .special-events {
+    padding-top: 15px;
+    padding-bottom: $padding;
 }

@@ -40,7 +40,7 @@ module.exports = ({ opened, page, socialLinks }) => (
             </MenuLink>
 
             <MenuLink selected={page == pages.wod} onClick={() => commands.redirect.emit(pages.wod)}>
-                <span className="fa fa-calendar"></span>
+                <span className="fa fa-heartbeat"></span>
                 <Text>WOD</Text>
             </MenuLink>
 
