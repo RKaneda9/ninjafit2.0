@@ -1,16 +1,14 @@
                     require('helpers/polyfill');
 const Inferno     = require('inferno');
 const Component   = require('inferno-component');
-const {App, Defs} = require('components/app');
-const Menu        = require('containers/menu');
 const utils       = require('helpers/utils');
 const settings    = require('helpers/settings');
 const constants   = require('helpers/constants');
 const Pages       = require('pages');
 const {commands}  = require('services/event-system');
-// const Pages = { 
-//     home: require('pages/home')
-// };
+const {App, Defs} = require('components/app');
+const Menu        = require('containers/menu');
+const Footer      = require('containers/page-footer');
 
 const rootElement = document.getElementById('app');
 
@@ -76,7 +74,8 @@ class Application extends Component {
 
         window.location.hash = '#/' + route.join('/');
 
-        // window.scrollTo(0,0);
+        // TODO:
+        window.scrollTo(0,0);
         rootElement.scrollTop = 0;
 
         this.setState({ route: route, menuOpen: false });
@@ -89,11 +88,12 @@ class Application extends Component {
             <App>
                 <Defs />
                 <Menu 
+                    socialLinks={settings.social}
                     page={this.state.route[0]}
-                    opened={this.state.menuOpen} 
-                    socialLinks={settings.social} />
+                    opened={this.state.menuOpen} />
 
-                <Page socialLinks={settings.social} />
+                <Page />
+                <Footer socialLinks={settings.social} />
             </App>
         );
     }

@@ -31,14 +31,15 @@
     z-index:         3;
     right:           0;
 
-    .background {
+    svg {
         fill:     $color-primary-2;
         display:  block;
         position: absolute;
         top:      0;
-        right:    0;
-        left:     auto;
         height:   100%;
+
+        &.right { right: 0; }
+        &.left  { left:  0; }
     }
 
     .bars {
@@ -62,8 +63,8 @@
 
 .close-btn {
     cursor:   pointer;
-    width:    3em;
-    height:   3em;
+    width:    $menu-btn-size / 2;
+    height:   $menu-btn-size / 2;
     z-index:  3;
     transform-origin: top right;
     position: relative;
@@ -80,4 +81,19 @@
         &:nth-child(1) { transform: translate(-50%, -50%) rotate( 45deg); }
         &:nth-child(2) { transform: translate(-50%, -50%) rotate(-45deg); }
     }
+}
+
+.scroll-down-btn {
+    height:   1.75em;
+    width:    1.75em;
+    fill:     #fff;
+    border-radius: 2em;
+}
+
+.option-btn {
+    width: $menu-btn-size / 2;
+    text-align: center;
+    font-size: 1.34rem;
+    color: #fff;
+    cursor: pointer;
 }

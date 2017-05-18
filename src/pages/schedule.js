@@ -428,8 +428,6 @@ module.exports = class Schedule extends Component {
                         </tbody>
                     </table>
                 </div>
-
-                <PageFooter socialLinks={this.props.socialLinks} />
             </div>
         );
     }

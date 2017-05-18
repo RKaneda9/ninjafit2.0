@@ -1,25 +1,15 @@
 const Inferno = require('inferno');
 const utils   = require('helpers/utils');
-const {
 
-    Background,
-    TriangleRight,
-    TriangleLeft,
-    TriangleDown,
-    TriangleUpRight,
-    TriangleUpLeft
+const { Background, TriangleRight, TriangleLeft, TriangleDown, TriangleUpRight, TriangleUpLeft, MiddleConnector } = require('components/backgrounds');
+const { MenuButton, ScrollDownButton, Button, IconButton                                                        } = require('components/buttons');
+const { Page, Section, Header, Content, Footer, ImageWrapper, Image                                             } = require('components/page');
+const { Quote, Quotes, Popup                                                                                           } = require('components/general');
 
-} = require('components/backgrounds');
-const {
+export const Container = ({ children }) => (<Page name="home">{children}</Page>);
 
-          MenuButton, 
-    ScrollDownButton, 
-              Button
-
-} = require('components/buttons');
-
-export const LandingSection = ({ onContainerRef, onHeaderRef, onOpenMenu, onScrollDown, sliderStyles }) => (
-    <section ref={onContainerRef} className="home">
+export const LandingSection = ({ onHeaderRef, onOpenMenu, onScrollDown, sliderStyles, wrapperStyles, images, imageIndex }) => (
+    <Section className="landing">
         <header ref={onHeaderRef} className="header">
             <p className="main">NinjaFit</p>
             <p className="sub">Gym</p>
@@ -28,68 +18,71 @@ export const LandingSection = ({ onContainerRef, onHeaderRef, onOpenMenu, onScro
         </header>
 
         <div style={sliderStyles} className="image-slider">
-            <div className="image" />
+            <div className="image-wrapper" style={wrapperStyles}>
+                {utils.map(images, (image, i) => {
+                    let pos;
+
+                         if (i == imageIndex)                                         { pos = 'curr'; }
+                    else if (i == utils.getListOffset(imageIndex, -1, images.length)) { pos = 'prev'; }
+                    else if (i == utils.getListOffset(imageIndex,  1, images.length)) { pos = 'next'; }
+
+                    if (!pos) { return (<Image />); }
+
+                    return (<Image pos={pos} url={image.url} />);
+                })}
+            </div>
         </div>
 
         <ScrollDownButton onClick={onScrollDown} />
-    </section>
+    </Section>
 );
 
 export const AboutSection = ({ headerText, contentText, onPlayIntro, onExploreMore }) => (
-    <section className="about">
-        <header className="header">{headerText}</header>
-        <div className="content">
-            {utils.map(contentText.split('\n'), (piece, i) => (
-                <p key={i}>{piece}</p>
-            ))}
-        </div>
+    <Section className="about">
+        <Header>{headerText}</Header>
+        <Content>
+            {utils.map(contentText.split('\n'), (piece, i) => <p>{piece}</p>)}
+        </Content>
 
-        <footer className="footer">
+        <Footer>
             <Button onClick={onPlayIntro}>Play Intro</Button>
             <Button onClick={onExploreMore}>Explore More</Button>
-        </footer>
-    </section>
+        </Footer>
+    </Section>
 );
 
 export const MainSection = ({ index, image, headerText, contentText }) => {
 
-    let background = null,
-        style      = { backgroundImage: `url("${image}") center center / cover no-repeat` };
+    let background = null;
 
     switch (index) {
         case 0:
             background = (
                 <Background>
-                    <TriangleRight className="main" size="large" />
-                    <TriangleLeft className="triangle" size="small" />
+                    <TriangleRight position="left v-full" size="large" />
+                    <TriangleLeft position="right top small" size="small" />
                 </Background>
             );
             break;
         case 2:
             background = (
                 <Background>
-                    <TriangleUpRight className="top" />
-                    <div className="middle" />
-                    <TriangleDown className="bottom" />
+                    <TriangleUpRight position="left h-full" />
+                    <MiddleConnector />
+                    <TriangleDown position="bottom h-full" />
                 </Background>
             );
             break;
     }
 
     return (
-        <section className={`main-section${index + 1}`}>
+        <Section className={`main-section${index + 1}`}>
             {background}
 
-            <div className="image" style={style} />
-
-            <header className="header">{headerText}</header>
-
-            <div className="content">
-                {utils.map(contentText.split('\n'), (piece, i) => (
-                    <p key={i}>{piece}</p>
-                ))}
-            </div>
-        </section>
+            <Image url={image} />
+            <Header>{headerText}</Header>
+            <Content>{utils.map((contentText || []).split('\n'), (piece, i) => <p>{piece}</p>)}</Content>
+        </Section>
     );
 };
 
@@ -101,7 +94,7 @@ export const ShortSection = ({ index, headerText, contentText, onExploreMore }) 
         case 0: 
             background = (
                 <Background>
-                    <TriangleRight className="triangle" size="small" />
+                    <TriangleRight position="left top small" size="small" />
                 </Background>
             );
             break;
@@ -109,82 +102,100 @@ export const ShortSection = ({ index, headerText, contentText, onExploreMore }) 
         case 1:
             background = (
                 <Background>
-                    <TriangleLeft className="triangle" size="small" />
+                    <TriangleLeft position="right top small" size="small" />
                 </Background>
             );
             break;
     }
 
     return (
-        <section className={`short-section${index + 1}`}>
+        <Section className={`short-section${index + 1}`}>
             {background}
 
-            <header className="header">{headerText}</header>
+            <Header>{headerText}</Header>
+            <Content>{utils.map((contentText || []).split('\n'), (piece, i) => <p>{piece}</p>)}</Content>
 
-            <div className="content">
-                {utils.map(contentText.split('\n'), (piece, i) => (
-                    <p key={i}>{piece}</p>
-                ))}
-            </div>
-
-            <footer className="footer">
+            <Footer>
                 <Button onClick={onExploreMore}>Explore More</Button>
-            </footer>
-        </section>
+            </Footer>
+        </Section>
     );
 };
 
-export const TestimonialsSlider = ({ headerText, quote, author }) => (
-    <section className="testimonials">
+export const TestimonialsSlider = ({ headerText, testimonials, activeIndex, onPrev, onNext }) => (
+    <Section className="testimonials">
         <Background>
-            <TriangleUpLeft className="top" />
-            <div className="middle" />
-            <TriangleDown className="bottom" />
+            <TriangleUpLeft position="right h-full" />
+            <MiddleConnector />
+            <TriangleDown position="bottom h-full" />
         </Background>
 
-        <header className="header">{headerText || "Testimonials"}</header>
+        <header className="header">
+            <IconButton onClick={onPrev}>
+                <TriangleLeft />
+            </IconButton>
 
-        <div className="quote">
-            <div className="text">{quote}</div>
-            <div className="author">{author}</div>
-        </div>
-    </section>
+            <span className="title">{headerText}</span>
+
+            <IconButton onClick={onNext}>
+                <TriangleRight />
+            </IconButton>
+        </header>
+
+        <Quotes>
+            {utils.map(testimonials, (testimonial, i) => {
+                let pos;
+
+                     if (i == activeIndex)                                               { pos = 'curr'; }
+                else if (i == utils.getListOffset(activeIndex, -1, testimonials.length)) { pos = 'prev'; }
+                else if (i == utils.getListOffset(activeIndex,  1, testimonials.length)) { pos = 'next'; }
+
+                if (!pos) { return (<Quote />); }
+                
+                return (<Quote {...testimonial} pos={pos} />);
+            })}
+        </Quotes>
+    </Section>
 );
 
 export const JoinSection = ({ headerText, buttonText, onClick }) => (
-    <section className="join">
-        <header className="header">{headerText || "Join the Fitness Revolution"}</header>
-        <footer className="footer">
-            <Button onClick={onClick}>{buttonText || "See Pricing"}</Button>
-        </footer>
-    </section>
+    <Section className="join">
+        <Header>{headerText}</Header>
+        <Footer>
+            <Button onClick={onClick}>{buttonText}</Button>
+        </Footer>
+    </Section>
 );
 
 export const MapSection = ({ image }) => (
-    <section className="map">
-        <div className="image-wrapper">
-            <div className="image" />
-        </div>
-    </section>
+    <Section className="map">
+        <ImageWrapper>
+            <Image src={image} />
+        </ImageWrapper>
+    </Section>
 );
 
 export const ContactSection = ({ headerText, children, onSubmit }) => (
-    <section className="contact">
+    <Section className="contact">
         <Background>
-            <TriangleRight className="main" />
-            <TriangleLeft className="triangle" size="medium" />
+            <TriangleLeft position="v-half bottom right" size="medium" />
+            <TriangleRight position="left v-full" />
         </Background>
 
-        <header className="header">{headerText || "Get In Touch"}</header>
+        <Header>{headerText}</Header>
+        <Content>{children}</Content>
 
-        <div className="content">{children}</div>
-
-        <footer className="footer">
+        <Footer>
             <Button onClick={onSubmit}>Send</Button>
-        </footer>
-    </section>
+        </Footer>
+    </Section>
 );
 
+export const Player = ({ open, src, onClose }) => (
+    <Popup type="player" open={open} onClose={onClose}>
+        {src ? (<iframe className="frame" frameborder="0" src={src} />) : null}
+    </Popup>
+);
 
 
 

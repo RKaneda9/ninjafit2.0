@@ -7,7 +7,7 @@ const constants = module.exports = {
         wod:         'wod',
         contact:     'contact',
         joinUs:      'join-us',
-        logIn:       'log-in'
+        login:       'login'
     },
 
     imageSliderTimeout: 15000,

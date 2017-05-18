@@ -2,9 +2,11 @@ const Inferno        = require('inferno');
 const {TriangleLeft} = require('components/backgrounds');
 
 export const Button = ({ onClick, children }) => (
-    <button 
-        onClick={onClick}
-        className="btn">{children}</button>
+    <button onClick={onClick} className="btn">{children}</button>
+);
+
+export const IconButton = ({ onClick, children }) => (
+    <button onClick={onClick} className="icon-btn">{children}</button>
 );
 
 export const CloseButton = ({ onClick }) => (
@@ -22,7 +24,7 @@ export const MenuButton = ({ onClick }) => (
         className="menu-btn"
         onClick={onClick}>
 
-        <TriangleLeft className="background" size="small" />
+        <TriangleLeft position="right v-full" size="small" />
 
         <div className="bars">
             <span className="bar" />

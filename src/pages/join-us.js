@@ -5,6 +5,8 @@ const settings                 = require('helpers/settings');
 const {commands}               = require('services/event-system');
 // const constants                = require('helpers/constants');
 const PageFooter               = require('containers/page-footer');
+const {Row, Col}               = require('components/form');
+const {TextBox, TextArea}      = require('containers/inputs');
 // const {Page}                   = require('components/pages/base');
 // const {Row, Col}               = require('components/form');
 // const {TextBox, TextArea}      = require('containers/inputs');
@@ -165,6 +167,10 @@ module.exports = class JoinUs extends Component {
                             else if (this.getPriceOffset( 1)   == i) { pos = 'right';  }
                             else if (this.getPriceOffset(-2)   == i) { pos = 'left2';  }
                             else if (this.getPriceOffset( 2)   == i) { pos = 'right2'; }
+                            else if (this.getPriceOffset(-3)   == i) { pos = 'left3';  }
+                            else if (this.getPriceOffset( 3)   == i) { pos = 'right3'; }
+                            else if (this.getPriceOffset(-4)   == i) { pos = 'left4';  }
+                            else if (this.getPriceOffset( 4)   == i) { pos = 'right4'; }
 
                             return (
                                 <li className={`pricing-item ${pos}`}>
@@ -200,7 +206,56 @@ module.exports = class JoinUs extends Component {
                     </ul>
                 </section>
 
-                <PageFooter socialLinks={this.props.socialLinks} />
+                <section className="visit-us">
+                    <header className="header">Come Visit Us!</header>
+
+                    <div className="content">
+                        <section className="map">
+                            <div className="image-wrapper">
+                                <div className="image" />
+                            </div>
+                        </section>
+                        <Row>
+                            <div className="contact-item">
+                                <div className="icon fa fa-envelope" />
+                                <div className="value">ninjafitgyms@gmail.com</div>
+                            </div>
+                            <div className="contact-item">
+                                <div className="icon fa fa-phone" />
+                                <div className="value">407-250-4496</div>
+                            </div>
+                        </Row>
+                    </div>
+                </section>
+
+                <section className="questions">
+                    <header className="header">Questions? Let Us Help With That</header>
+
+                    <div className="content">
+                        <Row>
+                            <Col>
+                                <TextBox maxLength={99} placeholder="First Name" />
+                            </Col>
+                            <Col>
+                                <TextBox maxLength={99} placeholder="Last Name" />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <TextBox maxLength={199} placeholder="Your Email" />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <TextArea maxLength={999} placeholder="Your Email" />
+                            </Col>
+                        </Row>
+                    </div>
+
+                    <footer className="footer">
+                        <Button>Send</Button>
+                    </footer>
+                </section>
             </div>
         );
     }

@@ -11,6 +11,15 @@ const utils = module.exports = {
         return val;
     },
 
+    getListOffset(i, offset, length) {
+        i = i + offset;
+
+        while (i < 0)       i += length;
+        while (i >= length) i -= length;
+
+        return i;
+    },
+
     toPath() { return "M" + utils.map(arguments, pos => pos.join(',')).join(' L') + ' Z'; },
 
     toBgUrl(url) { return `url("${url}")`},

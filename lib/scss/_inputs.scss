@@ -10,7 +10,9 @@
     flex:          0 1 100%;
 }
 
-input[type=text] { 
+input[type=text],
+input[type=password],
+input[type=number] { 
     @extend %textbox;
     height: 1.2em; 
     min-height: 1.2em;

@@ -110,10 +110,6 @@ module.exports = class Contact extends Component {
                         <div className="image" />
                     </div>
                 </section>
-
-                <PageFooter
-                    onRedirect={this.props.onRedirect}
-                    socialLinks={this.props.socialLinks} />
             </Page>
         );
     }

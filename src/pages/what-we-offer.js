@@ -102,10 +102,12 @@ module.exports = class WhatWeOffer extends Component {
 
         return (
             <Page name="what-we-offer">
+            
                 <header className="header-bar">
                     <p className="title">What We Offer</p>
                     <MenuButton onClick={commands.openMenu.emit} />
                 </header>
+
                 <section className="ninja-training">
                     <header className="header">Ninja Warrior Training</header>
                     <div className="content">
@@ -117,10 +119,9 @@ module.exports = class WhatWeOffer extends Component {
 
                 <section className="obstacle-training">
                     <Background>
-                        <TriangleLeft className="triangle left" size="small" />
-                        <TriangleRight className="triangle right" size="small" />
+                        <TriangleLeft  position="top small right" size="small" />
+                        <TriangleRight position="top small left"  size="small" />
                     </Background>
-                    <div className="image" />
 
                     <header className="header">Obstacle Training</header>
                     <div className="content">
@@ -150,10 +151,9 @@ module.exports = class WhatWeOffer extends Component {
 
                 <section className="functional-training">
                     <Background>
-                        <TriangleLeft className="triangle left" size="small" />
-                        <TriangleRight className="triangle right" size="small" />
+                        <TriangleLeft  position="top small right" size="small" />
+                        <TriangleRight position="top small left"  size="small" />
                     </Background>
-                    <div className="image" />
 
                     <header className="header">Functional Training</header>
                     <div className="content">
@@ -181,44 +181,42 @@ module.exports = class WhatWeOffer extends Component {
                     </ul>
                 </section>
 
-                <PageFooter
-                    onRedirect={this.props.onRedirect}
-                    socialLinks={this.props.socialLinks} />
+                <div className={`popup ${this.state.selectedEquipment ? " open" : ""}`}>
+                    <div className="cover" />
+                    <div className="content equipment">
+                        <header className="header">
+                            <div className="title">{selected.title}</div>
+                            <CloseButton onClick={this.closePopup} />
+                        </header>
+                        <ul className="equipment-images">
+                            {utils.map(selected.images, image => 
+                                <li className="image-item">
+                                    <div className="image-wrapper">
+                                        <div className="image" style={{ backgroundImage: `url("${image}")`}} />
+                                    </div>
+                                </li>
+                            )}
+                        </ul>
 
-                <div className={`popup equipment ${this.state.selectedEquipment ? "open" : ""}`}>
-                    <header className="header">
-                        <div className="title">{selected.title}</div>
-                        <CloseButton onClick={this.closePopup} />
-                    </header>
-                    <ul className="equipment-images">
-                        {utils.map(selected.images, image => 
-                            <li className="image-item">
-                                <div className="image-wrapper">
-                                    <div className="image" style={{ backgroundImage: `url("${image}")`}} />
-                                </div>
-                            </li>
-                        )}
-                    </ul>
+                        <div className="content">
+                            {utils.map((selected.description || "").split('\n'), text => 
+                                <p>{text}</p>
+                            )}
+                        </div>
 
-                    <div className="content">
-                        {utils.map((selected.description || "").split('\n'), text => 
-                            <p>{text}</p>
-                        )}
-                    </div>
+                        <div className="footer">
+                            <button 
+                                className="option-btn fa fa-angle-left"
+                                onClick={this.prevSelected} />
 
-                    <div className="footer">
-                        <button 
-                            className="option-btn fa fa-angle-left"
-                            onClick={this.prevSelected} />
+                            <div className="details">{`${(selected.index || 0) + 1}/${(this.selectedEquipmentParent || []).length}`}</div>
 
-                        <div className="details">{`${(selected.index || 0) + 1}/${(this.selectedEquipmentParent || []).length}`}</div>
-
-                        <button 
-                            className="option-btn fa fa-angle-right"
-                            onClick={this.nextSelected} />
+                            <button 
+                                className="option-btn fa fa-angle-right"
+                                onClick={this.nextSelected} />
+                        </div>
                     </div>
                 </div>
-                <div className="popup-cover" />
             </Page>
         );
     }

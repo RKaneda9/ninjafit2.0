@@ -1,0 +1,10 @@
+$container: '.what-we-offer-page';
+
+#{$container} > section {
+    .header { text-align: center; }
+}
+
+#{$container} > .obstacle-training,
+#{$container} > .functional-training {
+    padding-top: $menu-btn-size / 2;
+}

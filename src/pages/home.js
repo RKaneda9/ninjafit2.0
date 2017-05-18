@@ -4,7 +4,6 @@ const utils               = require('helpers/utils');
 const settings            = require('helpers/settings').homePage;
 const {commands}          = require('services/event-system');
 const constants           = require('helpers/constants');
-const PageFooter          = require('containers/page-footer');
 const {Page}              = require('components/pages/base');
 const {Row, Col}          = require('components/form');
 const {TextBox, TextArea} = require('containers/inputs');
@@ -24,7 +23,8 @@ const {
     TriangleLeft,
     TriangleDown,
     TriangleUpRight,
-    TriangleUpLeft
+    TriangleUpLeft,
+    MiddleConnector
 
 } = require('components/backgrounds');
 
@@ -42,18 +42,10 @@ module.exports = class Home extends Component {
         this.nextTestimonial = this.nextTestimonial.bind(this);
         this.prevTestimonial = this.prevTestimonial.bind(this);
 
-        let sIndex = settings.home.images .length - 1;
-        let tIndex = settings.testimonials.length - 1;
-
-        this.state = {};
-
-        this.state.prevSliderIndex =   sIndex;
-        this.state.currSliderIndex = ++sIndex % settings.home.images.length;
-        this.state.nextSliderIndex = ++sIndex % settings.home.images.length;
-
-        this.state.prevTestimonialIndex =   tIndex;
-        this.state.currTestimonialIndex = ++tIndex % settings.testimonials.length;
-        this.state.nextTestimonialIndex = ++tIndex % settings.testimonials.length;
+        this.state = {
+                 sliderIndex: 0,
+            testimonialIndex: 0
+        };
     }
 
     componentDidMount() {
@@ -69,11 +61,7 @@ module.exports = class Home extends Component {
     }
 
     nextImage() {
-        this.setState({ 
-            prevSliderIndex:  this.state.currSliderIndex,
-            currSliderIndex:  this.state.nextSliderIndex,
-            nextSliderIndex: (this.state.nextSliderIndex + 1) % settings.home.images.length
-        });
+        this.setState({ sliderIndex: (this.state.sliderIndex + 1) % settings.home.images.length });
 
         this.nextImageTimeoutId = setTimeout(this.nextImage, constants.imageSliderTimeout);
     }
@@ -81,11 +69,7 @@ module.exports = class Home extends Component {
     nextTestimonial() {
         clearTimeout(this.nextTestimonialTimeoutId);
 
-        this.setState({
-            prevTestimonialIndex:  this.state.currTestimonialIndex,
-            currTestimonialIndex:  this.state.nextTestimonialIndex,
-            nextTestimonialIndex: (this.state.nextTestimonialIndex + 1) % settings.testimonials.length
-        });
+        this.setState({ testimonialIndex: (this.state.testimonialIndex + 1) % settings.testimonials.length });
 
         this.nextTestimonialTimeoutId = setTimeout(this.nextTestimonial, constants.testimonialTimeout);
     }
@@ -93,13 +77,9 @@ module.exports = class Home extends Component {
     prevTestimonial() {
         clearTimeout(this.nextTestimonialTimeoutId);
 
-        let i = this.state.prevTestimonialIndex - 1; if (i < 0) i = settings.testimonials.length - 1;
+        let i = this.state.testimonialIndex - 1; if (i < 0) i = settings.testimonials.length - 1;
 
-        this.setState({
-            prevTestimonialIndex: i,
-            currTestimonialIndex: this.state.prevTestimonialIndex,
-            nextTestimonialIndex: this.state.currTestimonialIndex
-        });
+        this.setState({ testimonialIndex: i });
 
         this.nextTestimonialTimeoutId = setTimeout(this.nextTestimonial, constants.testimonialTimeout);
     }
@@ -119,39 +99,29 @@ module.exports = class Home extends Component {
     resize() {
         this.resizeTimeoutId = null;
 
-        if (this.container && 
-            this.header) {
+        if (this.header) {
 
-            let x1    = this.container.clientWidth;
-            let y1    = this.header   .clientHeight;
-            let x2    = this.container.clientWidth  / 2;
-            let y2    = this.container.clientHeight / 2;
+            let c     = this.header.parentElement;
+
+            let x1    = c.clientWidth;
+            let y1    = this.header.clientHeight;
+            let x2    = c.clientWidth  / 2;
+            let y2    = c.clientHeight / 2;
             let sqrt3 = Math.sqrt(3);
 
             let y = - (sqrt3 / 4) * (x1 - y1 * sqrt3 - x2 - y2 / sqrt3);
             let x = sqrt3 * y - y1 * sqrt3 + x1;
 
-            let r = Math.sqrt(Math.pow(x - x2, 2) + Math.pow(y - y2, 2));
-
-            let h = 2 * r;
+            let r  = Math.sqrt(Math.pow(x - x2, 2) + Math.pow(y - y2, 2));
+            let h  = 2 * r;
             let x3 = x2 - r / 2;
-            let r2 = 2 / sqrt3 * (this.container.clientWidth - x3);
+            let r2 = 2 / sqrt3 * (c.clientWidth - x3);
             let w  = 2 * r2;
 
-            // let imageStyles = this.state.imageStyles;
-            // imageStyles.width  = this.container.clientWidth;
-            // imageStyles.height = (2 * this.container.clientWidth / sqrt3 + this.container.clientHeight - 2 * this.header.clientHeight);
-
             let styles = {
-                width:  this.container.clientWidth,
-                height: (2 * this.container.clientWidth / sqrt3 + this.container.clientHeight - 2 * this.header.clientHeight)
+                width:  c.clientWidth,
+                height: (2 * c.clientWidth / sqrt3 + c.clientHeight - 2 * this.header.clientHeight)
             }
-
-            //let aspect = window.innerWidth / window.innerHeight;
-
-            // let imageStyles = this.state.imageStyles;
-            // imageStyles.width  = this.container.clientWidth;
-            // imageStyles.height = (2 * this.container.clientWidth / sqrt3 + this.container.clientHeight - 2 * this.header.clientHeight);
 
             this.setState({ 
                  sliderStyles: { width:  w, height:  h },
@@ -175,7 +145,7 @@ module.exports = class Home extends Component {
 
         return (
             <Page name="home">
-                <section ref={e => (this.container = e)} className="home">
+               <section className="landing">
                     <header ref={e => (this.header = e)} className="header">
                         <p className="main">NinjaFit</p>
                         <p className="sub">Gym</p>
@@ -192,9 +162,9 @@ module.exports = class Home extends Component {
                             {utils.map(settings.home.images, (image, i) => {
                                 let pos;
 
-                                     if (this.state.currSliderIndex == i) { pos = 'curr'; }
-                                else if (this.state.prevSliderIndex == i) { pos = 'prev'; }
-                                else if (this.state.nextSliderIndex == i) { pos = 'next'; }
+                                     if (i == this.state.sliderIndex)                                                       { pos = 'curr'; }
+                                else if (i == utils.getListOffset(this.state.sliderIndex, -1, settings.home.images.length)) { pos = 'prev'; }
+                                else if (i == utils.getListOffset(this.state.sliderIndex,  1, settings.home.images.length)) { pos = 'next'; }
 
                                 if (!pos) { return (<div className="image" />); }
                                 
@@ -223,8 +193,8 @@ module.exports = class Home extends Component {
 
                 <section className={`main-section1`}>
                     <Background>
-                        <TriangleRight className="main" size="large" />
-                        <TriangleLeft className="triangle" size="small" />
+                        <TriangleRight position="left v-full" size="large" />
+                        <TriangleLeft position="right top small" size="small" />
                     </Background>
 
                     <div className="image" style={{ backgroundImage: `url("https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg")`}} />
@@ -250,9 +220,9 @@ module.exports = class Home extends Component {
 
                 <section className={`main-section3`}>
                     <Background>
-                        <TriangleUpRight className="top" />
-                        <div className="middle" />
-                        <TriangleDown className="bottom" />
+                        <TriangleUpRight position="left h-full" />
+                        <MiddleConnector />
+                        <TriangleDown position="bottom h-full" />
                     </Background>
 
                     <div className="image" style={{ backgroundImage: `url("https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg")`}} />
@@ -267,7 +237,7 @@ module.exports = class Home extends Component {
 
                 <section className={`short-section1`}>
                     <Background>
-                        <TriangleRight className="triangle" size="small" />
+                        <TriangleRight position="left top small" size="small" />
                     </Background>
 
                     <header className="header">NinjaFit Kids</header>
@@ -283,7 +253,7 @@ module.exports = class Home extends Component {
 
                 <section className={`short-section2`}>
                     <Background>
-                        <TriangleLeft className="triangle" size="small" />
+                        <TriangleLeft position="right top small" size="small" />
                     </Background>
 
                     <header className="header">Special Events</header>
@@ -299,9 +269,9 @@ module.exports = class Home extends Component {
 
                 <section className="testimonials">
                     <Background>
-                        <TriangleUpLeft className="top" />
-                        <div className="middle" />
-                        <TriangleDown className="bottom" />
+                        <TriangleUpLeft position="right h-full" />
+                        <MiddleConnector />
+                        <TriangleDown position="bottom h-full" />
                     </Background>
 
                     <header className="header">
@@ -318,9 +288,9 @@ module.exports = class Home extends Component {
                         {utils.map(settings.testimonials, (testimonial, i) => {
                             let pos;
 
-                                 if (this.state.currTestimonialIndex == i) { pos = 'curr'; }
-                            else if (this.state.prevTestimonialIndex == i) { pos = 'prev'; }
-                            else if (this.state.nextTestimonialIndex == i) { pos = 'next'; }
+                                 if (i == this.state.testimonialIndex)                                                        { pos = 'curr'; }
+                            else if (i == utils.getListOffset(this.state.testimonialIndex, -1, settings.testimonials.length)) { pos = 'prev'; }
+                            else if (i == utils.getListOffset(this.state.testimonialIndex,  1, settings.testimonials.length)) { pos = 'next'; }
 
                             if (!pos) { return (<div className="quote" />); }
                             
@@ -349,8 +319,8 @@ module.exports = class Home extends Component {
 
                  <section className="contact">
                     <Background>
-                        <TriangleRight className="main" />
-                        <TriangleLeft className="triangle" size="medium" />
+                        <TriangleLeft position="v-half bottom right" size="medium" />
+                        <TriangleRight position="left v-full" />
                     </Background>
 
                     <header className="header">Get In Touch</header>
@@ -381,21 +351,14 @@ module.exports = class Home extends Component {
                     </footer>
                 </section>
 
-                <PageFooter
-                    onRedirect={this.props.onRedirect}
-                    socialLinks={this.props.socialLinks} />
+                <div className={`popup${this.state.showVideo ? " open" : ""}`}>
+                    <div className="cover" />
+                    <div className="content player">
+                        <CloseButton onClick={this.closePopup} />
 
-                <div className={`popup player ${this.state.showVideo ? "open" : ""}`}>
-                    <CloseButton onClick={this.closePopup} />
-
-                    {this.state.showVideo ? (
-                        <iframe 
-                            class="frame" 
-                            frameborder="0"
-                            src={this.state.showVideo} />
-                    ) : null}
+                        {this.state.showVideo ? (<iframe className="frame" frameborder="0" src={this.state.showVideo} />) : null}
+                    </div>
                 </div>
-                <div className="popup-cover" />
             </Page>
         );
     }

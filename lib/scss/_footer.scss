@@ -1,0 +1,42 @@
+$container: '.app-footer';
+
+#{$container} {
+    padding: (3 * $general-padding-half) $general-padding;
+    text-align: center;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    flex: 0 0 auto;
+}
+
+#{$container} .logo {
+    padding: $general-padding-half;
+    
+    .title { font-size: 2.2em; }
+    .copyright { font-size: 0.8em; }
+}
+
+#{$container} .nav {
+    padding: $general-padding-half;
+
+    .title {
+        color: #bbb;
+        font-size: 0.9em;
+        text-transform: uppercase;
+        padding-bottom: $general-padding-half;
+    }
+    
+    .link {
+        display:         flex;
+        flex-flow:       row;
+        justify-content: center;
+        align-items:     center;
+        cursor:          pointer;
+        padding: 3px;
+    }
+
+    .fa {
+        width: 2em;
+        text-align: center;
+    }
+}

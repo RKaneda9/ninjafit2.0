@@ -47,7 +47,7 @@ export const Defs = () => (
 );
 
 export const Menu = ({ onClose, opened, children }) => (
-    <div className={`menu${opened ? ' open' : ''}`}>
+    <div className={`app-menu${opened ? ' open' : ''}`}>
 
         <CloseButton onClick={onClose} />
 
@@ -64,7 +64,7 @@ export const Menu = ({ onClose, opened, children }) => (
 );
 
 export const Footer = ({ onClose, opened, children }) => (
-    <footer className="page-footer">
+    <footer className="app-footer">
 
         <div className="logo">
             <div className="title">NinjaFit Gym</div>

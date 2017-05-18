@@ -171,8 +171,6 @@ module.exports = class WOD extends Component {
                         </div>
                     </div>
                 </div>
-
-                <PageFooter socialLinks={this.props.socialLinks} />
             </div>
         );
     }

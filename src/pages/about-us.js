@@ -86,11 +86,11 @@ module.exports = class AboutUs extends Component {
 
                 <section className="our-philosophy">
                     <Background>
-                        <TriangleUpRight className="top" />
+                        <TriangleUpRight position="left h-full" />
                         <div className="middle" />
-                        <TriangleDown className="bottom" />
+                        <TriangleDown position="bottom h-full" />
                     </Background>
-                    <div className="image" />
+                    <div className="image" style={{ backgroundImage: `url("https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/15802716_253884945025372_5272580072513994752_n.jpg")`}} />
 
                     <header className="header">Our Philosophy</header>
                     <div className="content">
@@ -102,17 +102,17 @@ module.exports = class AboutUs extends Component {
                 <section className="team">
                     <header className="header">Meet the Team</header>
                     <div className="content">
-                        <ul className="staff-list">
+                        <ul className="image-list">
                             {utils.map(settings.staff, (member, i) => 
-                                <li key={i} className="staff-member">
-                                    <div className="member-image">
+                                <li className="image-item">
+                                    <div className="image-wrapper">
                                         <div 
                                             className="image" 
                                             style={{ backgroundImage: `url("${member.image}")`}} />
                                     </div>
 
-                                    <div className="member-name">{member.name}</div>
-                                    <div className="member-title">{member.title}</div>
+                                    <div className="title">{member.name}</div>
+                                    <div className="desc">{member.title}</div>
                                     <footer className="footer">
                                         <Button onClick={e => this.viewBio(member)}>bio</Button>
                                     </footer>
@@ -121,36 +121,35 @@ module.exports = class AboutUs extends Component {
                         </ul>
                     </div>
                 </section>
-                <PageFooter
-                    onRedirect={this.props.onRedirect}
-                    socialLinks={this.props.socialLinks} />
 
-                <div className={`popup staff-member ${this.state.selectedMember ? "open" : ""}`}>
-                    <header className="header">
-                        <div
-                            className="image" 
-                            style={{ backgroundImage: `url("${this.state.selectedMember ? this.state.selectedMember.image : '' }")` }} />
+                <div className={`popup${this.state.selectedMember ? " open" : ""}`}>
+                    <div className="cover" />
+                    <div className="content staff-member">
+                        <header className="header">
+                            <div
+                                className="image" 
+                                style={{ backgroundImage: `url("${this.state.selectedMember ? this.state.selectedMember.image : '' }")` }} />
 
-                        <div className="details">
-                            <div className="name">{this.state.selectedMember ? this.state.selectedMember.name : null}</div>
-                            <div className="title">{this.state.selectedMember ? this.state.selectedMember.title : null}</div>
-                            <ul className="social-list">
-                                <li className="social-link fa fa-facebook" />
-                                <li className="social-link fa fa-twitter" />
-                                <li className="social-link fa fa-instagram" />
-                            </ul>
+                            <div className="details">
+                                <div className="name">{this.state.selectedMember ? this.state.selectedMember.name : null}</div>
+                                <div className="title">{this.state.selectedMember ? this.state.selectedMember.title : null}</div>
+                                <ul className="social-list">
+                                    <li className="social-link fa fa-facebook" />
+                                    <li className="social-link fa fa-twitter" />
+                                    <li className="social-link fa fa-instagram" />
+                                </ul>
+                            </div>
+
+                            <CloseButton onClick={this.closePopup} />
+                        </header>
+
+                        <div className="content">
+                            {this.state.selectedMember ? utils.map(this.state.selectedMember.bio.split('\n'), (text, i) =>
+                                <p key={i}>{text}</p>
+                            ) : null}
                         </div>
-
-                        <CloseButton onClick={this.closePopup} />
-                    </header>
-
-                    <div className="content">
-                        {this.state.selectedMember ? utils.map(this.state.selectedMember.bio.split('\n'), (text, i) =>
-                            <p key={i}>{text}</p>
-                        ) : null}
                     </div>
                 </div>
-                <div className="popup-cover" />
             </Page>
         );
     }

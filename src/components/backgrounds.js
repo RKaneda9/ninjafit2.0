@@ -1,8 +1,8 @@
 const Inferno = require('inferno');
 const utils   = require('helpers/utils');
 
-const Triangle = ({ width, height, d, size, className }) => (
-    <svg className={className} viewBox={`0 0 ${width || 500} ${height || 577.35}`}>
+const Triangle = ({ width, height, d, size, position }) => (
+    <svg className={position} viewBox={`0 0 ${width || 500} ${height || 577.35}`}>
         <path 
             filter={`url(#dropshadow-${size || "large"})`}
             d={d} />
@@ -12,6 +12,8 @@ const Triangle = ({ width, height, d, size, className }) => (
 export const Background = ({ children }) => (
     <div className="background">{children}</div>
 );
+
+export const MiddleConnector = props => (<div className="middle" />);
 
 export const TriangleLeft = props => (
     <Triangle {...props} d="M500,0 L500,577.35 L0,288.675 Z" />

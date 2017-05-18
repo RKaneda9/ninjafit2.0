@@ -6,6 +6,7 @@ module.exports = {
     [pages.aboutUs]:     require('./about-us'),
     [pages.contact]:     require('./contact'),
     [pages.joinUs]:      require('./join-us'),
+    [pages.login]:       require('./login'),
     [pages.schedule]:    require('./schedule'),
     [pages.whatWeOffer]: require('./what-we-offer'),
     [pages.wod]:         require('./wod')

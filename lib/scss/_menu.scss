@@ -1,166 +1,167 @@
-.menu {
+$container: '.app-menu';
+
+#{$container} {
     position: fixed;
     top:      0;
     left:     0;
     height:   $app-height * 1.02;
     width:    $app-width;
+}
 
-    .close-btn {
-        position: absolute;
-        top:   0;
-        right: 0;
-    }
+#{$container} .close-btn {
+    position: absolute;
+    top:   0;
+    right: 0;
+}
+
+#{$container} .background {
+    display:     flex;
+    flex-flow:   column;
+    align-items: stretch;
+    position:    absolute;
     
-    .background {
-        display:     flex;
-        flex-flow:   column;
-        align-items: stretch;
-        position:    absolute;
+    top:     50%;
+    left:    50%;
+    width:   140vmax;
+    height:  140vmax;
+    transform-origin: center;
+    transform: translate(-50%, -50%) rotate(-30deg);
         
-        top:     50%;
-        left:    50%;
-        width:   140vmax;
-        height:  140vmax;
-        transform-origin: center;
-        transform: translate(-50%, -50%) rotate(-30deg);
-        
-        .portion { 
-            flex: 1 1 100%;
-            background: $color-primary-2;
-            margin-bottom: -1px;
-        }
+    .portion { 
+        flex: 1 1 100%;
+        background: $color-primary-2;
+        margin-bottom: -1px;
+    }
+}
+
+#{$container} .content {
+    position:  relative;
+    display:   flex;
+    flex-flow: column;
+    width:     100%;
+    height:    100%;
+    z-index:     2;
+    overflow-y: auto;
+}
+
+#{$container} .nav {
+    flex: 1 1 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    
+    &:first-child { padding-top: $menu-btn-size / 2; }
+    
+    .link {
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        padding: $general-padding-half;
+        cursor: pointer;
+        border-top: 1px solid $color-primary-8;
+        transition: background 0.2s ease-in-out;
+
+        &.selected { background: $color-primary-8; }
+        &:last-child { border-bottom: 1px solid $color-primary-8; }
+    }
+
+    .fa { 
+        width: 3em; 
+        font-size: 1.3em; 
+        text-align: center;
+    }
+
+    .text { font-size: 1.2em; }
+}
+
+#{$container} .social {
+    flex: 0 0 auto;
+    display: flex;
+    flex-flow: row;
+    align-items: stretch;
+    justify-content: flex-end;
+    padding: $general-padding-half;
+
+    &:last-child { padding-bottom: $app-height * 0.1; }
+
+    .link {
+        padding: $general-padding-half;
+        cursor: pointer;
+    }
+
+    .social-item {
+        position: relative;
+        background: #fff;
+        color: $color-primary-2;
+        border-radius: 100px; 
+        width:  2.25em;
+        height: 2.25em;
+    }
+
+    .fa {
+        position: absolute;
+        top:  50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.4em;
+    }
+}
+
+#{$container}:not(.open) {
+    transition: z-index 0.01s ease-in-out 0.6s;
+    z-index: -1;
+    
+    & + .page .menu-btn .bar {
+        opacity: 1;
+        transition: transform 0.3s ease-in-out 0.2s, opacity 0.15s ease-in-out 0.2s;
     }
 
     .content {
-        position:  relative;
-        display:   flex;
-        flex-flow: column;
-        width:     100%;
-        height:    100%;
-        z-index:     2;
-        overflow-y: auto;
-
-        & > *:last-child { margin-bottom: $app-height * 0.1; }
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
     }
 
-    .nav {
-        flex: 1 1 100%;
-        display: flex;
-        flex-flow: column;
-        justify-content: center;
-        margin-top: ($menu-btn-size / 2);
+    .close-btn .bar {
+        transition: transform 0.3s ease-in-out;
 
-        .link {
-            display: flex;
-            flex-flow: row;
-            align-items: center;
-            padding: $general-padding-half;
-            cursor: pointer;
-            border-top: 1px solid $color-primary-8;
-            transition: background 0.2s ease-in-out;
-
-            .fa { 
-                width: 3em; 
-                font-size: 1.3em; 
-                text-align: center;
-            }
-
-            .text { 
-                font-size: 1.2em;
-            }
-
-            &.selected { background: $color-primary-8; }
-            &:last-child { border-bottom: 1px solid $color-primary-8; }
-        }
-    }
-
-    .social {
-        flex: 0 0 auto;
-        display: flex;
-        flex-flow: row;
-        align-items: stretch;
-        justify-content: flex-end;
-        padding: $general-padding-half;
-
-        .link {
-            padding: $general-padding-half;
-            cursor: pointer;
-        }
-
-        .social-item {
-            position: relative;
-            background: #fff;
-            color: $color-primary-2;
-            border-radius: 100px; 
-            width:  2.25em;
-            height: 2.25em;
-        }
-
-        .fa {
-            position: absolute;
-            top:  50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.4em;
-        }
+        &:nth-child(odd)    { transform: translate(-50%, -50%) rotate( 45deg) translateX(-300%); }
+        &:nth-child(even) { transform: translate(-50%, -50%) rotate(-45deg) translateX( 300%); }
     }
     
-    &:not(.open) {
-        transition: z-index 0.01s ease-in-out 0.6s;
-        z-index: -1;
+    .portion {
+        transition: transform 0.5s ease-in-out 0.1s;
         
-        & + .page .menu-btn .bar {
-            opacity: 1;
-            transition: transform 0.3s ease-in-out 0.2s, opacity 0.15s ease-in-out 0.2s;
-        }
-
-        .content {
-            opacity: 0;
-            transition: opacity 0.2s ease-in-out;
-        }
-
-        .close-btn .bar {
-            transition: transform 0.3s ease-in-out;
-
-            &:nth-child(odd)    { transform: translate(-50%, -50%) rotate( 45deg) translateX(-300%); }
-            &:nth-child(even) { transform: translate(-50%, -50%) rotate(-45deg) translateX( 300%); }
-        }
+        &:nth-child(odd)    { transform: translateX( 100%); }
+        &:nth-child(even) { transform: translateX(-100%); }
+    }
+}
+    
+#{$container}.open {
+    transition: z-index 0.01s ease-in-out 0.3s;
+    z-index: 5;
+    
+    & + .page .menu-btn .bar {
+        transition: transform 0.3s ease-in-out, opacity 0.15s ease-in-out 0.15s;
+        opacity: 0;
         
-        .portion {
-            transition: transform 0.5s ease-in-out 0.1s;
-            
-            &:nth-child(odd)    { transform: translateX( 100%); }
-            &:nth-child(even) { transform: translateX(-100%); }
-        }
+        &:nth-child(odd)    { transform: translateX(-300%); }
+        &:nth-child(even) { transform: translateX( 300%); }
+    }
+
+    .content {
+        opacity: 1;
+        transition: opacity 0.2s ease-in-out 0.5s;
+    }
+
+    .close-btn .bar {
+        transition: transform 0.3s ease-in-out 0.45s;
+
+        &:nth-child(odd)    { transform: translate(-50%, -50%) rotate( 45deg); }
+        &:nth-child(even) { transform: translate(-50%, -50%) rotate(-45deg); }
     }
     
-    &.open {
-        transition: z-index 0.01s ease-in-out 0.3s;
-        z-index: 5;
-        
-        & + .page .menu-btn .bar {
-            transition: transform 0.3s ease-in-out, opacity 0.15s ease-in-out 0.15s;
-            opacity: 0;
-            
-            &:nth-child(odd)    { transform: translateX(-300%); }
-            &:nth-child(even) { transform: translateX( 300%); }
-        }
-
-        .content {
-            opacity: 1;
-            transition: opacity 0.2s ease-in-out 0.5s;
-        }
-
-        .close-btn .bar {
-            transition: transform 0.3s ease-in-out 0.45s;
-
-            &:nth-child(odd)    { transform: translate(-50%, -50%) rotate( 45deg); }
-            &:nth-child(even) { transform: translate(-50%, -50%) rotate(-45deg); }
-        }
-        
-        .portion {
-            transition: transform 0.5s ease-in-out 0.3s;
-            transform: translateX(0%);
-        }
+    .portion {
+        transition: transform 0.5s ease-in-out 0.3s;
+        transform: translateX(0%);
     }
 }
