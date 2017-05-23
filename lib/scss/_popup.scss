@@ -119,6 +119,11 @@ $close-btn-size: 20px * 0.813 + $padding * 2;
 
 #{$container} .staff-member {
 
+    .close-btn { 
+        position: relative; 
+        flex: 0 0 auto; 
+    }
+
     .image {
         @include background-image();
         margin: $padding $padding 0 $padding;

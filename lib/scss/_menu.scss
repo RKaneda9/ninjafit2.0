@@ -1,5 +1,8 @@
 $container: '.app-menu';
 
+// TODO:
+.fa.fa-home { transform-origin: center; transform: scale(1.3); }
+
 #{$container} {
     position: fixed;
     top:      0;

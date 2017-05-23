@@ -200,10 +200,11 @@ $container: '.home-page';
     height: $height;
     margin-bottom: unquote("calc(#{$offset1} - #{$offset2})");
     margin-top: unquote("calc(#{$offset2} - #{$offset1})");
+    display: block;
 
     .image-wrapper {
         margin: auto;
-        background: #fff;
+        background: $color-primary-3;
         width:  $app-width * $sqrt-3;
         height: $height;
         overflow: hidden;
@@ -217,18 +218,20 @@ $container: '.home-page';
     }
 
     .image {
-        // @include background-image("https://scontent-atl3-1.xx.fbcdn.net/v/t31.0-8/16903117_1844616032419052_2489319948486629962_o.jpg?oh=6eebec213f686c5aae1b76e1f3433cd7&oe=59944936");
-        // position: absolute;
-        // top:        -45%;
-        // bottom: -45%;
-        // left:     10%;
-        // right:    10%;
-        // z-index: 1;
-        // background-position: center;
-        // background-size: cover;
-        // background-repeat: no-repeat;
-        // transform-origin: center;
-        // transform: rotate(-70deg);
+        @include background-image("https://scontent-atl3-1.xx.fbcdn.net/v/t31.0-8/16903117_1844616032419052_2489319948486629962_o.jpg?oh=6eebec213f686c5aae1b76e1f3433cd7&oe=59944936");
+        position: absolute;
+        top:      50%;
+        //bottom:  -50%;
+        left:     20%;
+        right:    20%;
+        padding-top: 50%;
+        padding-bottom: 50%;
+        z-index: 1;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        transform-origin: center;
+        transform: translateY(-50%) rotate(-30deg);
     }
 }
 

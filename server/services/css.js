@@ -88,7 +88,7 @@ let service = module.exports = {
 
         if (watch) {
 
-            fs.watch(this.settings.inputDir, (eventType, filename) => {
+            fs.watch(this.settings.inputDir, { recursive: true, }, (eventType, filename) => {
 
                 console.log(`Change noticed from file: ${filename}, eventType: ${eventType}`);
 

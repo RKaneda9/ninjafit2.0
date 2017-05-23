@@ -79,8 +79,7 @@ let service = module.exports = {
 
         if (watch) {
 
-            // TODO: this only watches the current directory and not subfolders.
-            fs.watch(this.settings.inputDir, (eventType, filename) => {
+            fs.watch(this.settings.inputDir, { recursive: true }, (eventType, filename) => {
 
                 console.log(`htmlService: Change noticed from file: ${filename}, eventType: ${eventType}`);
 

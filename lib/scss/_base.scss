@@ -122,6 +122,7 @@ html {
 
 body { 
     //overflow: hidden; 
+    background: $color-primary-1;
     overflow-y: auto;
     overflow-x: hidden;
     //position: fixed;
@@ -169,8 +170,10 @@ a:hover { text-decoration: none; color: inherit; }
 }
 
 .app {
-    background: $color-primary-1;
     overflow-x: hidden;
+    background: $color-primary-1;
+
+    &:not(.scrolling) { transition: transform 0.5s ease-in-out; }
 }
 
 // TODO: forces portrait

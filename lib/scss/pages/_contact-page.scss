@@ -1,0 +1,10 @@
+$container: '.contact-page';
+
+#{$container} > .landing {
+    .header { 
+        text-align: left; 
+        padding-bottom: 0px;
+    }
+
+    .content { padding-top: 0px; }
+}

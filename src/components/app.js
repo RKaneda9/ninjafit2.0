@@ -1,7 +1,17 @@
 const Inferno       = require('inferno');
 const {CloseButton} = require('components/buttons');
 
-export const App  = ({ children }) => (<div className="app">{children}</div>);
+export const App  = ({ children, offset, scrolling }) => {
+
+    let className = "app", 
+        styles    = null;
+
+    if (scrolling) className += ' scrolling';
+    if (offset)    styles = { transform: `translateY(-${offset}px)` };
+
+    return (<div className={className} style={styles}>{children}</div>);
+};
+
 export const Defs = () => (
     <svg className="defs" xmlns="http://www.w3.org/2000/svg">
         <defs>

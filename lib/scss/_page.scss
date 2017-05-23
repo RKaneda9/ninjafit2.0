@@ -1,3 +1,12 @@
+@import './pages/about-page';
+@import './pages/contact-page';
+@import './pages/home-page';
+@import './pages/join-us-page';
+@import './pages/login-page';
+@import './pages/schedule-page';
+@import './pages/what-we-offer-page';
+@import './pages/wod-page';
+
 $container: '.page';
 
 #{$container} > .header-bar {
@@ -50,6 +59,7 @@ $container: '.page';
             top:     $app-width / $sqrt-3;
             bottom:  $app-width / ($sqrt-3 * 2);
             z-index: 1;
+            box-shadow: 0 2px 0 -1px $color-primary-2, 0 -2px 0 -1px $color-primary-2;
         }
     }
 
@@ -66,6 +76,7 @@ $container: '.page';
     & > .image {
         margin: 0 $general-padding 0 $general-padding;
         height: $app-height / 3.45;
+        min-height: $app-width * 0.4;
         top:        2px;
         position: relative;
         z-index: 1;

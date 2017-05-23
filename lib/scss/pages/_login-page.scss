@@ -1,0 +1,12 @@
+.login-page .login {
+    display: flex; 
+    flex-flow: column;
+    align-items: stretch;
+    justify-content: center;
+    height: 80vh;
+    max-height: 600px;
+    margin: 0 auto;
+    max-width: 500px;
+
+    .header { text-align: center; }
+}

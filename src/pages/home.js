@@ -169,7 +169,7 @@ module.exports = class Home extends Component {
                                 if (!pos) { return (<div className="image" />); }
                                 
                                 return (
-                                    <div className={`image ${pos}`} style={{ backgroundImage: `url("${image.url}` }} />
+                                    <div className={`image ${pos}`} style={{ backgroundImage: `url("${image.url}")` }} />
                                 );
                             })}
                         </div>
@@ -311,11 +311,11 @@ module.exports = class Home extends Component {
                     </footer>
                 </section>
 
-                <section className="map">
+                <a href="http://maps.google.com/maps?q=6541+North+Orange+Blossom+Trail,+Suit+100+Orlando+Florida+32810" target="nfg-map" className="map">
                     <div className="image-wrapper">
-                        <div className="image" />
+                        <div className="image" style={{ backgroundImage: `url("./images/map3.jpg")`}} />
                     </div>
-                </section>
+                </a>
 
                  <section className="contact">
                     <Background>

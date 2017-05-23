@@ -307,13 +307,13 @@ module.exports = class Schedule extends Component {
                 {this.state.view == views.month ? (
 
                     <div className="month-view">
-                        <div className="calendar-header">
+                        <div className="date-selector">
                             <div className="row">
                                 <button 
                                     onClick={this.showPrevMonth}
                                     className="option-btn fa fa-angle-left" />
 
-                                <div className="day-details">
+                                <div className="details">
                                     <p className="title">{this.state.date.getMonthText() + ', ' + this.state.date.getFullYear()}</p>
                                 </div>
 
@@ -354,12 +354,12 @@ module.exports = class Schedule extends Component {
                 ) : (
 
                     <div className="day-view">
-                        <div className="calendar-header">
+                        <div className="date-selector">
                             <div className="row">
                                 <button 
                                     onClick={this.showYesterday}
                                     className="option-btn fa fa-angle-left" />
-                                <div className="day-details">
+                                <div className="details">
                                     <p className="title">{this.getDayText()}</p>
                                     <p className="sub">{`${this.getMonthText()} ${this.getDateText()}, ${this.state.date.getFullYear()}`}</p>
                                 </div>
@@ -369,7 +369,7 @@ module.exports = class Schedule extends Component {
                             </div>
                         </div>
 
-                        <div className="open-hours">
+                        <div className="calendar-separator">
                             <div className="title">{todayHours.length ? "Open:" : "Closed Today"}</div>
                             <div className="value">{utils.map(todayHours, span => `${this.getTimeText(span.start)} - ${this.getTimeText(span.end)}`).join(', ')}</div>
                             <button 

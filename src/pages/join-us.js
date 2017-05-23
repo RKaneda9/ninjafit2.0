@@ -210,11 +210,11 @@ module.exports = class JoinUs extends Component {
                     <header className="header">Come Visit Us!</header>
 
                     <div className="content">
-                        <section className="map">
+                        <a href="http://maps.google.com/maps?q=6541+North+Orange+Blossom+Trail,+Suit+100+Orlando+Florida+32810" target="nfg-map" className="contact-map">
                             <div className="image-wrapper">
-                                <div className="image" />
+                                <div className="image" style={{ backgroundImage: `url("./images/map.jpg")`}} />
                             </div>
-                        </section>
+                        </a>
                         <Row>
                             <div className="contact-item">
                                 <div className="icon fa fa-envelope" />

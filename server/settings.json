@@ -15,6 +15,13 @@
         "outputdir": "js/"
     },
 
+    "static": [
+        {
+            "inputdir": "lib/images/",
+            "outputdir": "images/"
+        }
+    ],
+
     "outputdir": "build/",
     "port": 3500
 }

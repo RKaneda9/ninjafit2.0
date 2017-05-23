@@ -130,12 +130,12 @@ module.exports = class WOD extends Component {
                     <MenuButton onClick={commands.openMenu.emit} />
                 </header>
 
-                <div className="calendar-header">
+                <div className="date-selector">
                     <div className="row">
                         <button 
                             onClick={this.showYesterday}
                             className="option-btn fa fa-angle-left" />
-                        <div className="day-details">
+                        <div className="details">
                             <p className="title">{this.getDayText()}</p>
                             <p className="sub">{`${this.getMonthText()} ${this.getDateText()}, ${this.state.date.getFullYear()}`}</p>
                         </div>
@@ -144,11 +144,11 @@ module.exports = class WOD extends Component {
                             className="option-btn fa fa-angle-right" />
                     </div>
                 </div>
-                <div className="separator">
+                <div className="calendar-separator">
                     <span className="title">2 Workouts Found</span>
                 </div>
-                <div className="workout-list">
-                    <div className="workout-item">
+                <div className="event-list">
+                    <div className="event-item">
                         <div className="title">Strength</div>
                         <div className="sub-title">Deadlift</div>
                         <div className="content">
@@ -157,7 +157,7 @@ module.exports = class WOD extends Component {
                             <p>1x8</p>
                         </div>
                     </div>
-                    <div className="workout-item">
+                    <div className="event-item">
                         <div className="title">WOD</div>
                         <div className="sub-title">170508B</div>
                         <div className="content">

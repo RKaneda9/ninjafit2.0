@@ -105,11 +105,11 @@ module.exports = class Contact extends Component {
                     </footer>
                 </section>
 
-                <section className="map">
+                <a href="http://maps.google.com/maps?q=6541+North+Orange+Blossom+Trail,+Suit+100+Orlando+Florida+32810" target="nfg" className="contact-map">
                     <div className="image-wrapper">
-                        <div className="image" />
+                        <div className="image" style={{ backgroundImage: `url("./images/map.jpg")`}} />
                     </div>
-                </section>
+                </a>
             </Page>
         );
     }

@@ -72,20 +72,36 @@ class Application extends Component {
 
         if (!Pages[route[0]]) { return console.error(`Page: ${route[0]} does not exist!`); }
 
-        window.location.hash = '#/' + route.join('/');
+        this.setState({
+            route:     route,
+            offset:    rootElement.parentElement.scrollTop,
+            scrolling: true
+        });
 
-        // TODO:
         window.scrollTo(0,0);
         rootElement.scrollTop = 0;
 
-        this.setState({ route: route, menuOpen: false });
+        setTimeout(function () {
+
+            window.location.hash = '#/' + route.join('/');
+
+            this.setState({ 
+                menuOpen:  false,
+                scrolling: false,
+                offset:    0
+            });
+
+        }.bind(this));
     }
 
     render() { 
         let Page = Pages[this.state.route[0]];
 
         return (
-            <App>
+            <App 
+                scrolling={this.state.scrolling} 
+                offset={this.state.offset}>
+
                 <Defs />
                 <Menu 
                     socialLinks={settings.social}
