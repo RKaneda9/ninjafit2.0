@@ -1,0 +1,37 @@
+$container: '#{$app} .image-selectors';
+$size: 10px;
+
+#{$container} {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#{$container} .image-selector {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+    height: 3 * $size;
+
+    &:not(.selected) {
+         cursor: pointer;
+
+        .selector { background: $color-primary-2; }
+    }
+    
+    &.selected {
+        cursor: default;
+
+        .selector { background: $color-primary-5; }
+    }
+}
+
+#{$container} .selector {
+    width: $size;
+    height: $size;
+    border-radius: $size;
+    margin: 0 10px;
+    border: 1px solid #000;
+}

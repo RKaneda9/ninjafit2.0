@@ -1,121 +1,55 @@
-                    require('helpers/polyfill');
-const Inferno     = require('inferno');
-const Component   = require('inferno-component');
-const utils       = require('helpers/utils');
-const settings    = require('helpers/settings');
-const constants   = require('helpers/constants');
-const Pages       = require('pages');
-const {commands}  = require('services/event-system');
-const {App, Defs} = require('components/app');
-const Menu        = require('containers/menu');
-const Footer      = require('containers/page-footer');
+var utils        = require('./main/utils'),
+    applications = require('./main/applications'),
+    loader       = require('./main/loader'),
+    constants    = require('./main/constants'),
+    appId, 
+    resizeTimeoutId;
 
-const rootElement = document.getElementById('app');
+(function (callback) {
 
-class Application extends Component {
-    constructor(props) {
-        super(props);
+    // browser event has already occurred.
+    if (document.readyState === "complete") setTimeout(callback);
 
-        this. redirect = this. redirect.bind(this);
-        this. openMenu = this. openMenu.bind(this);
-        this.closeMenu = this.closeMenu.bind(this);
+    // otherwise add listener
+    else utils.addListener(window, 'load', callback);
 
-        this.onHashChanged = this.onHashChanged.bind(this);
-        
-        this.state = { 
-            route:    this.getRoute(),
-            menuOpen: false
-        };
-    }
+}(function () {
 
-    getRoute() {
-        let route = location.hash
-            .replace('#/', '')
-            .replace('#',  '').split('/');
+    utils.addListener(window, 'resize', function () {
 
-        if (!route.length || !Pages[route[0]]) route = [constants.pages.home];
+        if (resizeTimeoutId) clearTimeout(resizeTimeoutId);
 
-        return route;
-    }
+        resizeTimeoutId = setTimeout(resize, constants.resizeTimeout);
+    });
 
-    componentDidMount() {
-        commands. openMenu.subscribe(this. openMenu);
-        commands.closeMenu.subscribe(this.closeMenu);
-        commands. redirect.subscribe(this.redirect);
+    function resize() {
 
-        window.addEventListener("hashchange", this.onHashChanged);
-    }
+        var newId = applications.determine(),
+            oldId = appId;
 
-    componentWillUnmount() {
-        commands. openMenu.unsubscribe(this. openMenu);
-        commands.closeMenu.unsubscribe(this.closeMenu);
-        commands. redirect.unsubscribe(this.redirect);
+        resizeTimeoutId = null;
 
-        window.removeEventListener("hashchange", this.onHashChanged);
-    }
+        if (oldId == newId) return;
 
-    onHashChanged() {
-        let route = this.getRoute();
+        appId = newId;
 
-        if (route.join('/') != this.state.route.join('/')) {
-            this.setState({ route: route });
+        if (!applications.isLoaded(newId)) loader.show();
+
+        if (oldId) {
+
+            console.log('removing previous application: ', oldId);
+            applications.remove(oldId);
         }
+
+        console.log('showing application: ', newId);
+
+        applications.show(newId)
+            .then (function (   ) { loader.hide(); })
+            .catch(function (msg) { console.error(msg); });
     }
 
-     openMenu() { if (!this.state.menuOpen) this.setState({ menuOpen: true  }); }
-    closeMenu() { if ( this.state.menuOpen) this.setState({ menuOpen: false }); }
+    loader      .initialize(document.getElementById(constants.elements.loader));
+    applications.initialize(document.getElementById(constants.elements.app));
 
-    redirect() {
-        let route = Array.makeArray(arguments);
-
-        if (!route.length) { return; }
-
-        if (!Pages[route[0]]) { return console.error(`Page: ${route[0]} does not exist!`); }
-
-        this.setState({
-            route:     route,
-            offset:    rootElement.parentElement.scrollTop,
-            scrolling: true
-        });
-
-        window.scrollTo(0,0);
-        rootElement.scrollTop = 0;
-
-        setTimeout(function () {
-
-            window.location.hash = '#/' + route.join('/');
-
-            this.setState({ 
-                menuOpen:  false,
-                scrolling: false,
-                offset:    0
-            });
-
-        }.bind(this));
-    }
-
-    render() { 
-        let Page = Pages[this.state.route[0]];
-
-        return (
-            <App 
-                scrolling={this.state.scrolling} 
-                offset={this.state.offset}>
-
-                <Defs />
-                <Menu 
-                    socialLinks={settings.social}
-                    page={this.state.route[0]}
-                    opened={this.state.menuOpen} />
-
-                <Page />
-                <Footer socialLinks={settings.social} />
-            </App>
-        );
-    }
-}
-
-Inferno.render(
-    <Application />,
-    rootElement
-);
+    resize();
+}));

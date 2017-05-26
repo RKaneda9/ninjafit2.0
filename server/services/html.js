@@ -5,10 +5,11 @@ let pug   = require('pug'),
 
 let service = module.exports = {
     init (settings) { 
+        if (!settings.hasOwnProperty("html")) return console.log('settings file does not contain a section for "html". skipping...'); 
+
         let error = msg => { throw `/services/html init() error. ${msg}. Please see readme for how to setup /server/settings.json` };
 
-        if (!utils.isObj   (settings))                { error('No settings were passed in'); }
-        if (!utils.isObj   (settings.html))           { error('"settings.html" is missing or is in an incorrect format'); }
+        if (!utils.isObj   (settings.html))           { error('"settings.html" is required as an object'); }
         if (!utils.isString(settings.html.outputdir)) { error('"settings.html.outputdir" is missing or is in an incorrect format'); }
         if (!utils.isString(settings.html.inputdir))  { error('"settings.html.inputdir" is missing or is in an incorrect format'); }
         if (!utils.isString(settings.outputdir))      { error('"settings.outputdir" is missing or is in an incorrect format'); }

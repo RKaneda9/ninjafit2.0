@@ -79,24 +79,31 @@ let utils = module.exports = {
 
     foreach: (array, callback) => {
 
-        if (typeof array != 'object') { return; }
+        if (!array) { return; }
 
-        var keys = Object.keys(array);
+        let keys = Object.keys(array), i;
 
-        for (var i = 0; i < keys.length; i++) {
-            if (callback(array[keys[i]], i, keys[i]) === false) {
-                return i;
+        if (array instanceof Array) 
+            for (i = 0; i < array.length; i++) {
+                if (callback(array[keys[i]], i, keys[i]) === false) {
+                    return i;
+                }
             }
-        }
+        else 
+            for (i = 0; i < keys.length; i++) {
+                if (callback(array[keys[i]], i, keys[i]) === false) {
+                    return i;
+                }
+            }
     },
 
     first: (array, func, defVal) => {
 
-        if (typeof array != 'object') { return defVal; }
+        if (!(array instanceof Array)) { return defVal; }
 
-        var keys = Object.keys(array);
+        let keys = Object.keys(array), i;
 
-        for (var i = 0; i < keys.length; i++) {
+        for (i = 0; i < keys.length; i++) {
             if (func(array[keys[i]], i)) {
                 return array[keys[i]];
             }
@@ -109,28 +116,39 @@ let utils = module.exports = {
 
         if (typeof array != 'object') { return []; }
 
-        var mapped, keys, val;
+        let mapped, keys, val, i;
 
         mapped = [];
         keys   = Object.keys(array);
 
-        for (var i = 0; i < keys.length; i++) {
-            var val = func(array[keys[i]], i, keys[i]);
-            if (val) { mapped.push(val); }
-        }
+        if (array instanceof Array)
+            for (i = 0; i < array.length; i++) {
+
+                val = func(array[keys[i]], i, i);
+
+                if (val) { mapped.push(val); }
+            }
+
+        else 
+            for (i = 0; i < keys.length; i++) {
+
+                val = func(array[keys[i]], keys[i], i);
+
+                if (val) { mapped.push(val); }
+            }
 
         return mapped;
     },
 
     mapObject: (obj, func) => {
 
-        var mapped = {};
+        let mapped = {};
 
-        if (typeof array != 'object') { return mapped; }
+        if (!(obj instanceof Object)) { return mapped; }
 
-        var keys = Object.keys(obj);
+        let keys = Object.keys(obj), i;
 
-        for (var i = 0; i < keys.length; i++) {
+        for (i = 0; i < keys.length; i++) {
             if (func(mapped, obj[keys[i]], keys[i], i) === false) {
                 break;
             }

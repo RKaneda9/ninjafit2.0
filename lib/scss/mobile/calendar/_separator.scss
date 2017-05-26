@@ -1,0 +1,33 @@
+$container: '#{$app} .calendar-separator';
+
+#{$container} {
+    flex: 0 0 auto;
+    background: $color-primary-2;
+    padding: $general-padding-half;
+    display: flex; 
+    flex-flow: row;
+    align-items: center;
+    box-shadow: 0 0 5px 0 #000;
+    position: relative;
+    z-index: 1;
+}
+
+#{$container} .title { 
+    flex: 0 0 auto;
+    font-weight: bold;
+    color: $color-footer-menu-title; 
+    text-transform: uppercase; 
+    margin-right: 10px; 
+    font-size: 0.9rem;
+}
+
+#{$container} .value {
+    flex: 1 1 auto;
+    font-size: 0.9rem;
+}
+
+#{$container} .btn {
+    color: $color-primary-2;
+    height: 1.8em;
+    padding: 0 $general-padding-half;
+}

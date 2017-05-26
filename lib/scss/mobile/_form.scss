@@ -1,0 +1,15 @@
+#{$app} .row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    padding: 0 5px 10px 5px;
+    margin: 0 -10px;
+}
+
+#{$app} .col {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 5px;
+}

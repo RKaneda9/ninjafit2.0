@@ -1,0 +1,136 @@
+#{$app} %menu-btn-bar {
+    height:        3px;
+    border-radius: 5px;
+    position:      relative;
+    z-index:       1;
+    background:    #fff;
+    display:       block;
+}
+
+#{$app} .btn {
+    border:        none;
+    background:    #fff;
+    border-radius: 1.1em;
+    height:        2.2em;
+    text-align:    center;
+    cursor:        pointer;
+    font-weight:   bold;
+    color:         $color-primary-1;
+}
+
+#{$app} .menu-btn {
+    width:           $menu-btn-size;
+    height:          $menu-btn-size;
+    display:         flex;
+    flex-flow:       column;
+    align-items:     center;
+    justify-content: center;
+    align-self:      flex-end;
+    cursor:          pointer;
+    position:        absolute;
+    z-index:         3;
+    right:           0;
+
+    svg {
+        fill:     $color-primary-2;
+        display:  block;
+        position: absolute;
+        top:      0;
+        height:   100%;
+
+        &.right { right: 0; }
+        &.left  { left:  0; }
+    }
+
+    .bars {
+        position: absolute;
+        top:   50%;
+        right: 30%;
+        transform: translate(50%, -50%);
+        display: flex;
+        flex-flow: column;
+        align-items: flex-end;
+    }
+    
+    .bar { 
+        @extend %menu-btn-bar;
+        width: 16px;
+    
+        &:not(:last-child) { margin-bottom: 3px; }
+        &:nth-child(2) { width: 24px; }
+    }
+}
+
+#{$app} .close-btn {
+    cursor:   pointer;
+    width:    $menu-btn-size / 2;
+    height:   $menu-btn-size / 2;
+    z-index:  3;
+    transform-origin: top right;
+    position: relative;
+
+    .bar {
+        @extend %menu-btn-bar;
+        transform-origin: center;
+        position: absolute;
+        top:  50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+
+        &:nth-child(1) { transform: translate(-50%, -50%) rotate( 45deg); }
+        &:nth-child(2) { transform: translate(-50%, -50%) rotate(-45deg); }
+    }
+}
+
+#{$app} .scroll-down-btn {
+    $size: 2em;
+    // height:   1.75em;
+    // width:    1.75em;
+    //fill:     #fff;
+    width: $size;
+    height: $size;
+    stroke:   #fff;
+    border-radius: 2em;
+    cursor: pointer;
+}
+
+#{$app} .option-btn {
+    width: $menu-btn-size / 2;
+    text-align: center;
+    font-size: 1.34rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+// $container: '.scroll-btn';
+// $thickness: 3px;
+// $short-length: 60%;
+// $long-length:  80%;
+
+// #{$container} {
+//     $size: 1.75em;
+//     width: $size;
+//     height: $size;
+//     position: relative;
+//     cursor: pointer;
+
+//     .bar { 
+//         position: absolute;
+//         background: #fff;
+//         border-radius: $thickness;
+//     }
+// }
+
+// #{$container}.down .bar {
+//     transform-origin: center bottom;
+//     height:         $short-length;
+//     width:          $thickness;
+//     margin-left:   -$thickness / 2;
+//     left:           50%;
+//     bottom:        (100% - $long-length) / 2;
+
+//     &:nth-child(1) { transform: rotate(-45deg); }
+//     &:nth-child(2) { height: $long-length; }
+//     &:nth-child(3) { transform: rotate( 45deg); }
+// }

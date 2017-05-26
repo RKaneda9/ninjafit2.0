@@ -1,0 +1,59 @@
+$outer-spacing: 3vw;
+$inner-spacing: 2vw;
+$total-spacing: $outer-spacing + $inner-spacing;
+
+$container: '#{$app} .image-list';
+
+#{$container} {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+    padding: 0 ($outer-spacing / 2);
+    justify-content: center;
+}
+
+#{$container} .image-item {
+    flex: 0 1 50%;
+    text-align: center;
+    position: relative;
+    margin-bottom: $outer-spacing;
+    max-width: 50%;
+}
+
+#{$container} .image-wrapper {
+    margin: $outer-spacing $outer-spacing $inner-spacing $outer-spacing;
+    background: $color-primary-2;
+    padding: $inner-spacing;
+}
+
+#{$container} .image {
+    @include background-image();
+    padding-bottom: 60%;
+}
+
+#{$container} .title {
+    margin: 0 $outer-spacing;
+    line-height: 1rem;
+}
+
+#{$container} .desc {
+    margin: 0 $outer-spacing;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: $color-footer-menu-title;
+}
+
+#{$container} .footer {
+    margin: $inner-spacing $outer-spacing $outer-spacing $outer-spacing;
+    position: relative;
+    z-index:  1;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+#{$container} .btn {
+    height: 1.6em;
+    line-height: 1em;
+    width:  5em;
+}

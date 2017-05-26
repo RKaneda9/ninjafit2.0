@@ -1,0 +1,103 @@
+$container: '#{$app} .app-menu';
+
+#{$container} {
+    display: flex;
+    flex-flow: row;
+    line-height: 1em;
+    height: $app-menu-height;
+
+    &.open + .pages { transform: translateY($app-menu-height) scale(0.84); }
+}
+
+#{$container} .option {
+    height: 26.67%;
+    width: 12.6%;
+    flex: 0 0 auto;
+}
+
+#{$container} .close-btn {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+
+    .bar {
+        $width: 20px;
+        $height: 2px;
+        width: $width;
+        height: $height;
+        position: absolute;
+        background-color: #fff;
+        border-radius: $height;
+        transform-origin: center;
+        top: 50%;
+        left: 50%;
+        margin-top: -$height;
+        margin-left: -$width / 2;
+
+        &:first-child { transform: rotate(45deg); }
+        &:last-child  { transform: rotate(-45deg); }
+    }
+}
+  
+#{$container} .menu {
+    flex: 1 1 auto;
+    margin: 0 5.8%;
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+}
+
+#{$container} .links {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+    flex: 1 1 auto;
+
+    .link {
+        flex: 1 0 33%;
+        text-align: center;
+        text-transform: uppercase;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s ease-in-out;
+        
+        &:not(.empty):hover { 
+            cursor: pointer;
+            background: $color-primary-1; 
+        }
+    }
+}
+    
+#{$container} .social {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: stretch;
+    flex: 0 0 20%;
+
+    .link {
+        flex: 0 0 auto;
+        padding: 0 10px;
+        color: #888;
+        font-size: 1.16rem;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transform-origin: center;
+        transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+        &.fa-instagram:hover    { color: $color-instagram; }
+        &.fa-facebook:hover     { color: $color-facebook;  }
+        &.fa-youtube-play:hover { color: $color-youtube;   }
+        &.fa-twitter:hover      { color: $color-twitter;   }
+
+        &:hover {
+            transform: scale(2);
+        }
+    }
+}

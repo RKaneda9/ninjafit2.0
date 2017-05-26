@@ -1,0 +1,23 @@
+#{$app} %textbox {
+    resize:        none;
+    border:        1px solid #000000;
+    text-indent:   0.8em;
+    padding:       0.5em 0;
+    width:         100%;
+    max-width:     100%;
+    flex:          0 1 100%;
+}
+
+#{$app} input[type=text],
+#{$app} input[type=password],
+#{$app} input[type=number] { 
+    @extend %textbox;
+    height: 1.2em; 
+    min-height: 1.2em;
+}
+
+#{$app} textarea {
+    @extend %textbox; 
+    height: 7em;
+    min-height: 7em;
+}

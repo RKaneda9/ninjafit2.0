@@ -1,7 +1,8 @@
 {
     "css": {
         "inputdir": "./lib/scss/",
-        "outputdir": "css/"
+        "outputdir": "css/",
+        "inputfiles": ["main"]
     },
 
     "html": {

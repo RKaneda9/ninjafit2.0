@@ -1,0 +1,66 @@
+$container: '#{$app} .calendar';
+$child-width: (100% / 7);
+
+#{$container} {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+    justify-content: center;
+    background: $color-primary-4;
+    box-shadow: 0 0 0 2px $color-primary-3;
+}
+
+#{$container} .title {
+    flex: 0 1 $child-width;
+    padding: 10px 0;
+    text-transform: uppercase;
+    font-size: 1.16rem;
+    text-align: center;
+}
+
+#{$container} .day {
+    flex: 0 1 $child-width;
+    height: 0px;
+    padding-bottom: $child-width * 1.2;
+    position: relative;
+
+    .text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &.open:after {
+        $size: 0.5rem;
+        content:  '';
+        display:  block;
+        width:    $size;
+        height:   $size;
+        border-radius: $size;
+        position: absolute;
+        top:      75%;
+        left:     50%;
+        transform: translateX(-50%);
+        background: $color-primary-11;
+        z-index:    1;
+    }
+
+    &.today .text {
+        width: 2em;
+        height: 2em;
+        border-radius: 2em;
+        background: #fff;
+        color: $color-primary-5;
+        text-align: center;
+        line-height: 2em;
+    }
+
+    &.diff-month .text {
+        color: $color-primary-10;
+    }
+
+    &.diff-month.today .text {
+        background: $color-primary-11;
+    }
+}

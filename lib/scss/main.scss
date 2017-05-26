@@ -1,13 +1,2 @@
-@import 'variables';
-@import 'mixins';
-@import 'base';
-@import 'buttons';
-@import 'inputs';
-@import 'form';
-@import 'lists';
-@import 'menu';
-@import 'page';
-@import 'footer';
-@import 'popup';
-@import 'calendar';
-@import 'contact';
+@import './base/variables';
+@import './main/base';

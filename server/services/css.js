@@ -4,20 +4,29 @@ let sass  = require('node-sass'),
     Timer = require('../helpers/timer');
 
 let service = module.exports = {
-    init (settings) {
+    init (settings) { 
+        if (!settings.hasOwnProperty("css")) return console.log('settings file does not contain a section for "css". skipping...'); 
+        
         let error = msg => { throw `/services/css init() error. ${msg}. Please see readme for how to setup /server/settings.json` };
 
-        if (!utils.isObj   (settings))               { error('No settings were passed in'); }
-        if (!utils.isObj   (settings.css))           { error('"settings.css" is required'); }
-        if (!utils.isString(settings.css.outputdir)) { error('"settings.css.outputdir" is required'); }
-        if (!utils.isString(settings.css.inputdir))  { error('"settings.css.inputdir" is required'); }
-        if (!utils.isString(settings.outputdir))     { error('"settings.outputdir" is required'); }
+        if (!utils.isObj   (settings.css))           error('"settings.css" is required as an object');
+        if (!utils.isString(settings.css.outputdir)) error('"settings.css.outputdir" is required');
+        if (!utils.isString(settings.css.inputdir))  error('"settings.css.inputdir" is required');
+        if (!utils.isString(settings.outputdir))     error('"settings.outputdir" is required');
+
+        let inputFiles = utils.map(settings.css.inputfiles, file => {
+            if (!utils.isString(file)) return null;
+
+            if (!file.includes('.scss')) file += '.scss';
+
+            return file;
+        });
 
         // setup local settings
         this.settings = {
             outputPath: `${utils.ensureDir(settings.outputdir)}${utils.ensureDir(settings.css.outputdir)}`,
             inputDir:   utils.ensureDir(settings.css.inputdir),
-            inputFiles: this.getInputFilenames(settings.css.inputdir)
+            inputFiles: inputFiles
         };
 
         // create output folder
@@ -37,6 +46,8 @@ let service = module.exports = {
     },
 
     build ({ minified, unminified }) {
+
+        if (!this.settings) return;
 
         console.log('Compiling css.');
 
@@ -80,7 +91,9 @@ let service = module.exports = {
         catch (ex) { console.error(ex); }
     },
 
-    run ({ minified, unminified, watch }) {
+    run ({ minified, unminified, watch }) { 
+
+        if (!this.settings) return;
 
         let newInputFiles, name;
 

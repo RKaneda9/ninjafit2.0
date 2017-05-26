@@ -1,0 +1,119 @@
+$container: '#{$app} .pages';
+
+#{$container} {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transition: transform 0.3s ease-in-out;
+    transform-origin: top center;
+}
+
+$container: '#{$app} .page';
+
+#{$container} {
+    $bx: 30px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: $color-primary-1;
+    top:  0;
+    left: 0;
+    transform-origin: top center;
+    box-shadow: $bx 0 (2 * $bx) (-1 * $bx) #232323, -$bx 0 (2 * $bx) (-1 * $bx) #232323;
+    z-index: 0;
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+
+    @for $i from 1 through 9 {
+        &:nth-child(#{$i}) { z-index: 9 - $i; }
+    }
+
+    &.curr { z-index: 10; }
+}
+
+%nav-link-animation {
+    position: relative;
+    transition: color 0.3s ease-in-out;
+
+    &:after {
+        content:  '';
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        height: 2px;
+        left: 0;
+        margin-top: 3px;
+        border-radius: 3px;
+        background: $color-primary-2;
+        transform: scaleX(0);
+        transform-origin: center bottom;
+        transition: transform 0.3s ease-in-out;
+    }
+}
+
+#{$container} > section {
+    overflow-x: hidden;
+    max-width: 100%;
+    flex: 1 0 auto;
+}
+
+#{$container} .header-bar {
+    flex:        0 0 auto;
+    display:     flex;
+    flex-flow:   row;
+    align-items: center;
+    position:    relative;
+    background:  $color-primary-3;
+    padding:     0 $general-padding-h;
+    position:    relative;
+    z-index:     2;
+    box-shadow:  0 0 5px 3px #000;
+
+    .title {
+        display:   flex;
+        flex-flow: row;
+        flex:      0 auto;
+        font-size: 1.2rem;
+        margin:    1em 0;
+
+        .sub { margin-left: 5px; }
+    }
+
+    .menu-links {
+        flex: 1 100%;
+        display: flex;
+        flex-flow: row;
+        justify-content: flex-end;
+        align-items: stretch;
+        margin-right: 30px;
+        align-self: stretch;
+    }
+    
+    .menu-link { 
+        display:     flex;
+        flex-flow:   row;
+        align-items: center;
+        padding:     0 10px; 
+        cursor:      pointer;
+
+        span { @extend %nav-link-animation; }
+        &:hover span { color: $color-nav-link-hover; }
+        &:hover span:after { transform: scaleX(1); }
+    }
+
+    .menu-btn {
+        position: absolute;
+        right:     0;
+        top:       100%;
+        transform: translateY(-50%);
+    }
+}
+
+#{$container} .menu-btn {
+
+}
