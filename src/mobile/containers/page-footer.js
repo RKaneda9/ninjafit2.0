@@ -1,7 +1,7 @@
 const Inferno    = require('inferno');
-const utils      = require('mobile/helpers/utils');
-const pages      = require('mobile/helpers/constants').pages;
-const {commands} = require('mobile/services/event-system');
+const utils      = require('helpers/utils');
+const pages      = require('helpers/constants').pages;
+const {commands} = require('services/event-system');
 const {Footer}   = require('mobile/components/app');
 const {
     
@@ -54,7 +54,7 @@ const PageFooter = module.exports = ({ onRedirect, socialLinks }) => (
             <NavTitle>Connect With Us</NavTitle>
 
             {utils.map(socialLinks, (href, type, i) => 
-                <SocialLink key={type} href={href}>
+                <SocialLink href={href}>
                     <span className={`fa fa-${type.toLowerCase()}`} />
                     <Text>{type}</Text>
                 </SocialLink>

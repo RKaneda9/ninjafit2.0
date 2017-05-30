@@ -1,0 +1,46 @@
+$container: '#{$app} .wod-page';
+
+#{$container} .date-selector,
+#{$container} .calendar-separator,
+#{$container} .event-list {
+    width:     90%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#{$container} .date-selector {
+    padding-top: $content-padding-v;
+}
+
+#{$container} .calendar-separator {
+    justify-content: center;
+    text-align:      center;
+    padding:         $content-padding-v 0;
+}
+
+#{$container} .event-item {
+    padding-bottom: (1.5 * $content-padding-v);
+
+    .title { 
+        font-size: 2rem;
+        line-height: 1.34em;
+        text-align: center; 
+    }
+
+    .sub-title { 
+        color: $color-footer-menu-title; 
+        text-align: center;
+        font-size: 1.34rem;
+    }
+
+    .content {
+        margin-top: 3px; 
+        font-size: 1.16rem;
+
+        p { margin: 10px 15px; }
+    }
+
+    &:before { width: 1.5 * $image-border; }
+    &:after  { left:  1.5 * $image-border; }
+}

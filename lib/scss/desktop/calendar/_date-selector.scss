@@ -1,0 +1,29 @@
+$container: '#{$app} .date-selector';
+
+#{$container} {
+    display: flex;
+    flex-flow: column;
+    transition: height 0.2s ease-in-out;
+    height: 175px;
+}
+
+#{$container} .row {
+    flex: 1 1 auto; 
+    align-items: stretch;
+}
+
+#{$container} .option-btn {
+    flex: 0 0 15%;
+    font-size: 2.5rem;
+}
+
+#{$container} .details {
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 auto;
+    text-align: center;
+    justify-content: center;
+
+    .title { font-size:   2rem; }
+    .sub   { font-size: 1.5rem; }
+}

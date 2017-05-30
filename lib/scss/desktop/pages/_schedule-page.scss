@@ -1,0 +1,68 @@
+$container: '#{$app} .schedule-page';
+
+#{$container} > .landing {
+    padding-bottom: $general-padding-v;
+}
+
+#{$container} > .row {
+    margin: 0;
+    padding: 0;
+
+    & > .col {
+        flex-flow: column;
+        margin: 0;
+        padding: 0;
+
+        &:nth-child(1) {
+            flex: 0 0 35%;
+            padding-left: 10%;
+            padding-right: 5%;
+        }
+
+        &:nth-child(2) {            
+            flex: 0 0 35%;
+            padding-right: 10%;
+            padding-left: 5%;
+        }
+    }
+}
+
+#{$container} .weekly-hours {
+    padding-top: $general-padding-v * 2;
+
+    .header {
+        font-size: 1.6rem;
+        align-self: center;
+        margin: 0 auto;
+        text-align: center;
+        flex: 0 0 auto;
+    }
+
+    .content { 
+        margin: 0 auto; 
+        flex: 0 0 auto;
+        align-self: center;
+        z-index: 2;
+        padding: $content-padding-v 0 0 0;
+
+        p {
+            margin: 0;
+
+            &:not(:first-child) { margin-top: 1rem; }
+            &:last-child        { padding-bottom: 1rem; }
+        }
+    }
+
+    .day-item {
+        .title { color: $color-footer-menu-title; }
+        .hours { padding: 0 5px; }
+    }
+}
+
+#{$container} .event-item {
+    display: flex;
+    flex-flow: row;
+    align-items: stretch;
+
+    .content { flex: 1 1 auto; }   
+}

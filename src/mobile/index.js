@@ -1,12 +1,12 @@
                     require('styles/mobile.scss');
-                    require('mobile/helpers/polyfill');
+                    require('helpers/polyfill');
 const Inferno     = require('inferno');
 const Component   = require('inferno-component');
-const utils       = require('mobile/helpers/utils');
-const settings    = require('mobile/helpers/settings');
-const constants   = require('mobile/helpers/constants');
+const utils       = require('helpers/utils');
+const settings    = require('helpers/settings');
+const constants   = require('helpers/constants');
 const Pages             = require('mobile/pages');
-const {events,commands} = require('mobile/services/event-system');
+const {events,commands} = require('services/event-system');
 const {App, Defs} = require('mobile/components/app');
 const Menu        = require('mobile/containers/menu');
 const Footer      = require('mobile/containers/page-footer');

@@ -1,0 +1,69 @@
+$outer-spacing: 30px;
+$inner-spacing: 15px;
+$total-spacing: $outer-spacing + $inner-spacing;
+$btn-modifier: 0.8;//1.5;
+
+$container: '#{$app} .image-list';
+
+#{$container} {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+    margin: 0 (-$outer-spacing / 2);
+    //padding: 0 ($outer-spacing / 2);
+    justify-content: center;
+}
+
+#{$container} .image-item {
+    flex: 0 1 50%;
+    text-align: center;
+    position: relative;
+    margin-bottom: $outer-spacing;
+    max-width: 50%;
+}
+
+#{$container} .image-wrapper {
+    margin: $outer-spacing $outer-spacing $inner-spacing $outer-spacing;
+    background: $color-primary-2;
+    padding: $image-border;
+}
+
+#{$container} .image {
+    @include background-image();
+    padding-bottom: 80%;
+}
+
+#{$container} .title {
+    margin: 0 $outer-spacing;
+    font-size: 1.25rem;
+}
+
+#{$container} .desc {
+    margin: 0 $outer-spacing;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: $color-footer-menu-title;
+}
+
+#{$container} .footer {
+    margin: $inner-spacing $outer-spacing $outer-spacing $outer-spacing;
+    position: relative;
+    z-index:  1;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+#{$container} .btn {
+    $btn-size: $btn-height * $btn-modifier;
+    $btn-border-size: $btn-offset * $btn-modifier;
+    height: $btn-size;
+    line-height: 1em;
+    width:  5em;
+
+    &:before,
+    &:after { border-width: ($btn-size / 2) 0; }
+
+    &:before { border-right-width: $btn-border-size; }
+    &:after  { border-left-width:  $btn-border-size; }
+}

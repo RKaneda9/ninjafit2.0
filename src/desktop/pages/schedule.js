@@ -1,49 +1,10 @@
-const Inferno   = require('inferno');
-const Component = require('inferno-component');
-const utils                    = require('helpers/utils');
-const settings                 = require('helpers/settings');
-const {commands}               = require('services/event-system');
-// const constants                = require('helpers/constants');
-const PageFooter               = require('mobile/containers/page-footer');
-// const {Page}                   = require('components/pages/base');
-// const {Row, Col}               = require('components/form');
-// const {TextBox, TextArea}      = require('containers/inputs');
-
-const {
-
-    Button,
-    MenuButton,
-    CloseButton
-
-} = require('mobile/components/buttons');
-
-// const {
-
-//     TriangleRight,
-//     TriangleDown,
-//     Background
-
-// } = require('components/backgrounds');
-
-// const {
-
-//         LandingSection,
-//           AboutSection,
-//            MainSection,
-//           ShortSection,
-//            JoinSection,
-//             MapSection,
-//         ContactSection,
-//     TestimonialsSlider,
-
-
-// } = require('components/pages/home');
-
-
-const views = {
-    month: 'month',
-    day:   'day'
-};
+const Inferno     = require('inferno');
+const Component   = require('inferno-component');
+const constants   = require('helpers/constants');
+const utils       = require('helpers/utils');
+const settings    = require('helpers/settings');
+const PageFooter  = require('desktop/containers/page-footer');
+const {commands}  = require('services/event-system');
 
 module.exports = class Schedule extends Component {
     constructor(props) {
@@ -53,29 +14,29 @@ module.exports = class Schedule extends Component {
         this.showYesterday = this.showYesterday.bind(this);
         this.showNextMonth = this.showNextMonth.bind(this);
         this.showPrevMonth = this.showPrevMonth.bind(this);
-        this.viewDay       = this.viewDay      .bind(this);
-        this.viewMonth     = this.viewMonth    .bind(this);
 
         let date   = new Date();
         let events = this.getEvents(date);
-
-        this.month = this.getMonth(date);
+        this.month = this.getMonth (date); // array of days
 
         this.state = {
+            styles: this.props.styles,
+            active: this.props.active,
             date:   date,
-            view:   views.day,
             events: events
         };
     }
 
-    componentDidMount() {
-        //window.addEventListener('resize', this.onResize);
+    componentWillReceiveProps(nextProps) {
+        if (nextProps && 
+           (nextProps.styles != this.state.styles ||
+            nextProps.active != this.state.active)) {
 
-        //setTimeout(this.onResize);
-    }
-
-    componentWillUnmount() {
-        //window.removeEventListener('resize', this.onResize);
+            this.setState({
+                styles: nextProps.styles,
+                active: nextProps.active
+            });
+        }
     }
 
     getEvents(date) {
@@ -220,79 +181,104 @@ module.exports = class Schedule extends Component {
     showTomorrow () { this.setState({ date: this.state.date.getTomorrow () }); }
     showYesterday() { this.setState({ date: this.state.date.getYesterday() }); }
 
-    viewMonth() {
-        this.setState({
-            view: views.month
-        });
-    }
-
     viewDay(day) {
-        this.setState({
-            date: day.clone(),
-            view: views.day
-        });
+        this.setState({ date: day.clone() });
     }
 
     render() {
         let todayHours = (settings.gymHours[this.state.date.getDayText().toLowerCase()] || []);
 
         return (
-            <div className="page schedule-page">
-                <header className="header-bar">
-                    <p className="title">Schedule</p>
-                    <MenuButton onClick={commands.openMenu.emit} />
-                </header>
+            <div 
+                className={`page schedule-page${this.state.active ? ' curr' : ''}`}
+                style={this.state.styles}>
+                <section className="landing">
+                    <header className="header-bar">
+                        <p className="title">Schedule</p>
+                        
+                        <button
+                            onClick={commands.openMenu.emit} 
+                            className="menu-btn">
+                            <svg className="background" viewBox="0 0 500 577.35">
+                                <path filter="url(#ds-s)" d="M500,0v577.35l-500-288.675z" />
+                            </svg>
+                            <svg className="bars" viewBox="0 0 96 60" stroke-width="12">
+                                <path d="M38,6h52" />
+                                <path d="M6,30h84" />
+                                <path d="M38,54h52" />
+                            </svg>
+                        </button>
+                    </header>
+                </section>
                 
-                {this.state.view == views.month ? (
+                <div className="row">
+                    <div className="col">
+                        <div className="month-view">
+                            <div className="date-selector">
+                                <div className="row">
+                                    <button 
+                                        onClick={this.showPrevMonth}
+                                        className="option-btn fa fa-angle-left" />
 
-                    <div className="month-view">
-                        <div className="date-selector">
-                            <div className="row">
-                                <button 
-                                    onClick={this.showPrevMonth}
-                                    className="option-btn fa fa-angle-left" />
+                                    <div className="details">
+                                        <p className="title">{this.state.date.getMonthText() + ', ' + this.state.date.getFullYear()}</p>
+                                    </div>
 
-                                <div className="details">
-                                    <p className="title">{this.state.date.getMonthText() + ', ' + this.state.date.getFullYear()}</p>
+                                    <button 
+                                        onClick={this.showNextMonth}
+                                        className="option-btn fa fa-angle-right" />
                                 </div>
-
-                                <button 
-                                    onClick={this.showNextMonth}
-                                    className="option-btn fa fa-angle-right" />
                             </div>
+
+                            <ul className="calendar">
+                                <li className="title">Sun</li>
+                                <li className="title">Mon</li>
+                                <li className="title">Tue</li>
+                                <li className="title">Wed</li>
+                                <li className="title">Thu</li>
+                                <li className="title">Fri</li>
+                                <li className="title">Sat</li>
+
+                                {utils.map(this.month, props => {
+                                    let className = "day";
+
+                                    if (props.isOpen)    { className += ' open';       }
+                                    if (props.isToday)   { className += ' today';      }
+                                    if (props.diffMonth) { className += ' diff-month'; }
+
+                                    return (
+                                        <li 
+                                            onClick={() => this.viewDay(props.day)}
+                                            className={className}>
+
+                                            <span className="text">{props.day.getDate()}</span>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
                         </div>
 
-                        <ul className="calendar">
-                            <li className="title">Sun</li>
-                            <li className="title">Mon</li>
-                            <li className="title">Tue</li>
-                            <li className="title">Wed</li>
-                            <li className="title">Thu</li>
-                            <li className="title">Fri</li>
-                            <li className="title">Sat</li>
+                        <section className="weekly-hours">
+                            <header className="header">Gym Hours</header>
 
-                            {utils.map(this.month, props => {
-                                let className = "day";
+                            <table className="content">
+                                <tbody>
+                                    {utils.map(settings.gymHours, (hours, day) => {
+                                        let text = utils.map(hours, span => `${this.getTimeText(span.start)} - ${this.getTimeText(span.end)}`).join(', ');
 
-                                if (props.isOpen)    { className += ' open';       }
-                                if (props.isToday)   { className += ' today';      }
-                                if (props.diffMonth) { className += ' diff-month'; }
-
-                                return (
-                                    <li 
-                                        onClick={() => this.viewDay(props.day)}
-                                        className={className}>
-
-                                        <span className="text">{props.day.getDate()}</span>
-                                    </li>
-                                );
-                            })}
-                        </ul>
+                                        return (
+                                            <tr className="day-item">
+                                                <td className="title">{day[0].toUpperCase() + day.slice(1)}:</td>
+                                                <td className="hours">{text || "Closed"}</td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </section>
                     </div>
 
-                ) : (
-
-                    <div className="day-view">
+                    <div className="col">
                         <div className="date-selector">
                             <div className="row">
                                 <button 
@@ -311,9 +297,6 @@ module.exports = class Schedule extends Component {
                         <div className="calendar-separator">
                             <div className="title">{todayHours.length ? "Open:" : "Closed Today"}</div>
                             <div className="value">{utils.map(todayHours, span => `${this.getTimeText(span.start)} - ${this.getTimeText(span.end)}`).join(', ')}</div>
-                            <button 
-                                onClick={this.viewMonth}
-                                className="btn">View Month</button>
                         </div>
 
                         <div className="event-list">
@@ -346,27 +329,9 @@ module.exports = class Schedule extends Component {
                             })}
                         </div>
                     </div>
+                </div>
 
-                )}
-
-                <section className="weekly-hours">
-                    <header className="header">Gym Hours</header>
-
-                    <table className="content">
-                        <tbody>
-                            {utils.map(settings.gymHours, (hours, day) => {
-                                let text = utils.map(hours, span => `${this.getTimeText(span.start)} - ${this.getTimeText(span.end)}`).join(', ');
-
-                                return (
-                                    <tr className="day-item">
-                                        <td className="title">{day[0].toUpperCase() + day.slice(1)}:</td>
-                                        <td className="hours">{text || "Closed"}</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </section>
+                <PageFooter />
             </div>
         );
     }

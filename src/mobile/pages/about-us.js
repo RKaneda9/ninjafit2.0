@@ -1,9 +1,9 @@
 const Inferno   = require('inferno');
 const Component = require('inferno-component');
-const utils                    = require('mobile/helpers/utils');
-const settings                 = require('mobile/helpers/settings');
-const {commands}               = require('mobile/services/event-system');
-const constants                = require('mobile/helpers/constants');
+const utils                    = require('helpers/utils');
+const settings                 = require('helpers/settings');
+const {commands}               = require('services/event-system');
+const constants                = require('helpers/constants');
 const PageFooter               = require('mobile/containers/page-footer');
 const {Page}                   = require('mobile/components/pages/base');
 const {Row, Col}               = require('mobile/components/form');
@@ -114,7 +114,7 @@ module.exports = class AboutUs extends Component {
                                     <div className="title">{member.name}</div>
                                     <div className="desc">{member.title}</div>
                                     <footer className="footer">
-                                        <Button onClick={e => this.viewBio(member)}>bio</Button>
+                                        <Button onClick={e => this.viewBio(member)}>Bio</Button>
                                     </footer>
                                 </li>
                             )}
@@ -145,7 +145,7 @@ module.exports = class AboutUs extends Component {
 
                         <div className="content">
                             {this.state.selectedMember ? utils.map(this.state.selectedMember.bio.split('\n'), (text, i) =>
-                                <p key={i}>{text}</p>
+                                <p>{text}</p>
                             ) : null}
                         </div>
                     </div>

@@ -1,0 +1,285 @@
+$container: '#{$app} .home-page';
+$bg-side-width: 5vw;
+$bg-side-offset: $bg-side-width / $sqrt-3;
+
+#{$container} {
+    flex-flow: row wrap;
+    justify-content: center;
+
+    & > section,
+    & > .page-footer { flex: 1 1 100%; }
+}
+
+#{$container} > .landing {
+    height: 100vh;
+    max-height: 100vw;
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+    
+    .image-slider {
+        flex: 1 1 100%;
+        position: relative;
+        overflow: visible;
+        
+        .image-wrapper {
+            position:  absolute;
+            top:       0;
+            left:      0;
+            right:     0;
+            width:  100%;
+            height: 100%;
+            stroke: $color-primary-2;
+        }
+    }
+
+    .image-selectors {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 1rem;
+        z-index: 3;
+        display: flex; 
+        flex-flow: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .image-selector {
+        $size: 10px;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: center;
+        height: 3 * $size;
+
+        .selector {
+            width: $size;
+            height: $size;
+            border-radius: $size;
+            margin: 0 10px;
+            border: 1px solid #000;
+        }
+
+        &:not(.selected) {
+            cursor: pointer;
+
+            .selector { background: #693590; }
+        }
+
+        &.selected {
+            cursor: default;
+
+            .selector { background: #864db1; }
+        }
+    }
+
+    & > .scroll-footer {
+        $icon-size: 2rem;
+        $arrow-size: 1.5rem;
+        flex: 0 0 auto;
+        position: relative;
+        height: $triangle-size * 1.4;
+        z-index: 5;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+
+        .item {
+            flex: 1 1 50%;
+            position: relative;
+            display: flex;
+            flex-flow: row;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 1rem;
+        }
+        
+        .scroll {
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .mouse {
+            width: $icon-size;
+            height: $icon-size;
+            fill: #fff;
+            z-index: 2;
+        }
+        
+        .arrow.down {
+            width: $arrow-size;
+            height:$arrow-size;
+            fill: #fff;
+            //opacity: 0;
+            //animation: scroll-appear 0.5s ease-in-out 2s forwards, scroll-down-anim 6s ease-in-out 2.20s infinite;
+            z-index: 1;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-top: 6px;
+            margin-left: -$arrow-size / 2;
+        }
+        
+        .text {
+            width: 60px;
+            //transform: translateY(-50%);
+            //animation: scroll-text-appear 0.5s ease-in-out forwards 0.75s;
+            z-index: 0;
+            margin-left: 5px;
+        }
+    }
+}
+
+#{$container} > .about {
+    padding: (2 * $general-padding-v) $general-padding-h (3 * $general-padding-v) $general-padding-h;
+}
+
+%training-section {
+    $width: (100vw - 2 * $bg-side-width) / 3;
+    $content-width: 0.8;
+    $content-v-offset: (1 - $content-width) * $width / (2 * $sqrt-3);
+    flex: 0 1 $width;
+    padding-top: $bg-side-offset + $content-v-offset; //$bg-side-offset;// (1 - $content-width) / 2 * $bg-side-width / $sqrt-3 -> 3vw
+    padding-bottom: $bg-side-offset + $content-v-offset; //$bg-side-offset;
+
+    .background { 
+        width: $bg-side-width;
+        height: 100%;
+        top: 0;
+    }
+
+    .image, .header, .content, .footer {
+        width: $content-width * 100%;
+        align-self: center;
+    }
+}
+
+
+#{$container} > .ninja-training {
+    @extend %training-section;
+    padding-left: 5vw;
+
+    .background { left: 0; }
+}
+
+#{$container} > .obstacle-training {
+    @extend %training-section;
+}
+
+#{$container} > .functional-training {
+    @extend %training-section;
+    padding-right: 5vw;
+
+    .background { right: 0; }
+}
+
+#{$container} > .kids {
+    flex: 0 1 35vw;
+    padding-right: 10vw;
+    margin-top: 10vw;
+    margin-bottom: 10vw;
+
+    .header, .content, .footer {
+        align-self: flex-end;
+        text-align: left;
+        justify-content: flex-start;
+    }
+}
+
+#{$container} > .events {
+    flex: 0 1 35vw;
+    padding-left: 10vw;
+    margin-top: 10vw;
+    margin-bottom: 10vw;
+
+    .header, .content, .footer {
+        align-self: flex-start;
+        text-align: right;
+        justify-content: flex-end;
+    }
+}
+
+#{$container} > .testimonials {
+    $width: 400px;
+    $svg-viewbox-width: 1000px;
+    $svg-offset: 289px;
+    text-align: center;
+    max-width: $width;
+    padding: ($svg-offset * $width / $svg-viewbox-width) 0;
+    overflow-x: visible;
+
+    .background {
+        left: 0;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        fill: $color-primary-3;
+        stroke: $color-primary-2;
+        stroke-width: $image-border * $svg-viewbox-width / $width;
+    }
+
+    .header, .content, .footer {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+#{$container} > .join {
+    height: 50vh;
+    max-height: 400px;
+    text-align: center;
+    justify-content: center;
+    margin: 4vw 0 10vw 0;
+
+    .header { font-size: 2rem; }
+    .footer { justify-content: center; }
+}
+
+%offer-section {
+    $width: (100vw - 2 * $bg-side-width) / 2;
+    $content-width: 0.85;
+    $content-v-offset: (1 - $content-width) * $width / (2 * $sqrt-3);
+    flex: 0 1 $width;
+    padding-top: $bg-side-offset + $content-v-offset;
+    padding-bottom: $bg-side-offset + $content-v-offset;
+
+    .background {
+        top: 0;
+        height: 100%;
+        width: $bg-side-width;
+    }
+
+    .header, .content, .image, .footer {
+        width: 85%;
+    }
+}
+
+#{$container} > .map {
+    @extend %offer-section;
+    padding-left: 5vw;
+
+    .background { left: 0; }
+
+    .image {
+        margin: 0 5% 0 10%;
+        height: 100%;
+        background-color: #fff;
+        padding-bottom: 0;
+    }
+}
+
+#{$container} > .contact {
+    @extend %offer-section;
+    padding-right: 5vw;
+
+    .background { right: 0; }
+
+    .header, .content, .footer {
+        margin: 0 10% 0 5%;
+    }
+}

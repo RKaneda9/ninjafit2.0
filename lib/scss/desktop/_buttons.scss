@@ -118,3 +118,11 @@
         transform: translateY(-50%);
     }
 }
+
+#{$app} .option-btn {
+    width: $triangle-size / 2;
+    text-align: center;
+    font-size: 1.34rem;
+    color: #fff;
+    cursor: pointer;
+}

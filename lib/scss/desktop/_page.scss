@@ -6,7 +6,7 @@ $container: '#{$app} .pages';
     height: 100%;
     left: 0;
     top: 0;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.5s linear;
     transform-origin: top center;
 }
 
@@ -16,7 +16,7 @@ $container: '#{$app} .page';
     $bx: 30px;
     position: absolute;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     z-index: 1;
     background: $color-primary-1;
     top:  0;
@@ -24,7 +24,7 @@ $container: '#{$app} .page';
     transform-origin: top center;
     box-shadow: $bx 0 (2 * $bx) (-1 * $bx) #232323, -$bx 0 (2 * $bx) (-1 * $bx) #232323;
     z-index: 0;
-    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    transition: transform 0.4s linear, opacity 0.4s linear;
     display: flex;
     flex-flow: column;
     align-items: stretch;
@@ -34,32 +34,6 @@ $container: '#{$app} .page';
     }
 
     &.curr { z-index: 10; }
-}
-
-%nav-link-animation {
-    position: relative;
-    transition: color 0.3s ease-in-out;
-
-    &:after {
-        content:  '';
-        position: absolute;
-        top: 100%;
-        width: 100%;
-        height: 2px;
-        left: 0;
-        margin-top: 3px;
-        border-radius: 3px;
-        background: $color-primary-2;
-        transform: scaleX(0);
-        transform-origin: center bottom;
-        transition: transform 0.3s ease-in-out;
-    }
-}
-
-#{$container} > section {
-    overflow-x: hidden;
-    max-width: 100%;
-    flex: 1 0 auto;
 }
 
 #{$container} .header-bar {
@@ -114,6 +88,110 @@ $container: '#{$app} .page';
     }
 }
 
-#{$container} .menu-btn {
+%nav-link-animation {
+    position: relative;
+    transition: color 0.3s ease-in-out;
+
+    &:after {
+        content:  '';
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        height: 2px;
+        left: 0;
+        margin-top: 3px;
+        border-radius: 3px;
+        background: $color-primary-2;
+        transform: scaleX(0);
+        transform-origin: center bottom;
+        transition: transform 0.3s ease-in-out;
+    }
+}
+
+$section: '#{$container} > section';
+
+#{$section} {
+    overflow-x: hidden;
+    max-width: 100%;
+    flex: 0 0 auto;
+    position: relative;
+    text-shadow: 0 -1px rgba(0,0,0,0.3);
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+}
+
+#{$section} > .background {
+    position: absolute;
+    z-index: 0;
+    fill: $color-primary-2;
+}
+
+#{$section} > .image {
+    width: 100%;
+    max-width: 800px;
+    align-self: center;
+    position: relative;
+    z-index:  1;
+    height:   0;
+    padding-bottom: 40%; // aspect
+    margin-bottom: $content-padding-v;
+    border: $image-border-width solid $color-primary-2;
+    background-position: center;
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    transform-origin:    center;
+}
+
+#{$section} > .header {
+    flex: 0 0 auto;
+    position: relative;
+    align-self: center;
+    z-index: 2;
+    font-size: 1.6rem;
+    max-width: 800px;
+    width: 100%;
+}
+
+#{$section} > .content {
+    flex: 0 0 auto;
+    position: relative;
+    align-self: center;
+    z-index: 2;
+    padding: $content-padding-v 0 0 0;
+    max-width: 800px;
+    width: 100%;
+
+    p {
+        margin: 0;
+
+        &:not(:first-child) { margin-top: 1rem; }
+        &:last-child        { padding-bottom: 1rem; }
+    }
+}
+
+#{$section} > .footer {
+    flex: 0 0 auto;
+    position: relative;
+    align-self: center;
+    z-index: 2;
+    display: flex;
+    flex-flow: row;
+    padding: $content-padding-v 0 0 0;
+    max-width: 800px;
+    width: 100%;
+
+    .btn {
+        flex: 0 1 50%;
+
+        &:not(:first-child) { margin-left: $content-padding-h + $btn-offset; }
+    }
+}
+
+#{$section} .menu-btn {
 
 }
+
+
+
+

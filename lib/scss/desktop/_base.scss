@@ -3,3 +3,39 @@
     height: 100%;
     background: $color-app-background;
 }
+
+%nav-link-animation {
+    position: relative;
+    transition: color 0.3s ease-in-out;
+
+    &:after {
+        content:  '';
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        height: 2px;
+        left: 0;
+        margin-top: 3px;
+        border-radius: 3px;
+        background: $color-primary-2;
+        transform: scaleX(0);
+        transform-origin: center bottom;
+        transition: transform 0.3s ease-in-out;
+    }
+}
+
+#{$app} .row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  padding: 0 ($content-padding-h / 2) ($content-padding-v / 2) ($content-padding-h / 2);
+  margin: 0 (-$content-padding-h);
+}
+
+#{$app} .col {
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  padding: 0 ($content-padding-h / 2);
+}

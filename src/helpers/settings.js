@@ -1,5 +1,5 @@
 const settings = require('settings');
-const utils    = require('mobile/helpers/utils');
+const utils    = require('helpers/utils');
 
 // TODO: validate json
 

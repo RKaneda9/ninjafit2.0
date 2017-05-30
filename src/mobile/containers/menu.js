@@ -1,7 +1,7 @@
 const Inferno    = require('inferno');
-const utils      = require('mobile/helpers/utils');
-const pages      = require('mobile/helpers/constants').pages;
-const {commands} = require('mobile/services/event-system');
+const utils      = require('helpers/utils');
+const pages      = require('helpers/constants').pages;
+const {commands} = require('services/event-system');
 const {Menu}     = require('mobile/components/app');
 const {
     

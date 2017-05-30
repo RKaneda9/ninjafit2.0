@@ -1,0 +1,22 @@
+@mixin background-image($url: false) {
+    @if $url { background-image: url(#{$url}); }
+
+    background-position: center center;
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    transform-origin:    center;
+}
+
+@mixin absolute-fill() {
+    position: absolute;
+    top:      0;
+    left:     0;
+    bottom:   0;
+    right:    0;
+}
+
+@mixin media($queryString) {
+    @media #{$queryString} {
+        @content;
+    }
+}

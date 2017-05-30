@@ -1,5 +1,5 @@
 const Inferno = require('inferno');
-const utils   = require('mobile/helpers/utils');
+const utils   = require('helpers/utils');
 
 export const LandingSection = ({ }) => (
     <section className="landing">

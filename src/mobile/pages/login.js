@@ -1,8 +1,8 @@
 const Inferno   = require('inferno');
 const Component = require('inferno-component');
-const utils     = require('mobile/helpers/utils');
-const settings  = require('mobile/helpers/settings');
-const {commands}               = require('mobile/services/event-system');
+const utils     = require('helpers/utils');
+const settings  = require('helpers/settings');
+const {commands}               = require('services/event-system');
 const PageFooter               = require('mobile/containers/page-footer');
 const {Row, Col}               = require('mobile/components/form');
 const {TextBox, TextArea, Password}      = require('mobile/containers/inputs');

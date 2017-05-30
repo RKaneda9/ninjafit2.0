@@ -1,11 +1,15 @@
 @import 'base/variables';
 @import 'desktop/variables';
+@import 'desktop/mixins';
 @import 'desktop/base';
 @import 'desktop/buttons';
-@import 'desktop/mixins';
 @import 'desktop/inputs';
+@import 'desktop/lists';
 @import 'desktop/menu';
+@import 'desktop/calendar';
 @import 'desktop/page';
+@import 'desktop/footer';
+@import 'desktop/pages';
 
 // $nav-height: 43vh;
 // $app: '.app.desktop';

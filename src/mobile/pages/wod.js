@@ -2,7 +2,7 @@ const Inferno   = require('inferno');
 const Component = require('inferno-component');
 // const utils                    = require('helpers/utils');
 // const settings                 = require('helpers/settings');
-const {commands}               = require('mobile/services/event-system');
+const {commands}               = require('services/event-system');
 // const constants                = require('helpers/constants');
 const PageFooter               = require('mobile/containers/page-footer');
 // const {Page}                   = require('components/pages/base');
@@ -62,63 +62,8 @@ module.exports = class WOD extends Component {
         //window.removeEventListener('resize', this.onResize);
     }
 
-    getDateText() {
-        let val = this.state.date.getDate();
-
-        switch (val) {
-            case  1:
-            case 21:
-            case 31: return val + 'st';
-            case  2:
-            case 22: return val + 'nd';
-            case  3: 
-            case 23: return val + 'rd';
-            default: return val + 'th';
-        }
-    }
-
-    getMonthText() {
-        switch (this.state.date.getMonth()) {
-            case  0: return 'January';
-            case  1: return 'February';
-            case  2: return 'March';
-            case  3: return 'April';
-            case  4: return 'May';
-            case  5: return 'June';
-            case  6: return 'July';
-            case  7: return 'August';
-            case  8: return 'September';
-            case  9: return 'October';
-            case 10: return 'November';
-            case 11: return 'December';
-        }
-    }
-
-    getDayText() {
-        switch (this.state.date.getDay()) {
-            case 0: return 'Sunday';
-            case 1: return 'Monday';
-            case 2: return 'Tuesday';
-            case 3: return 'Wednesday';
-            case 4: return 'Thursday';
-            case 5: return 'Friday';
-            case 6: return 'Saturday';
-        }
-    }
-
-    showTomorrow() {
-        let date = this.state.date;
-        date.setDate(date.getDate() + 1);
-
-        this.setState({ date: date });
-    }
-
-    showYesterday() {
-        let date = this.state.date;
-        date.setDate(date.getDate() - 1);
-
-        this.setState({ date: date });
-    }
+    showTomorrow () { this.setState({ date: this.state.date.getTomorrow () }); }
+    showYesterday() { this.setState({ date: this.state.date.getYesterday() }); }
 
     render() {
         let i = 0;
@@ -136,8 +81,8 @@ module.exports = class WOD extends Component {
                             onClick={this.showYesterday}
                             className="option-btn fa fa-angle-left" />
                         <div className="details">
-                            <p className="title">{this.getDayText()}</p>
-                            <p className="sub">{`${this.getMonthText()} ${this.getDateText()}, ${this.state.date.getFullYear()}`}</p>
+                            <p className="title">{this.state.date.getDayText()}</p>
+                            <p className="sub">{`${this.state.date.getMonthText()} ${this.state.date.getDateText()}, ${this.state.date.getFullYear()}`}</p>
                         </div>
                         <button 
                             onClick={this.showTomorrow}

@@ -1,0 +1,48 @@
+$container: '#{$app} .page-footer';
+
+#{$container} {
+    padding:         (1.5 * $general-padding-v) $general-padding-h $general-padding-v $general-padding-h;
+    display:         flex;
+    flex-flow:       row wrap;
+    justify-content: space-around;
+    flex:            0 0 auto;
+}
+
+#{$container} .logo {
+    flex:    0 0 auto;
+    padding: 20px 0;
+
+    .title     { font-size: 2.2rem; }
+    .copyright { font-size: 0.8rem; color: $color-footer-menu-title; }
+}
+
+#{$container} .nav {
+    flex: 0 0 auto;
+    padding: 30px 20px 10px 20px;
+    display: flex;
+    flex-flow: column;
+
+    .title {
+        color: $color-footer-menu-title;
+        font-size: 0.9rem;
+        text-transform: uppercase; 
+        margin-bottom: 15px;
+    }
+
+    .link {
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        cursor: pointer;
+        padding: 5px 0;
+
+        .text { @extend %nav-link-animation; }
+        &:hover .text { color: $color-nav-link-hover; }
+        &:hover .text:after { transform: scaleX(1); }
+
+        .fa {
+            width: 2rem;
+            text-align: center;
+        }
+    }
+}

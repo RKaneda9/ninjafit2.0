@@ -1,5 +1,5 @@
 const Inferno = require('inferno');
-const utils   = require('mobile/helpers/utils');
+const utils   = require('helpers/utils');
 
 const Triangle = ({ width, height, d, size, position }) => (
     <svg className={position} viewBox={`0 0 ${width || 500} ${height || 577.35}`}>

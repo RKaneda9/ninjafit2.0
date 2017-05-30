@@ -1,5 +1,5 @@
 const Inferno = require('inferno');
-const utils   = require('mobile/helpers/utils');
+const utils   = require('helpers/utils');
 
 const { Background, TriangleRight, TriangleLeft, TriangleDown, TriangleUpRight, TriangleUpLeft, MiddleConnector } = require('components/backgrounds');
 const { MenuButton, ScrollDownButton, Button, IconButton                                                        } = require('components/buttons');
