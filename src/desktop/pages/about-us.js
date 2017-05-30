@@ -4,6 +4,7 @@ const constants   = require('helpers/constants');
 const utils       = require('helpers/utils');
 const settings    = require('helpers/settings');
 const PageFooter  = require('desktop/containers/page-footer');
+const Page        = require('desktop/components/page');
 const {commands}  = require('services/event-system');
 
 module.exports = class AboutUs extends Component {
@@ -11,30 +12,14 @@ module.exports = class AboutUs extends Component {
         super(props);
 
         this.state = {
-            styles: this.props.styles,
-            active: this.props.active
+
         };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps && 
-           (nextProps.styles != this.state.styles ||
-            nextProps.active != this.state.active)) {
-
-            this.setState({
-                styles: nextProps.styles,
-                active: nextProps.active
-            });
-        }
     }
 
     render() {
 
         return (
-            <div 
-                className={`page about-us-page${this.state.active ? ' curr' : ''}`}
-                style={this.state.styles}>
-
+            <Page {...this.props} name={constants.pages.aboutUs}>
                 <section className="landing">
                     <header className="header-bar">
                         <p className="title">About Us</p>
@@ -118,7 +103,7 @@ module.exports = class AboutUs extends Component {
                 </section>
 
                 <PageFooter />
-            </div>
+            </Page>
         );
     }
 }

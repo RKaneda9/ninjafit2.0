@@ -1,0 +1,32 @@
+$container: '#{$app} .join-us-page';
+$padding-bottom: 3 * $content-padding-v;
+
+
+#{$container} > section > .header {
+    text-align: center;
+    padding: $content-padding-v 0;
+}
+
+#{$container} .contact-map { 
+    margin: 0;
+}
+
+#{$container} .pricing {
+    padding-bottom: $padding-bottom;
+}
+
+#{$container} .visit-us {
+    width: 500px;
+    align-self: center;
+    padding-bottom: $padding-bottom;
+
+    .content { padding-top: 0px; padding-bottom: 0px; }
+
+    .contact-item { justify-content: center; }
+}
+
+#{$container} .questions { 
+    width: 500px;
+    align-self: center;
+    padding-bottom: $padding-bottom;
+}

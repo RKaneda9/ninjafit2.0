@@ -2,15 +2,16 @@
                     require('helpers/polyfill');
 const Inferno     = require('inferno');
 const Component   = require('inferno-component');
-const constants   = require('helpers/constants');
+const {pages}     = require('helpers/constants');
+const constants   = require('desktop/helpers/constants');
 const utils       = require('helpers/utils');
 const settings    = require('helpers/settings');
 const {commands}  = require('services/event-system');
 const Pages       = require('desktop/pages');
 
-let rootElement, onReady, onError, pages;
+let rootElement, onReady, onError, pageArr;
 
-pages = utils.map(Object.keys(constants.pages), key => constants.pages[key]);
+pageArr = utils.map(Object.keys(pages), key => pages[key]);
 
 class Application extends Component {
     constructor(props) {
@@ -67,7 +68,7 @@ class Application extends Component {
             .replace('#/', '')
             .replace('#',  '').split('/');
 
-        if (!route.length || !pages.includes(route[0])) route = [constants.pages.home];
+        if (!route.length || !pageArr.includes(route[0])) route = [pages.home];
 
         return route;
     }
@@ -272,11 +273,44 @@ class Application extends Component {
     }
 
     render() {
-        let HomePage = Pages[constants.pages.home],
-            AboutUsPage = Pages[constants.pages.aboutUs],
-            SchedulePage = Pages[constants.pages.schedule],
-            WodPage = Pages[constants.pages.wod];
+        let pages = utils.map(constants.pageOrder, name => {
+            let Page = Pages[name];
 
+            return (
+                <Page 
+                    menuOpen={this.state.menuOpen}
+                    route={this.state.route}
+                    styles={this.state.pageStyles} />
+            );
+        });
+
+        let menuLinks = utils.map(constants.menuOrder, name => {
+            return (
+                <div
+                    active={this.state.focusedPage == name ? true : undefined}
+                    onClick={e => this.selectPage(name)}
+                    onMouseOver={e => this.focusPage(name)}
+                    className="link">{constants.pageTitles[name]}</div>
+            );
+        });
+
+        // if menu links is not a multiple of 3
+        if (menuLinks.length % 3) {
+
+            // put a link in the 2nd to last slot. 
+            //
+            // if there are 7/9 links, for example, this will put the link in the 7th slot, 
+            // pushing the last link to the 8th (the 9th link will be added next which will 
+            // center the last link).
+            //
+            // if there are 8/9 links, for example, this will put the link in the 8th slot,
+            // so that the last two links will be surrounding the empty link 
+            menuLinks.splice(menuLinks.length - 1, 0, <div className="link empty" />);
+
+            // if the links are still missing one to be even, add another empty link in the
+            // last slot.
+            if (menuLinks.length % 3) menuLinks.push(<div className="link empty" />)
+        }
 
         return (
             <div className="app desktop">
@@ -310,49 +344,7 @@ class Application extends Component {
                 <div className={`app-menu${this.state.menuOpen ? ' open' : ''}`}>
                     <div className="option"></div>
                     <div className="menu">
-                        <div className="links">
-                            <div
-                                onClick={e => this.selectPage(constants.pages.home)}
-                                onMouseOver={e => this.focusPage(constants.pages.home)} 
-                                className="link">Home</div>
-
-                            <div 
-                                onClick={e => this.selectPage(constants.pages.wod)}
-                                onMouseOver={e => this.focusPage(constants.pages.wod)} 
-                                className="link">WOD</div>
-
-                            <div 
-                                onClick={e => this.selectPage(constants.pages.login)}
-                                onMouseOver={e => this.focusPage(constants.pages.login)} 
-                                className="link">Login</div>
-
-                            <div 
-                                onClick={e => this.selectPage(constants.pages.aboutUs)}
-                                onMouseOver={e => this.focusPage(constants.pages.aboutUs)} 
-                                className="link">About Us</div>
-
-                            <div 
-                                onClick={e => this.selectPage(constants.pages.schedule)}
-                                onMouseOver={e => this.focusPage(constants.pages.schedule)} 
-                                className="link">Schedule</div>
-
-                            <div 
-                                onClick={e => this.selectPage(constants.pages.joinUs)}
-                                onMouseOver={e => this.focusPage(constants.pages.joinUs)} 
-                                className="link">Join Us</div>
-
-                            <div 
-                                onClick={e => this.selectPage(constants.pages.whatWeOffer)}
-                                onMouseOver={e => this.focusPage(constants.pages.whatWeOffer)} 
-                                className="link">What We Offer</div>
-
-                            <div className="link empty"></div>
-
-                            <div 
-                                onClick={e => this.selectPage(constants.pages.contact)}
-                                onMouseOver={e => this.focusPage(constants.pages.contact)} 
-                                className="link">Contact</div>
-                        </div>
+                        <div className="links">{menuLinks}</div>
                         <div className="social">
                             <div className="link fa fa-instagram"></div>
                             <div className="link fa fa-facebook"></div>
@@ -369,72 +361,7 @@ class Application extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="pages">
-                    <HomePage 
-                        active={!this.state.menuOpen && this.state.route[0] == constants.pages.home}
-                        styles={!this.state.menuOpen && this.state.route[0] == constants.pages.home ? null : this.state.pageStyles[constants.pages.home]} />
-
-                    <AboutUsPage
-                        active={!this.state.menuOpen && this.state.route[0] == constants.pages.aboutUs}
-                        styles={!this.state.menuOpen && this.state.route[0] == constants.pages.aboutUs ? null : this.state.pageStyles[constants.pages.aboutUs]} />
-
-                    <div
-                        style={!this.state.menuOpen && this.state.route[0] == constants.pages.whatWeOffer ? null : this.state.pageStyles[constants.pages.whatWeOffer]} 
-                        className={`page what-we-offer-page${!this.state.menuOpen && this.state.route[0] == constants.pages.whatWeOffer ? ' curr' : ''}`}>
-                        <div 
-                            onClick={this.openMenu} 
-                            className="menu-btn">
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                        </div>
-                        <header className="header">What We Offer</header>
-                    </div>
-                    <WodPage
-                        active={!this.state.menuOpen && this.state.route[0] == constants.pages.wod}
-                        styles={!this.state.menuOpen && this.state.route[0] == constants.pages.wod ? null : this.state.pageStyles[constants.pages.wod]} />
-                     
-                    <SchedulePage
-                        active={!this.state.menuOpen && this.state.route[0] == constants.pages.schedule}
-                        styles={!this.state.menuOpen && this.state.route[0] == constants.pages.schedule ? null : this.state.pageStyles[constants.pages.schedule]} />
-                     
-                    <div
-                        style={!this.state.menuOpen && this.state.route[0] == constants.pages.login ? null : this.state.pageStyles[constants.pages.login]} 
-                        className={`page login-page${!this.state.menuOpen && this.state.route[0] == constants.pages.login ? ' curr' : ''}`}>
-                        <div 
-                            onClick={this.openMenu} 
-                            className="menu-btn">
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                        </div>
-                        <header className="header">Login</header>
-                    </div>
-                    <div
-                        style={!this.state.menuOpen && this.state.route[0] == constants.pages.joinUs ? null : this.state.pageStyles[constants.pages.joinUs]} 
-                        className={`page join-us-page${!this.state.menuOpen && this.state.route[0] == constants.pages.joinUs ? ' curr' : ''}`}>
-                        <div 
-                            onClick={this.openMenu} 
-                            className="menu-btn">
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                        </div>
-                        <header className="header">Join Us</header>
-                    </div>
-                    <div
-                        style={!this.state.menuOpen && this.state.route[0] == constants.pages.contact ? null : this.state.pageStyles[constants.pages.contact]} 
-                        className={`page contact-page${!this.state.menuOpen && this.state.route[0] == constants.pages.contact ? ' curr' : ''}`}>
-                        <div 
-                            onClick={this.openMenu} 
-                            className="menu-btn">
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                        </div>
-                        <header className="header">Contact</header>
-                    </div>
-                </div>
+                <div className="pages">{pages}</div>
             </div>
         );
     }

@@ -1,0 +1,23 @@
+$container: '#{$app} .contact-page';
+$max-width: 500px;
+
+#{$container} > .contact {
+
+    .header { 
+        margin-top: $general-padding-v;
+        text-align: left; 
+        padding-bottom: 0px;
+        max-width: $max-width;
+    }
+
+    .content { 
+        padding-top: 0px; 
+        max-width: $max-width;
+    }
+
+    .footer { max-width: $max-width; }
+}
+
+#{$container} > .contact-map {
+    max-width: $max-width;
+}

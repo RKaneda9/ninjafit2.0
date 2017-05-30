@@ -33,7 +33,11 @@ $container: '#{$app} .page';
         &:nth-child(#{$i}) { z-index: 9 - $i; }
     }
 
-    &.curr { z-index: 10; }
+    &[active] { z-index: 10; }
+}
+
+#{$container} .landing {
+    min-height: $triangle-size * 1.5;
 }
 
 #{$container} .header-bar {

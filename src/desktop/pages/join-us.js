@@ -1,23 +1,11 @@
-const Inferno   = require('inferno');
-const Component = require('inferno-component');
-const utils                    = require('helpers/utils');
-const settings                 = require('helpers/settings');
-const {commands}               = require('services/event-system');
-// const constants                = require('helpers/constants');
-const PageFooter               = require('mobile/containers/page-footer');
-const {Row, Col}               = require('mobile/components/form');
-const {TextBox, TextArea}      = require('mobile/containers/inputs');
-// const {Page}                   = require('components/pages/base');
-// const {Row, Col}               = require('components/form');
-// const {TextBox, TextArea}      = require('containers/inputs');
-
-const {
-
-    Button,
-    MenuButton,
-    CloseButton
-
-} = require('mobile/components/buttons');
+const Inferno     = require('inferno');
+const Component   = require('inferno-component');
+const constants   = require('helpers/constants');
+const utils       = require('helpers/utils');
+const settings    = require('helpers/settings');
+const PageFooter  = require('desktop/containers/page-footer');
+const Page        = require('desktop/components/page');
+const {commands}  = require('services/event-system');
 
 const items = [
     {
@@ -103,25 +91,9 @@ module.exports = class JoinUs extends Component {
     constructor(props) {
         super(props);
 
-        // this.onMouseDown = this.onMouseDown.bind(this);
-        // this.onMouseMove = this.onMouseMove.bind(this);
-        // this.onMouseUp   = this.onMouseUp  .bind(this);
-
         let pIndex = items.length - 1;
 
-        this.state = {
-            currPriceIndex: 0
-        };
-    }
-
-    componentDidMount() {
-        //window.addEventListener('resize', this.onResize);
-
-        //setTimeout(this.onResize);
-    }
-
-    componentWillUnmount() {
-        //window.removeEventListener('resize', this.onResize);
+        this.state = { currPriceIndex: 0 };
     }
 
     nextPriceItem() {
@@ -149,12 +121,26 @@ module.exports = class JoinUs extends Component {
 
     render() {
         return (
-            <div className="page join-us-page">
-                <header className="header-bar">
-                    <p className="title">Join Us</p>
-                    <MenuButton onClick={commands.openMenu.emit} />
-                </header>
-                
+            <Page {...this.props} name={constants.pages.joinUs}>
+                <section className="landing">
+                    <header className="header-bar">
+                        <p className="title">Join Us</p>
+                        
+                        <button
+                            onClick={commands.openMenu.emit} 
+                            className="menu-btn">
+                            <svg className="background" viewBox="0 0 500 577.35">
+                                <path filter="url(#ds-s)" d="M500,0v577.35l-500-288.675z" />
+                            </svg>
+                            <svg className="bars" viewBox="0 0 96 60" stroke-width="12">
+                                <path d="M38,6h52" />
+                                <path d="M6,30h84" />
+                                <path d="M38,54h52" />
+                            </svg>
+                        </button>
+                    </header>
+                </section>
+
                 <section className="pricing">
                     <header className="header">Our Packages</header>
 
@@ -215,7 +201,7 @@ module.exports = class JoinUs extends Component {
                                 <div className="image" style={{ backgroundImage: `url("./images/map.jpg")`}} />
                             </div>
                         </a>
-                        <Row>
+                        <div className="row">
                             <div className="contact-item">
                                 <div className="icon fa fa-envelope" />
                                 <div className="value">ninjafitgyms@gmail.com</div>
@@ -224,7 +210,7 @@ module.exports = class JoinUs extends Component {
                                 <div className="icon fa fa-phone" />
                                 <div className="value">407-250-4496</div>
                             </div>
-                        </Row>
+                        </div>
                     </div>
                 </section>
 
@@ -232,31 +218,33 @@ module.exports = class JoinUs extends Component {
                     <header className="header">Questions? Let Us Help With That</header>
 
                     <div className="content">
-                        <Row>
-                            <Col>
-                                <TextBox maxLength={99} placeholder="First Name" />
-                            </Col>
-                            <Col>
-                                <TextBox maxLength={99} placeholder="Last Name" />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <TextBox maxLength={199} placeholder="Your Email" />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <TextArea maxLength={999} placeholder="Write Your Message Here..." />
-                            </Col>
-                        </Row>
+                        <div className="row">
+                            <div className="col">
+                                <input type="text" maxlength={99} placeholder="First Name" />
+                            </div>
+                            <div className="col">
+                                <input type="text" maxlength={99} placeholder="Last Name" />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+                                <input type="text" maxlength={199} placeholder="Your Email" />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+                                <textarea maxlength={999} placeholder="What can we help you with?" />
+                            </div>
+                        </div>
                     </div>
 
                     <footer className="footer">
-                        <Button>Send</Button>
+                        <button className="btn">Send</button>
                     </footer>
                 </section>
-            </div>
+                
+                <PageFooter />
+            </Page>
         );
     }
 }

@@ -3,7 +3,7 @@
     display: flex;
     flex-flow: row;
     align-items: center;
-    padding: 10px 0;
+    padding: 10px ($content-padding-h / 2);
     color: $color-footer-menu-title;
 
     .icon { 
@@ -17,25 +17,25 @@
 
 #{$app} .contact-map {
     flex: 0 0 auto;
-    height: 200px;
+    width: 100%;
+    max-width: 800px;
     background: $color-primary-13;
-    margin: (2 * $general-padding) $general-padding 0 $general-padding;
+    margin: (2 * $general-padding-v) $general-padding-h 0 $general-padding-h;
+    align-self: center;
     box-shadow: 0 0 5px 0 #000;
     cursor: pointer;
     display: block;
+    padding: 0;
     //padding: 6px;
     //background: $color-primary-2;
 
-    .image-wrapper {
-        width: 100%;
-        height: 100%;
-    }
+    .image-wrapper { width: 100%; }
 
     .image {
         background-position: center center;
         background-size:     cover;
         background-repeat:   no-repeat;
         transform-origin:    center;
-        height:              100%;
+        padding-bottom:      80%;
     }
 }

@@ -372,7 +372,7 @@ module.exports = class Home extends Component {
                         </Row>
                         <Row>
                             <Col>
-                                <TextArea maxLength={999} placeholder="Your Email" />
+                                <TextArea maxLength={999} placeholder="Write Your Message Here..." />
                             </Col>
                         </Row>
                     </div>

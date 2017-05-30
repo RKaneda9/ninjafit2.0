@@ -2,88 +2,21 @@
     $bg-color: #fff;
     $text-color: $color-primary-1;
 
-    //border:        1px solid #fff;
-    //background:    $color-primary-2; 
     background:    $bg-color;
-    //border-radius: $btn-height / 2;
+    border-radius: $btn-height / 2;
     height:        $btn-height; 
     text-align:    center;
     cursor:        pointer;
-    //font-weight:   bold;
     position:      relative;
-    //color:         #fff; 
     color:         $text-color;
-    //overflow:      hidden;
     transition:    all 0.3s ease-in-out;
-    font-size:     1.16em;
     white-space:   nowrap;
-    margin: 0 $btn-offset;
-
-    &:before,
-    &:after {
-        width: 0;
-        height: 0;
-        position: absolute;
-        content: '';
-        top: 50%;
-        transform: translateY(-50%);
-        border-color: transparent;
-        border-width: ($btn-height / 2) 0;
-        border-style: solid;
-        transition:   all 0.3s ease-in-out;
-    }
-
-    &:before {
-        right: 100%;
-        border-right-width: $btn-offset;
-        border-right-color: $bg-color;
-    }
-
-    &:after {
-        left: 100%;
-        border-left-width: $btn-offset;
-        border-left-color: $bg-color;
-    }
 
     &:hover {
         $bg-color: #ddd;
         color: #000; 
         background: $bg-color;
-
-        &:before { border-right-color: $bg-color; }
-        &:after  { border-left-color:  $bg-color; }
     }
-}
-
-#{$app} .btn span:not(.point) { 
-    position: relative;
-    z-index: 2; 
-}
-
-#{$app} .btn .point {
-    $size: 50px;
-    $thickness: 6px;
-    //border-radius: 100%;
-    width:  $size;
-    height: $size;
-    //border: $thickness solid $color-primary-2;
-    box-shadow: 0 0 4px 4px $color-primary-2;
-    //background: #bbb;// #a1a2a3;
-    top:  50%;
-    left: 50%;
-    transform: rotate(45deg) translate(-50%, -50%) scale(0);
-    z-index: 1;
-    position: absolute;
-}
-
-#{$app} .btn:hover .point {
-    animation: point-expand 0.5s ease-in-out forwards;
-}
-
-@keyframes point-expand {
-      0% { transform: rotate(45deg)  translate(-50%, -50%) scale(0); }
-     50% { transform: rotate(45deg)  translate(-50%, -50%) scale(1); opacity: 1; }
-    100% { transform: rotate(45deg)  translate(-50%, -50%) scale(1.5); opacity: 0; }
 }
 
 #{$app} .menu-btn {

@@ -1,0 +1,28 @@
+$container: '#{$app} .what-we-offer-page';
+$padding: $app-width / $sqrt-3;
+
+#{$container} > .landing {
+    .header { text-align: center; }
+}
+
+#{$container} > .obstacle-training {
+
+    .image-wrapper { background: $color-primary-12; }
+}
+
+#{$container} > .functional-training {
+
+    .header { text-align: right; }
+}
+
+#{$container} > .kids {
+
+}
+
+#{$container} > .hourly-workout {
+
+}
+
+#{$container} > .special-events {
+    
+}

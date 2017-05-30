@@ -4,6 +4,7 @@ const constants   = require('helpers/constants');
 const utils       = require('helpers/utils');
 const settings    = require('helpers/settings');
 const PageFooter  = require('desktop/containers/page-footer');
+const Page        = require('desktop/components/page');
 const {commands}  = require('services/event-system');
 
 module.exports = class WOD extends Component {
@@ -15,22 +16,8 @@ module.exports = class WOD extends Component {
 
 
         this.state = {
-            styles: this.props.styles,
-            active: this.props.active,
-            date:   new Date()
+            date: new Date()
         };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps && 
-           (nextProps.styles != this.state.styles ||
-            nextProps.active != this.state.active)) {
-
-            this.setState({
-                styles: nextProps.styles,
-                active: nextProps.active
-            });
-        }
     }
 
     showTomorrow () { this.setState({ date: this.state.date.getTomorrow () }); }
@@ -38,9 +25,7 @@ module.exports = class WOD extends Component {
 
     render() {
         return (
-            <div 
-                className={`page wod-page${this.state.active ? ' curr' : ''}`}
-                style={this.state.styles}>
+            <Page {...this.props} name={constants.pages.wod}>
                 <section className="landing">
                     <header className="header-bar">
                         <p className="title">WOD</p>
@@ -103,7 +88,7 @@ module.exports = class WOD extends Component {
                 </section>
 
                 <PageFooter />
-            </div>
+            </Page>
         );
     }
 }

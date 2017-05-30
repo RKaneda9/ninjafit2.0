@@ -4,6 +4,7 @@ const constants   = require('helpers/constants');
 const utils       = require('helpers/utils');
 const settings    = require('helpers/settings');
 const PageFooter  = require('desktop/containers/page-footer');
+const Page        = require('desktop/components/page');
 const {commands}  = require('services/event-system');
 
 module.exports = class Schedule extends Component {
@@ -20,23 +21,9 @@ module.exports = class Schedule extends Component {
         this.month = this.getMonth (date); // array of days
 
         this.state = {
-            styles: this.props.styles,
-            active: this.props.active,
             date:   date,
             events: events
         };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps && 
-           (nextProps.styles != this.state.styles ||
-            nextProps.active != this.state.active)) {
-
-            this.setState({
-                styles: nextProps.styles,
-                active: nextProps.active
-            });
-        }
     }
 
     getEvents(date) {
@@ -189,9 +176,7 @@ module.exports = class Schedule extends Component {
         let todayHours = (settings.gymHours[this.state.date.getDayText().toLowerCase()] || []);
 
         return (
-            <div 
-                className={`page schedule-page${this.state.active ? ' curr' : ''}`}
-                style={this.state.styles}>
+            <Page {...this.props} name={constants.pages.schedule}>
                 <section className="landing">
                     <header className="header-bar">
                         <p className="title">Schedule</p>
@@ -332,7 +317,7 @@ module.exports = class Schedule extends Component {
                 </div>
 
                 <PageFooter />
-            </div>
+            </Page>
         );
     }
 }

@@ -3,6 +3,7 @@ const Component   = require('inferno-component');
 const constants   = require('helpers/constants');
 const utils       = require('helpers/utils');
 const PageFooter  = require('desktop/containers/page-footer');
+const Page        = require('desktop/components/page');
 const {commands}  = require('services/event-system');
 
 module.exports = class HomePage extends Component {
@@ -14,9 +15,8 @@ module.exports = class HomePage extends Component {
 
         this.els = {};
 
-        this.state = {
-            styles: this.props.styles,
-            active: this.props.active
+        this.state = { 
+
         };
     }
 
@@ -29,18 +29,6 @@ module.exports = class HomePage extends Component {
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.onResize);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps && 
-           (nextProps.styles != this.state.styles ||
-            nextProps.active != this.state.active)) {
-
-            this.setState({
-                styles: nextProps.styles,
-                active: nextProps.active
-            });
-        }
     }
 
     onResize() {
@@ -151,10 +139,7 @@ module.exports = class HomePage extends Component {
     render() {
 
         return (
-            <div 
-                className={`page home-page${this.state.active ? ' curr' : ''}`}
-                style={this.state.styles}>
-
+            <Page {...this.props} name={constants.pages.home}>
                 <section className="landing">
                     <header className="header-bar">
                         <p className="title">NinjaFit Gym</p>
@@ -374,7 +359,7 @@ module.exports = class HomePage extends Component {
                         </div>
                         <div className="row">
                             <div className="col">
-                                <textarea maxlength="999" placeholder="What would you like to ask?" />
+                                <textarea maxlength={999} placeholder="What can we help you with?" />
                             </div>
                         </div>
                     </div>
@@ -387,7 +372,7 @@ module.exports = class HomePage extends Component {
                 </section>
 
                 <PageFooter />
-            </div>
+            </Page>
         );
     }
 }
