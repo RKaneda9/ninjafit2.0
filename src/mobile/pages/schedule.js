@@ -1,49 +1,28 @@
-const Inferno   = require('inferno');
-const Component = require('inferno-component');
-const utils                    = require('helpers/utils');
-const settings                 = require('helpers/settings');
-const {commands}               = require('services/event-system');
-// const constants                = require('helpers/constants');
-const PageFooter               = require('mobile/containers/page-footer');
-// const {Page}                   = require('components/pages/base');
-// const {Row, Col}               = require('components/form');
-// const {TextBox, TextArea}      = require('containers/inputs');
+const Inferno    = require('inferno');
+const Component  = require('inferno-component');
+const utils      = require('helpers/utils');
+const settings   = require('helpers/settings');
+const HeaderBar  = require('mobile/components/sections/header-bar');
+const PageFooter = require('mobile/containers/page-footer');
+const Page       = require('mobile/components/page');
+const Loader     = require('shared/components/loaders/content');
+const calendar   = require('services/calendar-store');
 
 const {
 
     Button,
-    MenuButton,
     CloseButton
 
 } = require('mobile/components/buttons');
-
-// const {
-
-//     TriangleRight,
-//     TriangleDown,
-//     Background
-
-// } = require('components/backgrounds');
-
-// const {
-
-//         LandingSection,
-//           AboutSection,
-//            MainSection,
-//           ShortSection,
-//            JoinSection,
-//             MapSection,
-//         ContactSection,
-//     TestimonialsSlider,
-
-
-// } = require('components/pages/home');
-
 
 const views = {
     month: 'month',
     day:   'day'
 };
+
+let today        = new Date(), 
+    todayMonth   = today.getMonth(),
+    todayDateKey = today.getDateKey();
 
 module.exports = class Schedule extends Component {
     constructor(props) {
@@ -57,108 +36,26 @@ module.exports = class Schedule extends Component {
         this.viewMonth     = this.viewMonth    .bind(this);
 
         let date   = new Date();
-        let events = this.getEvents(date);
-
         this.month = this.getMonth(date);
 
         this.state = {
-            date:   date,
-            view:   views.day,
-            events: events
+            date:    date,
+            view:    views.day,
+            events:  this.getEvents(date),
+            loading: true
         };
     }
 
-    componentDidMount() {
-        //window.addEventListener('resize', this.onResize);
-
-        //setTimeout(this.onResize);
-    }
-
-    componentWillUnmount() {
-        //window.removeEventListener('resize', this.onResize);
-    }
-
     getEvents(date) {
-        return [
-            {
-                title:    "Group Training (WOD)",
-                start:    "0600",
-                end:      "0700",
-                duration: "0100"
-            },
-            {
-                title:    "Group Training (WOD)",
-                start:    "0700",
-                end:      "0800",
-                duration: "0100"
-            },
-            {
-                title:    "Group Training (WOD)",
-                start:    "0800",
-                end:      "0900",
-                duration: "0100"
-            },
-            {
-                title:    "Group Training (WOD)",
-                start:    "0900",
-                end:      "1000",
-                duration: "0100"
-            },
-            {
-                title:    "Group Training (WOD)",
-                start:    "1000",
-                end:      "1100",
-                duration: "0100"
-            },
-            {
-                title:    "Group Training (WOD)",
-                start:    "1100",
-                end:      "1200",
-                duration: "0100"
-            },
-            {
-                title:    "Private Events",
-                start:    "1200",
-                end:      "1300",
-                duration: "0100"
-            },
-            {
-                title:    "NinjaFit Kids",
-                start:    "1400",
-                end:      "1500",
-                duration: "0100"
-            },
-            {
-                title:    "NinjaFit Kids",
-                start:    "1500",
-                end:      "1600",
-                duration: "0100"
-            },
-            {
-                title:    "NinjaFit Kids",
-                start:    "1600",
-                end:      "1700",
-                duration: "0100"
-            },
-            {
-                title:    "NinjaFit Kids",
-                start:    "1700",
-                end:      "1800",
-                duration: "0100"
-            },
-            {
-                title:    "Group Training (WOD)",
-                start:    "1800",
-                end:      "1900",
-                duration: "0100"
-            },
-            {
-                title:    "Group Training (WOD)",
-                start:    "1900",
-                end:      "2000",
-                duration: "0100"
-            }
-        ];
+        calendar.fetch(date.getDateKey())
+            .then(day => {
+                this.setState({
+                    events:  day.events,
+                    loading: false
+                });
+            });
+
+        return [];
     }
 
     getMonth (date) {
@@ -172,10 +69,9 @@ module.exports = class Schedule extends Component {
 
         do { 
             days.push({
-                diffMonth: temp.getMonth() != month,
-                isToday:   temp.getDateKey() == todayKey,
-                isOpen:   (settings.gymHours[temp.getDayText().toLowerCase()] || []).length,
-                day:       temp
+                isOpen: (settings.gymHours[temp.getDayText().toLowerCase()] || []).length,
+                day:     temp,
+                dateKey: temp.getDateKey()
             }); 
 
         } while ((temp = temp.getTomorrow()) <= end);
@@ -217,8 +113,8 @@ module.exports = class Schedule extends Component {
         this.setState({ date: date });
     }
 
-    showTomorrow () { this.setState({ date: this.state.date.getTomorrow () }); }
-    showYesterday() { this.setState({ date: this.state.date.getYesterday() }); }
+    showTomorrow () { this.viewDay(this.state.date.getTomorrow ()); }
+    showYesterday() { this.viewDay(this.state.date.getYesterday()); }
 
     viewMonth() {
         this.setState({
@@ -226,22 +122,25 @@ module.exports = class Schedule extends Component {
         });
     }
 
-    viewDay(day) {
+    viewDay(date) {
+        if (date.getMonth() != this.state.date.getMonth) this.month = this.getMonth(date);
+
         this.setState({
-            date: day.clone(),
-            view: views.day
+            date:    date.clone(),
+            view:    views.day,
+            events:  this.getEvents(date),
+            loading: true
         });
     }
 
     render() {
-        let todayHours = (settings.gymHours[this.state.date.getDayText().toLowerCase()] || []);
+        let todayHours      = (settings.gymHours[this.state.date.getDayText().toLowerCase()] || []),
+            selectedDateKey = this.state.date.getDateKey(),
+            selectedMonth   = this.state.date.getMonth();
 
         return (
-            <div className="page schedule-page">
-                <header className="header-bar">
-                    <p className="title">Schedule</p>
-                    <MenuButton onClick={commands.openMenu.emit} />
-                </header>
+            <Page name="schedule">
+                <HeaderBar title="Schedule"></HeaderBar>
                 
                 {this.state.view == views.month ? (
 
@@ -274,9 +173,10 @@ module.exports = class Schedule extends Component {
                             {utils.map(this.month, props => {
                                 let className = "day";
 
-                                if (props.isOpen)    { className += ' open';       }
-                                if (props.isToday)   { className += ' today';      }
-                                if (props.diffMonth) { className += ' diff-month'; }
+                                if (props.dateKey        == selectedDateKey) { className += ' selected';   }
+                                if (props.dateKey        == todayDateKey)    { className += ' today';      }
+                                if (props.day.getMonth() != selectedMonth)   { className += ' diff-month'; }
+                                if (props.isOpen)                            { className += ' open';       }
 
                                 return (
                                     <li 
@@ -319,7 +219,7 @@ module.exports = class Schedule extends Component {
                         <div className="event-list">
 
                             {utils.map(this.state.events, event => {
-
+                                
                                 return (
                                     <div className="event-item">
                                         <div className="content">
@@ -344,6 +244,10 @@ module.exports = class Schedule extends Component {
                                     </div>
                                 );
                             })}
+
+                            <Loader 
+                                show={this.state.loading}
+                                text="Retrieving events..." />
                         </div>
                     </div>
 
@@ -367,7 +271,7 @@ module.exports = class Schedule extends Component {
                         </tbody>
                     </table>
                 </section>
-            </div>
+            </Page>
         );
     }
 }

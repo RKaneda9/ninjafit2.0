@@ -9,7 +9,7 @@ $container: '#{$app} .join-us-page';
     .contact-item { justify-content: center; }
 }
 
-#{$container} .questions { margin-top: $general-padding; }
+#{$container} .contact { margin-top: $general-padding; }
 
 #{$container} .pricing {
     .header { text-align: center; }

@@ -136,13 +136,15 @@ let service = module.exports = {
 
     run ({ minified, unminified, watch }, callback) {
 
+        // process.traceDeprecation = true;
+
         console.log('Compiling js');
 
         // let config   = this.getConfig({ minified, unminified });
         // let compiler = webpack(config)
         let configs = this.getConfigs({ minified, unminified });
         let compiler = webpack(configs);
-        let cbFunc   = (err, stats) => {
+        let cbFunc   = (err, stats) => { 
 
             console.log(stats.toString({ colors: true }) + "\n");
 

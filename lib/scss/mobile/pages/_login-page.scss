@@ -6,7 +6,20 @@
     height: 80vh;
     max-height: 600px;
     margin: 0 auto;
-    max-width: 500px;
+    max-width: 400px;
+    padding: 0 30px;
 
-    .header { text-align: center; }
+    .header { 
+        text-align: center; 
+        padding: $general-padding $general-padding $general-padding-half $general-padding;
+        font-size: 1.6rem;
+    }
+
+    .content {
+        padding-bottom: $general-padding-half;
+    }
+
+    .footer {
+        min-height: $btn-height;
+    }
 }

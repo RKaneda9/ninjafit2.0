@@ -9,13 +9,20 @@ $content-padding-v: 20px;
 $content-padding-h: 30px;
 $app-menu-height:   43vh;
 
-$image-border: 8px;
-
 $landing-image-duration: 15s;
 
-$image-border-width: 6px;
+$image-border-width: 8px;
 
-$btn-height: 32px; //2.4em;
+$btn-height:  32px;
+$btn-width:  250px - ($content-padding-h / 2);
 $btn-offset: $btn-height / 2;
+
+$btn-color-bg:         #fff;
+$btn-color-text:       $color-primary-1;
+$btn-color-hover-bg:   $color-primary-15;
+$btn-color-hover-text: #000;
+
+$btn-bounce-size:   16px;
+$btn-bounce-offset: 2.5 * $btn-bounce-size;
 
 $app: '.app.desktop';

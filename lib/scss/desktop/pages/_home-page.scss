@@ -11,6 +11,7 @@ $bg-side-offset: $bg-side-width / $sqrt-3;
 }
 
 #{$container} > .landing {
+    $footer-height: $triangle-size * 1.2;
     height: 100vh;
     max-height: 100vw;
     display: flex;
@@ -31,13 +32,18 @@ $bg-side-offset: $bg-side-width / $sqrt-3;
             height: 100%;
             stroke: $color-primary-2;
         }
+
+        image.anim {
+            transform-origin: center;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
     }
 
     .image-selectors {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        bottom: 1rem;
+        bottom: $footer-height * 1.1;
         z-index: 3;
         display: flex; 
         flex-flow: row;
@@ -79,13 +85,16 @@ $bg-side-offset: $bg-side-width / $sqrt-3;
         $arrow-size: 1.5rem;
         flex: 0 0 auto;
         position: relative;
-        height: $triangle-size * 1.4;
+        margin-top: -$footer-height;
+        height: $footer-height;
         z-index: 5;
         display: flex;
         flex-flow: row;
         align-items: center;
         justify-content: center;
         padding: 0;
+        opacity: 0;
+        animation: d-scroll-appear 0.5s ease-in-out forwards 0.75s;
 
         .item {
             flex: 1 1 50%;
@@ -94,7 +103,7 @@ $bg-side-offset: $bg-side-width / $sqrt-3;
             flex-flow: row;
             justify-content: center;
             align-items: center;
-            padding-bottom: 1rem;
+            //padding-bottom: 1rem;
         }
         
         .scroll {
@@ -115,8 +124,8 @@ $bg-side-offset: $bg-side-width / $sqrt-3;
             width: $arrow-size;
             height:$arrow-size;
             fill: #fff;
-            //opacity: 0;
-            //animation: scroll-appear 0.5s ease-in-out 2s forwards, scroll-down-anim 6s ease-in-out 2.20s infinite;
+            opacity: 0;
+            animation: d-scroll-appear 0.5s ease-in-out 2s forwards, d-scroll-down-anim 6s ease-in-out 2.20s infinite;
             z-index: 1;
             position: absolute;
             top: 100%;
@@ -127,8 +136,7 @@ $bg-side-offset: $bg-side-width / $sqrt-3;
         
         .text {
             width: 60px;
-            //transform: translateY(-50%);
-            //animation: scroll-text-appear 0.5s ease-in-out forwards 0.75s;
+            animation: d-scroll-text-appear 0.5s ease-in-out forwards 0.75s;
             z-index: 0;
             margin-left: 5px;
         }
@@ -146,6 +154,7 @@ $bg-side-offset: $bg-side-width / $sqrt-3;
     flex: 0 1 $width;
     padding-top: $bg-side-offset + $content-v-offset; //$bg-side-offset;// (1 - $content-width) / 2 * $bg-side-width / $sqrt-3 -> 3vw
     padding-bottom: $bg-side-offset + $content-v-offset; //$bg-side-offset;
+    overflow: visible;
 
     .background { 
         width: $bg-side-width;
@@ -220,7 +229,7 @@ $bg-side-offset: $bg-side-width / $sqrt-3;
         transform: translateY(-50%);
         fill: $color-primary-3;
         stroke: $color-primary-2;
-        stroke-width: $image-border * $svg-viewbox-width / $width;
+        stroke-width: $image-border-width * $svg-viewbox-width / $width;
     }
 
     .header, .content, .footer {
@@ -266,6 +275,7 @@ $bg-side-offset: $bg-side-width / $sqrt-3;
     .background { left: 0; }
 
     .image {
+        flex: 1 1 auto;
         margin: 0 5% 0 10%;
         height: 100%;
         background-color: #fff;

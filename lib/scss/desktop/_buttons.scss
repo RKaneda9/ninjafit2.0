@@ -1,23 +1,74 @@
-#{$app} .btn {
-    $bg-color: #fff;
-    $text-color: $color-primary-1;
+$button: '#{$app} .btn';
 
-    background:    $bg-color;
-    border-radius: $btn-height / 2;
-    height:        $btn-height; 
-    text-align:    center;
-    cursor:        pointer;
-    position:      relative;
-    color:         $text-color;
-    transition:    all 0.3s ease-in-out;
-    white-space:   nowrap;
+#{$button} {
+    background-color: $btn-color-bg;
+    border-radius:    $btn-height / 2;
+    height:           $btn-height; 
+    width:            $btn-width;
+    color:            $btn-color-text;
+
+    text-align:       center;
+    cursor:           pointer;
+    position:         relative;
+    transition:       all 0.3s ease-in-out;
+    white-space:      nowrap;
 
     &:hover {
-        $bg-color: #ddd;
-        color: #000; 
-        background: $bg-color;
+        color:            $btn-color-hover-text;
+        background-color: $btn-color-hover-bg;
     }
 }
+
+#{$button}.anim {
+
+    width:            $btn-bounce-size;
+    height:           $btn-bounce-size;
+    border-radius:    $btn-bounce-size;
+    top:             -$btn-bounce-offset;
+    background-color: $color-primary-12;
+
+    position:         relative;
+    animation:        d-btn-bounce-anim 0.5s cubic-bezier(.63,.09,.75,.46) 0.3s infinite alternate;
+    transform-origin: center;
+    cursor:           default;
+
+    * { opacity: 0; }
+}
+
+#{$button} .cover {
+    $offset: 2px;
+
+    line-height:   $btn-height + $offset;
+    height:        $btn-height + $offset;
+    width:         $btn-width  + $offset;
+    border-radius: $btn-width  + $offset;
+    color:         $btn-color-bg;
+
+    position:         absolute;
+    transform-origin: center;
+    text-align:       center;
+    transition:       z-index 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transform:        translate(-50%, -50%);
+    display:          flex;
+    flex-flow:        row;
+    align-items:      center;
+    justify-content:  center;
+
+    top:     50%;
+    left:    50%;
+    z-index: -1;
+    opacity:  0;
+
+    &.success { background-color: $color-green-1; }
+    &.error   { background-color: $color-red-1;   }
+}
+
+#{$button}.covered {
+    cursor: default;
+
+    .cover { opacity: 1; z-index: 100; }
+}
+
 
 #{$app} .menu-btn {
     width:     6em;

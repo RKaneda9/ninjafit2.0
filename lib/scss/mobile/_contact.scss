@@ -1,3 +1,12 @@
+#{$app} .contact-items {
+    display: flex;
+    flex-flow: row;
+    flex: 0 0 auto;
+    align-items: stretch;
+
+    &:not(:first-child) { padding-top: 1px; }
+}
+
 #{$app} .contact-item {
     flex: 0 1 50%;
     display: flex;
@@ -5,6 +14,7 @@
     align-items: center;
     padding: 10px 0;
     color: $color-footer-menu-title;
+    justify-content: center;
 
     .icon { 
         width: 2rem;
@@ -19,7 +29,6 @@
     flex: 0 0 auto;
     height: 200px;
     background: $color-primary-13;
-    margin: (2 * $general-padding) $general-padding 0 $general-padding;
     box-shadow: 0 0 5px 0 #000;
     cursor: pointer;
     display: block;

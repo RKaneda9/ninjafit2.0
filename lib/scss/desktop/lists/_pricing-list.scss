@@ -10,7 +10,7 @@ $container: '#{$app} .pricing-list';
 #{$container} .pricing-item {
     $width: 300px;
 
-    box-shadow: 0 0 15px 0 #212121;
+    box-shadow: 0 0 15px 0 $color-primary-13;
     display: flex;
     flex-flow: column;
     align-items: stretch;
@@ -118,7 +118,6 @@ $container: '#{$app} .pricing-list';
 
     .btn {
         flex: 1 1 100%;
-        //flex: 0 0 80%;
         height: 40px;
         border-radius: 20px;
     }

@@ -1,5 +1,9 @@
 $container: '#{$app} .wod-page';
 
+#{$container} .wod {
+    flex: 1 0 auto;
+}
+
 #{$container} .date-selector,
 #{$container} .calendar-separator,
 #{$container} .event-list {
@@ -17,6 +21,10 @@ $container: '#{$app} .wod-page';
     justify-content: center;
     text-align:      center;
     padding:         $content-padding-v 0;
+}
+
+#{$container} .event-list {
+    flex: 0 0 auto;
 }
 
 #{$container} .event-item {
@@ -41,6 +49,6 @@ $container: '#{$app} .wod-page';
         p { margin: 10px 15px; }
     }
 
-    &:before { width: 1.5 * $image-border; }
-    &:after  { left:  1.5 * $image-border; }
+    &:before { width: 1.5 * $image-border-width; }
+    &:after  { left:  1.5 * $image-border-width; }
 }

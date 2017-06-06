@@ -1,22 +1,30 @@
 $container: '#{$app} .about-us-page';
 
-#{$container} > .landing {
-
-    .header, .content {
-        padding-left:  $general-padding-h;
-        padding-right: $general-padding-h;
-    }
-
-    .header  { padding-top:    (2 * $general-padding-v); }
-    .content { padding-bottom: (3 * $general-padding-v); }
+#{$container} > .about,
+#{$container} > .our-philosophy {
+    padding: $general-padding-v $general-padding-h;
 
     // .header { font-size: 2rem; }
     // .content p { margin: }
 }
 
-#{$container} .team { 
-    padding-top: 2 * $general-padding-v;
-    padding-bottom: 2 * $general-padding-v;
+#{$container} > .our-philosophy {
 
-    //& > .header { text-align: center; }
+}
+
+// #{$container} .our-philosophy {
+//     padding-top:    2 * $general-padding-v;
+//     padding-bottom: 2 * $general-padding-v;
+
+//     background:    $color-primary-3;
+//     border-top:    $image-border-width solid $color-primary-2;
+//     border-bottom: $image-border-width solid $color-primary-2;
+// }
+
+#{$container} >  .team { 
+    padding-top:    2 * $general-padding-v;
+    //padding-bottom: 2 * $general-padding-v;
+
+    & > .header { text-align: center; padding-bottom: $content-padding-v; }
+    & > .content { max-width: 1500px; }
 }

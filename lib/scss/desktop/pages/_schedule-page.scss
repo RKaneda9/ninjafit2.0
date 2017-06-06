@@ -1,12 +1,10 @@
 $container: '#{$app} .schedule-page';
 
-#{$container} > .landing {
-    padding-bottom: $general-padding-v;
-}
-
 #{$container} > .row {
     margin: 0;
     padding: 0;
+    flex: 0 0 auto;
+    justify-content: center;
 
     & > .col {
         flex-flow: column;
@@ -14,17 +12,27 @@ $container: '#{$app} .schedule-page';
         padding: 0;
 
         &:nth-child(1) {
-            flex: 0 0 35%;
-            padding-left: 10%;
-            padding-right: 5%;
+            flex: 0 0 45%;
+            margin-left: 3%;
+            margin-right: 2%;
+            max-width: 500px;
         }
 
         &:nth-child(2) {            
-            flex: 0 0 35%;
-            padding-right: 10%;
-            padding-left: 5%;
+            flex: 0 0 45%;
+            margin-right: 3%;
+            margin-left: 2%;
+            max-width: 500px;
         }
     }
+}
+
+#{$container} .date-selector { flex: 0 0 auto; }
+
+#{$container} .calendar-separator {
+    justify-content: center;
+
+    .value { flex: 0 0 auto; }
 }
 
 #{$container} .weekly-hours {

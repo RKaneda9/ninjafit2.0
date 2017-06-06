@@ -7,6 +7,7 @@ $container: '#{$app} .app-menu';
     height: $app-menu-height;
 
     &.open + .pages { transform: translateY($app-menu-height) scale(0.84); }
+    &.open .close-btn:hover { cursor: pointer; background-color: $color-primary-1; }
 }
 
 #{$container} .option {
@@ -19,7 +20,7 @@ $container: '#{$app} .app-menu';
     width: 100%;
     height: 100%;
     position: relative;
-    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
 
     .bar {
         $width: 20px;
@@ -78,27 +79,40 @@ $container: '#{$app} .app-menu';
     justify-content: center;
     align-items: stretch;
     flex: 0 0 20%;
+    min-height: 5em;
 
     .link {
         flex: 0 0 auto;
-        padding: 0 10px;
         color: #888;
         font-size: 1.16rem;
+        padding: 0 2px;
         display: flex;
         flex-flow: row;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         transform-origin: center;
-        transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
 
-        &.fa-instagram:hover    { color: $color-instagram; }
-        &.fa-facebook:hover     { color: $color-facebook;  }
-        &.fa-youtube-play:hover { color: $color-youtube;   }
-        &.fa-twitter:hover      { color: $color-twitter;   }
+        .fa {
+            $size: 2.5em;
+            width: $size;
+            height: $size;
+            display: flex;
+            flex-flow: row;
+            align-items: center;
+            justify-content: center;
+            border-radius: $size;
+            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+        }
 
         &:hover {
-            transform: scale(2);
+            .fa { color: #fff; }
+
+            .fa-instagram    { background-color: $color-instagram; }
+            .fa-facebook     { background-color: $color-facebook;  }
+            .fa-youtube-play { background-color: $color-youtube;   }
+            .fa-twitter      { background-color: $color-twitter;   }
+
         }
     }
 }

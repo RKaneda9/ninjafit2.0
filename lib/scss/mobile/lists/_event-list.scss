@@ -1,9 +1,12 @@
 $container: '#{$app} .event-list';
+$min-height: 150px;
 
 #{$container} {
     flex: 1 0 30%;
     background: $color-primary-3;
     padding-bottom: 2px;
+    min-height: $min-height;
+    position: relative;
 }
 
 #{$container} .event-item {
@@ -12,7 +15,8 @@ $container: '#{$app} .event-list';
     margin-top: 2px;
     position:   relative;
     background: $color-primary-4;
-    padding: $general-padding-half 15px $general-padding-half $general-padding;
+    padding:    $general-padding-half 15px $general-padding-half $general-padding;
+    z-index:    1;
 
     &:before {
         content: '';

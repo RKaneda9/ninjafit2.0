@@ -7,6 +7,10 @@ const PageFooter  = require('desktop/containers/page-footer');
 const Page        = require('desktop/components/page');
 const {commands}  = require('services/event-system');
 
+let today        = new Date(), 
+    todayMonth   = today.getMonth(),
+    todayDateKey = today.getDateKey();
+
 module.exports = class Schedule extends Component {
     constructor(props) {
         super(props);
@@ -16,14 +20,11 @@ module.exports = class Schedule extends Component {
         this.showNextMonth = this.showNextMonth.bind(this);
         this.showPrevMonth = this.showPrevMonth.bind(this);
 
-        let date   = new Date();
-        let events = this.getEvents(date);
-        this.month = this.getMonth (date); // array of days
+        let date    = new Date();
+        this.month  = this.getMonth (date);
+        this.events = this.getEvents(date);
 
-        this.state = {
-            date:   date,
-            events: events
-        };
+        this.state = { date: date };
     }
 
     getEvents(date) {
@@ -109,21 +110,18 @@ module.exports = class Schedule extends Component {
         ];
     }
 
-    getMonth (date) {
+    getMonth(date) {
         if (!date) date = new Date();
 
-        let temp     = date.clone().toStartOfMonth().toStartOfWeek();
-        let end      = date.clone()  .toEndOfMonth()  .toEndOfWeek();
-        let month    = date.getMonth();
-        let todayKey = new Date().getDateKey();
-        let days     = [];
+        let temp  = date.clone().toStartOfMonth().toStartOfWeek();
+        let end   = date.clone()  .toEndOfMonth()  .toEndOfWeek();
+        let days  = [];
 
         do { 
             days.push({
-                diffMonth: temp.getMonth() != month,
-                isToday:   temp.getDateKey() == todayKey,
-                isOpen:   (settings.gymHours[temp.getDayText().toLowerCase()] || []).length,
-                day:       temp
+                isOpen:    (settings.gymHours[temp.getDayText().toLowerCase()] || []).length,
+                day:        temp,
+                dateKey:    temp.getDateKey()
             }); 
 
         } while ((temp = temp.getTomorrow()) <= end);
@@ -149,31 +147,23 @@ module.exports = class Schedule extends Component {
         return str;
     }
 
-    showNextMonth () {
-        let date = this.state.date.clone().toStartOfMonth().addMonths(1);
-
-        this.month = this.getMonth(date);
+    changeToDate(date) {
+        if (date.getMonth() != this.state.date.getMonth()) this.month = this.getMonth(date);
 
         this.setState({ date: date });
     }
 
-    showPrevMonth () {
-        let date = this.state.date.clone().toStartOfMonth().addMonths(-1);
+    showNextMonth() { this.changeToDate(this.state.date.clone().toStartOfMonth().addMonths( 1)); }
+    showPrevMonth() { this.changeToDate(this.state.date.clone().toStartOfMonth().addMonths(-1)); }
+    showTomorrow () { this.changeToDate(this.state.date.getTomorrow ()); }
+    showYesterday() { this.changeToDate(this.state.date.getYesterday()); }
 
-        this.month = this.getMonth(date);
-
-        this.setState({ date: date });
-    }
-
-    showTomorrow () { this.setState({ date: this.state.date.getTomorrow () }); }
-    showYesterday() { this.setState({ date: this.state.date.getYesterday() }); }
-
-    viewDay(day) {
-        this.setState({ date: day.clone() });
-    }
+    viewDay(day) { this.changeToDate(day.clone()); }
 
     render() {
-        let todayHours = (settings.gymHours[this.state.date.getDayText().toLowerCase()] || []);
+        let todayHours = (settings.gymHours[this.state.date.getDayText().toLowerCase()] || []),
+            selectedDateKey = this.state.date.getDateKey(),
+            selectedMonth   = this.state.date.getMonth();
 
         return (
             <Page {...this.props} name={constants.pages.schedule}>
@@ -227,9 +217,10 @@ module.exports = class Schedule extends Component {
                                 {utils.map(this.month, props => {
                                     let className = "day";
 
-                                    if (props.isOpen)    { className += ' open';       }
-                                    if (props.isToday)   { className += ' today';      }
-                                    if (props.diffMonth) { className += ' diff-month'; }
+                                    if (props.dateKey        == selectedDateKey) { className += ' selected';   }
+                                    if (props.dateKey        == todayDateKey)    { className += ' today';      }
+                                    if (props.day.getMonth() != selectedMonth)   { className += ' diff-month'; }
+                                    if (props.isOpen)                            { className += ' open';       }
 
                                     return (
                                         <li 
@@ -286,7 +277,7 @@ module.exports = class Schedule extends Component {
 
                         <div className="event-list">
 
-                            {utils.map(this.state.events, event => {
+                            {utils.map(this.events, event => {
 
                                 return (
                                     <div className="event-item">

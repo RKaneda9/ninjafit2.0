@@ -1,0 +1,37 @@
+@keyframes m-scroll-text-appear {
+    from { transform: translate(-50%, -50%); }
+      to { transform: translate(  0,  -50%); }
+}
+
+@keyframes m-scroll-appear {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+
+@keyframes m-scroll-down-anim {
+     0% { transform: translateY( 0 ); }
+     5% { transform: translateY(30%); }
+    10% { transform: translateY( 0 ); }
+    15% { transform: translateY(30%); }
+    20% { transform: translateY( 0 ); }
+}
+
+@keyframes m-btn-bounce-anim {
+      0%, 10% { transform: scale(1);          top: -$btn-bounce-offset; }
+     15%      { transform: scale(0.97, 1.05); }
+     35%, 75% { transform: scale(0.83, 1.33); }
+     95%      { transform: scale(1.17, 0.67); }
+    100%      { transform: scale(1, 0.33);    top:  $btn-bounce-offset; }
+}
+
+// @keyframes m-btn-bounce-text-anim {
+//      0% { content: '';    }
+//     25% { content: '.';   }
+//     50% { content: '..';  }
+//     75% { content: '...'; }
+// }
+
+@keyframes m-star-spin {
+    from { transform: rotate(  0deg); }
+      to { transform: rotate(360deg); }
+}

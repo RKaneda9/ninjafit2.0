@@ -1,21 +1,11 @@
-const Inferno   = require('inferno');
-const Component = require('inferno-component');
-const utils                    = require('helpers/utils');
-const settings                 = require('helpers/settings');
-const {commands}               = require('services/event-system');
-const constants                = require('helpers/constants');
-const PageFooter               = require('mobile/containers/page-footer');
-const {Page}                   = require('mobile/components/pages/base');
-const {Row, Col}               = require('mobile/components/form');
-const {TextBox, TextArea}      = require('mobile/containers/inputs');
-
-const {
-
-    Button,
-    MenuButton,
-    CloseButton
-
-} = require('mobile/components/buttons');
+const Inferno    = require('inferno');
+const Component  = require('inferno-component');
+const utils      = require('helpers/utils');
+const settings   = require('helpers/settings');
+const HeaderBar  = require('mobile/components/sections/header-bar');
+const PageFooter = require('mobile/containers/page-footer');
+const Popup      = require('mobile/components/popup');
+const Page       = require('mobile/components/page');
 
 const {
 
@@ -25,56 +15,35 @@ const {
 
 } = require('mobile/components/backgrounds');
 
+const {
+
+    Button,
+    CloseButton
+    
+} = require('mobile/components/buttons');
+
 
 module.exports = class AboutUs extends Component {
     constructor(props) {
         super(props);
 
-        this.onResize   = this.onResize  .bind(this);
-        this.scrollDown = this.scrollDown.bind(this);
         this.viewBio    = this.viewBio   .bind(this);
         this.closePopup = this.closePopup.bind(this);
 
-        this.state = {
-            sliderStyles: {}
-        };
+        this.state = {};
     }
 
-    componentDidMount() {
-        //window.addEventListener('resize', this.onResize);
-
-        //setTimeout(this.onResize);
-    }
-
-    componentWillUnmount() {
-        //window.removeEventListener('resize', this.onResize);
-    }
-
-    onResize() {
-        
-    }
-
-    viewBio(member) {
-        this.setState({ selectedMember: member });
-    }
-
-    closePopup() {
-        this.setState({ selectedMember: null })
-    }
-
-    scrollDown(e) {
-        console.log("TODO");
-    }
+    viewBio   (member) { this.setState({ selected: member }); }
+    closePopup()       { this.setState({ selected: null   }); }
 
     render() {
-        let i = 0;
+
+        let member = this.state.selected || {};
 
         return (
             <Page name="about-us">
-                <header className="header-bar">
-                    <p className="title">About Us</p>
-                    <MenuButton onClick={commands.openMenu.emit} />
-                </header>
+                <HeaderBar title="About Us"></HeaderBar>
+                
                 <section className="landing">
                     <header className="header">What is NinjaFit Gym?</header>
                     <div className="content">
@@ -122,34 +91,32 @@ module.exports = class AboutUs extends Component {
                     </div>
                 </section>
 
-                <div className={`popup${this.state.selectedMember ? " open" : ""}`}>
-                    <div className="cover" />
-                    <div className="content staff-member">
-                        <header className="header">
-                            <div
-                                className="image" 
-                                style={{ backgroundImage: `url("${this.state.selectedMember ? this.state.selectedMember.image : '' }")` }} />
+                <Popup 
+                    open={this.state.selected}
+                    type="staff-member">
+                    <header className="header">
+                        <div
+                            className="image" 
+                            style={{ backgroundImage: `url("${member.image}")` }} />
 
-                            <div className="details">
-                                <div className="name">{this.state.selectedMember ? this.state.selectedMember.name : null}</div>
-                                <div className="title">{this.state.selectedMember ? this.state.selectedMember.title : null}</div>
-                                <ul className="social-list">
-                                    <li className="social-link fa fa-facebook" />
-                                    <li className="social-link fa fa-twitter" />
-                                    <li className="social-link fa fa-instagram" />
-                                </ul>
-                            </div>
-
-                            <CloseButton onClick={this.closePopup} />
-                        </header>
-
-                        <div className="content">
-                            {this.state.selectedMember ? utils.map(this.state.selectedMember.bio.split('\n'), (text, i) =>
-                                <p>{text}</p>
-                            ) : null}
+                        <div className="details">
+                            <div className="name">{member.name}</div>
+                            <div className="title">{member.title}</div>
+                            <ul className="social-list">
+                                <li className="social-link fa fa-facebook" />
+                                <li className="social-link fa fa-twitter" />
+                                <li className="social-link fa fa-instagram" />
+                            </ul>
                         </div>
+
+                        <CloseButton onClick={this.closePopup} />
+                    </header>
+                    <div className="content">
+                        {member ? utils.map(member.bio.split('\n'), (text, i) =>
+                            <p>{text}</p>
+                        ) : null}
                     </div>
-                </div>
+                </Popup>
             </Page>
         );
     }

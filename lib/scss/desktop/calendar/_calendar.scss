@@ -19,6 +19,7 @@ $child-width: (100% / 7);
 }
 
 #{$container} .day {
+    $day-item-size: 2em;
     flex: 0 1 $child-width;
     height: 0px;
     padding-bottom: $child-width * 1.2;
@@ -26,9 +27,15 @@ $child-width: (100% / 7);
 
     .text {
         position: absolute;
-        top: 50%;
-        left: 50%;
+        top:      50%;
+        left:     50%;
         transform: translate(-50%, -50%);
+        width:         $day-item-size;
+        height:        $day-item-size;
+        border-radius: $day-item-size;
+        line-height:   $day-item-size;
+        text-align: center;
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
     }
 
     &.open:after {
@@ -46,14 +53,25 @@ $child-width: (100% / 7);
         z-index:    1;
     }
 
+    &:not(.selected):hover { 
+        cursor: pointer;
+
+        &:not(.today) .text {
+            background: #323232;
+        }
+    }
+
+    &.selected:not(.today) .text {
+        background: $color-primary-12;
+    }
+
     &.today .text {
-        width: 2em;
-        height: 2em;
-        border-radius: 2em;
         background: #fff;
+        color: $color-primary-4;
+    }
+
+    &.selected.today .text {
         color: $color-primary-5;
-        text-align: center;
-        line-height: 2em;
     }
 
     &.diff-month .text {

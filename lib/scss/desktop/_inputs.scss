@@ -2,23 +2,25 @@
     resize:        none;
     border:        1px solid #000000;
     border-radius: 1.1em;
-    text-indent:   0.8em;
-    padding:       0.5em 0;
     width:         100%;
     max-width:     100%;
     flex:          0 1 100%;
+    color:         $color-primary-1;
 }
 
 #{$app} input[type=text],
 #{$app} input[type=password],
 #{$app} input[type=number] { 
     @extend %textbox;
-    height: 1.2em; 
-    min-height: 1.2em;
+    height:      1.2em; 
+    min-height:  1.2em;
+    text-indent: 0.8em;
+    padding:     0.5em 0;
 }
 
 #{$app} textarea {
     @extend %textbox; 
-    height: 7em;
-    min-height: 7em;
+    height:     15em;
+    min-height: 15em;
+    padding:   0.5em 0.8em;
 }

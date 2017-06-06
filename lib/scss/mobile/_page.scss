@@ -97,9 +97,22 @@ $container: '#{$app} .page';
         flex-flow: row;
         padding: 0 $general-padding-half $general-padding-half $general-padding-half;
 
-        .btn {
+        & > .btn {
             flex: 0 1 50%;
             margin: 0 $general-padding-half;
+        }
+
+        & > .btn-col { 
+            margin:  0;
+            padding: 0 $general-padding-half;
+            flex: 0 0 $btn-width;
+            min-height: $btn-height;
+            min-width:  $btn-width;
+            justify-content: center;
+            display: flex;
+            flex-flow: row;
+
+            .btn { flex: 0 0 auto; }
         }
     }
 };

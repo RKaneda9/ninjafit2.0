@@ -4,6 +4,7 @@ const constants   = require('helpers/constants');
 const utils       = require('helpers/utils');
 const settings    = require('helpers/settings');
 const PageFooter  = require('desktop/containers/page-footer');
+const ContactForm = require('desktop/containers/contact-form');
 const Page        = require('desktop/components/page');
 const {commands}  = require('services/event-system');
 
@@ -41,11 +42,16 @@ module.exports = class WOD extends Component {
                     </header>
                 </section>
 
-                <section className="contact">
-                    <header className="header">Get in Touch</header>
+                <section className="visit-us">
+                    <header className="header">Come Visit Us!</header>
 
                     <div className="content">
-                        <div className="row">
+                        <a href="http://maps.google.com/maps?q=6541+North+Orange+Blossom+Trail,+Suit+100+Orlando+Florida+32810" target="nfg-map" className="contact-map">
+                            <div className="image-wrapper">
+                                <div className="image" style={{ backgroundImage: `url("./images/map.jpg")`}} />
+                            </div>
+                        </a>
+                        <div className="contact-items">
                             <div className="contact-item">
                                 <div className="icon fa fa-envelope" />
                                 <div className="value">ninjafitgyms@gmail.com</div>
@@ -55,37 +61,10 @@ module.exports = class WOD extends Component {
                                 <div className="value">407-250-4496</div>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col">
-                                <input type="text" maxlength={99} placeholder="First Name" />
-                            </div>
-                            <div className="col">
-                                <input type="text" maxlength={99} placeholder="Last Name" />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                                <input type="text" maxlength={199} placeholder="Your Email" />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                                <textarea maxlength={999} placeholder="What can we help you with?" />
-                            </div>
-                        </div>
                     </div>
-
-                    <footer className="footer">
-                        <button className="btn">Send</button>
-                    </footer>
                 </section>
 
-                <a href="http://maps.google.com/maps?q=6541+North+Orange+Blossom+Trail,+Suit+100+Orlando+Florida+32810" target="nfg-map" className="contact-map">
-                    <div className="image-wrapper">
-                        <div className="image" style={{ backgroundImage: `url("./images/map.jpg")`}} />
-                    </div>
-                </a>
-
+                <ContactForm />
                 <PageFooter />
             </Page>
         );

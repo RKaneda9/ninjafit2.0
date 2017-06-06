@@ -3,6 +3,7 @@ const Component   = require('inferno-component');
 const constants   = require('helpers/constants');
 const utils       = require('helpers/utils');
 const settings    = require('helpers/settings');
+const ContactForm = require('desktop/containers/contact-form');
 const PageFooter  = require('desktop/containers/page-footer');
 const Page        = require('desktop/components/page');
 const {commands}  = require('services/event-system');
@@ -201,7 +202,7 @@ module.exports = class JoinUs extends Component {
                                 <div className="image" style={{ backgroundImage: `url("./images/map.jpg")`}} />
                             </div>
                         </a>
-                        <div className="row">
+                        <div className="contact-items">
                             <div className="contact-item">
                                 <div className="icon fa fa-envelope" />
                                 <div className="value">ninjafitgyms@gmail.com</div>
@@ -214,35 +215,7 @@ module.exports = class JoinUs extends Component {
                     </div>
                 </section>
 
-                <section className="questions">
-                    <header className="header">Questions? Let Us Help With That</header>
-
-                    <div className="content">
-                        <div className="row">
-                            <div className="col">
-                                <input type="text" maxlength={99} placeholder="First Name" />
-                            </div>
-                            <div className="col">
-                                <input type="text" maxlength={99} placeholder="Last Name" />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                                <input type="text" maxlength={199} placeholder="Your Email" />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                                <textarea maxlength={999} placeholder="What can we help you with?" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <footer className="footer">
-                        <button className="btn">Send</button>
-                    </footer>
-                </section>
-                
+                <ContactForm />
                 <PageFooter />
             </Page>
         );

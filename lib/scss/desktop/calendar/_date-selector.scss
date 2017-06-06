@@ -10,6 +10,8 @@ $container: '#{$app} .date-selector';
 #{$container} .row {
     flex: 1 1 auto; 
     align-items: stretch;
+    margin: 0;
+    padding: 0;
 }
 
 #{$container} .option-btn {

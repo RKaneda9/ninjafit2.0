@@ -1,10 +1,9 @@
 $container: '#{$app} .contact-page';
 
-#{$container} > .landing {
-    .header { 
-        text-align: left; 
-        padding-bottom: 0px;
-    }
-
-    .content { padding-top: 0px; }
-}
+// #{$container} .visit-us {
+//     .content {
+//         padding: 0;
+//         margin: $general-padding-half $general-padding;
+//         box-shadow: 0 0 5px 0 #000;
+//     }
+// }

@@ -1,11 +1,9 @@
-const Inferno       = require('inferno');
-const {CloseButton} = require('mobile/components/buttons');
+const Inferno = require('inferno');
 
-export const Popup = ({ children, open, type, onClose }) => (
+module.exports = ({ children, open, type }) => (
     <div className={`popup${open ? " open" : ""}`}>
         <div className="cover" />
         <div className={`content ${type}`}>
-            <CloseButton onClick={onClose} />
             {children}
         </div>
     </div>

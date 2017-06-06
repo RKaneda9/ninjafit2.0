@@ -207,8 +207,6 @@ class Application extends Component {
             };
         }
 
-        console.log(pageIndex, styles);
-
         return styles;
     }
 
@@ -313,7 +311,7 @@ class Application extends Component {
         }
 
         return (
-            <div className="app desktop">
+            <div className={`app desktop${this.state.menuOpen ? ' hide-overflow' : ''}`}>
                 <svg className="defs" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <filter id="ds-s" height="150%">
@@ -346,19 +344,19 @@ class Application extends Component {
                     <div className="menu">
                         <div className="links">{menuLinks}</div>
                         <div className="social">
-                            <div className="link fa fa-instagram"></div>
-                            <div className="link fa fa-facebook"></div>
-                            <div className="link fa fa-youtube-play"></div>
-                            <div className="link fa fa-twitter"></div>
+                            <a target="nfg-social" href={settings.social.Instagram.href} className="link"><span className="fa fa-instagram" /></a>
+                            <a target="nfg-social" href={settings.social.Facebook.href} className="link"><span className="fa fa-facebook" /></a>
+                            <a target="nfg-social" href={settings.social.Youtube.href} className="link"><span className="fa fa-youtube-play" /></a>
+                            <a target="nfg-social" href={settings.social.Twitter.href} className="link"><span className="fa fa-twitter" /></a>
                         </div>
                     </div>
                     <div className="option">
-                        <div
+                        <button
                             onClick={this.closeMenu} 
                             className="close-btn">
                             <div className="bar"></div>
                             <div className="bar"></div>
-                        </div>
+                        </button>
                     </div>
                 </div>
                 <div className="pages">{pages}</div>

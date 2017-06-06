@@ -1,8 +1,10 @@
 %clear-browser-defaults {
     
-    border:      none;
-    font-size:   inherit;
-    font-family: inherit;
+    border:          none;
+    font-size:       inherit;
+    font-family:     inherit;
+    color:           inherit;
+    text-decoration: none;
 
     margin:  0;
     padding: 0;
@@ -10,7 +12,10 @@
     &,
     &:hover,
     &:active,
-    &:focus { outline: none; }
+    &:focus { 
+        text-decoration: none;
+        outline: none; 
+    }
 }
 
 html, body, #app {
@@ -55,15 +60,12 @@ button {
     background: none;
 }
 
-input[type=text],
-input[type=password],
-input[type=number],
+input,
 textarea { 
     @extend %clear-browser-defaults;
 }
 
-a,
-a:hover { text-decoration: none; color: inherit; }
+a { @extend %clear-browser-defaults; }
 
 .defs {
     height: 0;

@@ -1,9 +1,11 @@
 @import './base/variables';
 @import './mobile/variables';
 @import './mobile/mixins';
+@import './mobile/animations';
 @import './mobile/base';
 @import './mobile/buttons';
 @import './mobile/inputs';
+@import './mobile/loaders';
 @import './mobile/form';
 @import './mobile/lists';
 @import './mobile/menu';

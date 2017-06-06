@@ -3,4 +3,17 @@ $menu-btn-size: 6rem;
 $general-padding: 30px;
 $general-padding-half: 15px;
 
+$btn-height: 28px;
+$btn-width:  115px;
+
+$btn-color-bg:         #fff;
+$btn-color-text:       $color-primary-1;
+$btn-color-hover-bg:   $color-primary-15;
+$btn-color-hover-text: #000;
+
+$btn-bounce-size:   16px;
+$btn-bounce-offset: 2.5 * $btn-bounce-size;
+
+$btn-cover-offset: 2px;
+
 $app: '.app.mobile';

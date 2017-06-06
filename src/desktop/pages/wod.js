@@ -43,7 +43,9 @@ module.exports = class WOD extends Component {
                             </svg>
                         </button>
                     </header>
+                </section>
 
+                <section className="wod">
                     <div className="date-selector">
                         <div className="row">
                             <button 

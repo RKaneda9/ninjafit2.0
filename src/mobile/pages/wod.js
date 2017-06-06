@@ -1,43 +1,18 @@
-const Inferno   = require('inferno');
-const Component = require('inferno-component');
-// const utils                    = require('helpers/utils');
-// const settings                 = require('helpers/settings');
-const {commands}               = require('services/event-system');
-// const constants                = require('helpers/constants');
-const PageFooter               = require('mobile/containers/page-footer');
-// const {Page}                   = require('components/pages/base');
-// const {Row, Col}               = require('components/form');
-// const {TextBox, TextArea}      = require('containers/inputs');
+const Inferno    = require('inferno');
+const Component  = require('inferno-component');
+const wods       = require('services/wod-store');
+const utils      = require('helpers/utils');
+const Page       = require('mobile/components/page');
+const Loader     = require('shared/components/loaders/content');
+const HeaderBar  = require('mobile/components/sections/header-bar');
+const PageFooter = require('mobile/containers/page-footer');
 
 const {
 
     Button,
-    MenuButton,
     CloseButton
 
 } = require('mobile/components/buttons');
-
-// const {
-
-//     TriangleRight,
-//     TriangleDown,
-//     Background
-
-// } = require('components/backgrounds');
-
-// const {
-
-//         LandingSection,
-//           AboutSection,
-//            MainSection,
-//           ShortSection,
-//            JoinSection,
-//             MapSection,
-//         ContactSection,
-//     TestimonialsSlider,
-
-
-// } = require('components/pages/home');
 
 
 module.exports = class WOD extends Component {
@@ -47,33 +22,42 @@ module.exports = class WOD extends Component {
         this.showTomorrow  = this.showTomorrow .bind(this);
         this.showYesterday = this.showYesterday.bind(this);
 
-        this.state = {
-            date: new Date()
+        let date = new Date();
+
+        this.state = { 
+            date:     date,
+            workouts: this.getWorkouts(date),
+            loading:  true
         };
     }
 
-    componentDidMount() {
-        //window.addEventListener('resize', this.onResize);
+    getWorkouts(date) {
+        wods.fetch(date.getDateKey())
+            .then(wod => {
+                this.setState({
+                    workouts: wod.workouts,
+                    loading:  false
+                });
+            });
 
-        //setTimeout(this.onResize);
+        return [];
     }
 
-    componentWillUnmount() {
-        //window.removeEventListener('resize', this.onResize);
+    changeDay(date) {
+        this.setState({
+            workouts: this.getWorkouts(date),
+            date:     date,
+            loading:  true
+        });
     }
 
-    showTomorrow () { this.setState({ date: this.state.date.getTomorrow () }); }
-    showYesterday() { this.setState({ date: this.state.date.getYesterday() }); }
+    showTomorrow () { this.changeDay(this.state.date.getTomorrow ()); }
+    showYesterday() { this.changeDay(this.state.date.getYesterday()); }
 
     render() {
-        let i = 0;
-
         return (
-            <div className="page wod-page">
-                <header className="header-bar">
-                    <p className="title">WOD</p>
-                    <MenuButton onClick={commands.openMenu.emit} />
-                </header>
+            <Page name="wod">
+                <HeaderBar title="WOD"></HeaderBar>
 
                 <div className="date-selector">
                     <div className="row">
@@ -90,33 +74,29 @@ module.exports = class WOD extends Component {
                     </div>
                 </div>
                 <div className="calendar-separator">
-                    <span className="title">2 Workouts Found</span>
+                    <span className="title">
+                            {this.state.loading ? '' : `${this.state.workouts.length} Workouts Found`}
+                    </span>
                 </div>
                 <div className="event-list">
-                    <div className="event-item">
-                        <div className="title">Strength</div>
-                        <div className="sub-title">Deadlift</div>
-                        <div className="content">
-                            <p>1x8</p>
-                            <p>1x8</p>
-                            <p>1x8</p>
+                    {utils.map(this.state.workouts, workout => (
+                        <div className="event-item">
+                            <div className="title">{workout.title}</div>
+                            <div className="sub-title">{workout.subtitle}</div>
+                            <div className="content">
+                                {utils.map(workout.contents, prop => 
+                                    <p>{prop}</p>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                    <div className="event-item">
-                        <div className="title">WOD</div>
-                        <div className="sub-title">170508B</div>
-                        <div className="content">
-                            <p>3RFT</p>
-                            <p>6 Deadlifts</p>
-                            <p>5 hang Power Cleans</p>
-                            <p>4 Front Squats</p>
-                            <p>3 shoulder to overhead</p>
-                            <p>2 thrusters</p>
-                            <p>1 Muscle Up</p>
-                        </div>
-                    </div>
+
+                    ))}
+
+                    <Loader 
+                        show={this.state.loading}
+                        text="Retrieving your workouts..." />
                 </div>
-            </div>
+            </Page>
         );
     }
 }

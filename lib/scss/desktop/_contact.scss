@@ -1,10 +1,26 @@
+#{$app} .contact-items {
+    display: flex;
+    flex-flow: row;
+    flex: 0 0 auto;
+    align-items: stretch;
+    background: $color-primary-13;
+
+    &:not(:first-child) { padding-top: 1px; }
+}
+
 #{$app} .contact-item {
-    flex: 0 1 50%;
+    flex: 1 1 40%;
     display: flex;
     flex-flow: row;
     align-items: center;
-    padding: 10px ($content-padding-h / 2);
-    color: $color-footer-menu-title;
+    padding: 15px 0;
+    color: $color-primary-15;
+    cursor: pointer;
+    justify-content: center;
+    background-color: $color-primary-4;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:not(:first-child) { margin-left: 1px; }
 
     .icon { 
         width: 2rem;
@@ -12,20 +28,22 @@
         font-size: 1.16rem;
     }
 
-    .value { font-size: 0.9rem; }
+    &:hover { 
+        background-color: $color-primary-11;
+        color:            #fff;
+    }
 }
 
 #{$app} .contact-map {
     flex: 0 0 auto;
-    width: 100%;
     max-width: 800px;
-    background: $color-primary-13;
+    background: $color-primary-2;
     margin: (2 * $general-padding-v) $general-padding-h 0 $general-padding-h;
     align-self: center;
-    box-shadow: 0 0 5px 0 #000;
+    //box-shadow: 0 0 5px 0 #000;
     cursor: pointer;
     display: block;
-    padding: 0;
+    padding: $image-border-width;
     //padding: 6px;
     //background: $color-primary-2;
 

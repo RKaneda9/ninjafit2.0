@@ -1,0 +1,56 @@
+$container: '#{$app} .loader';
+
+#{$container} {
+    position: absolute;
+    top:      0;
+    bottom:   2px;
+    left:     0;
+    right:    0;
+    opacity:  0;
+    z-index: -1;
+    background-color: $color-primary-17;
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+#{$container}.show {
+    opacity:  1;
+    z-index: 99;
+
+    //.text:after { animation: m-btn-bounce-text-anim 3s infinite; }
+}
+
+#{$container} .throwing-star {
+    $size: 2rem;
+    width:  $size;
+    height: $size;
+    transform-origin: center;
+    animation: m-star-spin 1.2s linear infinite normal;
+}
+
+#{$container} .bounce {
+    $scale: 1.5;
+    $size: $btn-bounce-size * $scale;
+    line-height:      2rem;
+    margin-top:      -$btn-bounce-offset;
+    width:            $size;
+    height:           $size;
+    border-radius:    $size;
+    top:             -$btn-bounce-offset;
+    background-color: $color-primary-12;
+
+    position:         relative;
+    animation:        m-btn-bounce-anim 0.5s cubic-bezier(.63,.09,.75,.46) 0.3s infinite alternate;
+    transform-origin: center;
+    cursor:           default;
+}
+
+#{$container} .text {
+
+    font-size: 1.34rem;
+
+    &:not(:first-child) { margin-left: 15px; }
+}

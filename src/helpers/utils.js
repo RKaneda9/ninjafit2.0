@@ -12,12 +12,10 @@ const utils = module.exports = {
     },
 
     getListOffset(i, offset, length) {
-        i = i + offset;
+        let i1 = i - offset;
+        let i2 = i1 < 0 ? (i1 + length) : (i1 - length);
 
-        while (i < 0)       i += length;
-        while (i >= length) i -= length;
-
-        return i;
+        return Math.abs(i1) < Math.abs(i2) ? i1 : i2;
     },
 
     toPath() { return "M" + utils.map(arguments, pos => pos.join(',')).join(' L') + ' Z'; },

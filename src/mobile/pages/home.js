@@ -1,12 +1,13 @@
-const Inferno   = require('inferno');
-const Component = require('inferno-component');
-const utils               = require('helpers/utils');
-const settings            = require('helpers/settings').homePage;
-const {events,commands}          = require('services/event-system');
-const constants           = require('helpers/constants');
-const {Page}              = require('mobile/components/pages/base');
-const {Row, Col}          = require('mobile/components/form');
-const {TextBox, TextArea} = require('mobile/containers/inputs');
+const Inferno           = require('inferno');
+const Component         = require('inferno-component');
+const utils             = require('helpers/utils');
+const settings          = require('helpers/settings').homePage;
+const {events,commands} = require('services/event-system');
+const constants         = require('helpers/constants');
+const ContactForm       = require('mobile/containers/contact-form');
+const Page              = require('mobile/components/page');
+const Popup             = require('mobile/components/popup');
+const ContactMap        = require('mobile/components/contact/map');
 const {
 
           MenuButton,
@@ -156,18 +157,13 @@ module.exports = class Home extends Component {
                             className="image-wrapper">
 
                             {utils.map(settings.home.images, (image, i) => {
-                                let pos = 'hidden';
+                                let pos    = 'hidden',
+                                    offset = utils.getListOffset(i, this.state.sliderIndex, settings.home.images.length);
 
-                                     if (i == this.state.sliderIndex)                                                       pos = 'curr';
-                                else if (i == utils.getListOffset(this.state.sliderIndex, -1, settings.home.images.length)) pos = 'left';
-                                else if (i == utils.getListOffset(this.state.sliderIndex,  1, settings.home.images.length)) pos = 'right';
-                                else if (i == utils.getListOffset(this.state.sliderIndex, -2, settings.home.images.length)) pos = 'left2';
-                                else if (i == utils.getListOffset(this.state.sliderIndex,  2, settings.home.images.length)) pos = 'right2';
-                                else if (i == utils.getListOffset(this.state.sliderIndex, -3, settings.home.images.length)) pos = 'left3';
-                                else if (i == utils.getListOffset(this.state.sliderIndex,  3, settings.home.images.length)) pos = 'right3';
-                                else if (i == utils.getListOffset(this.state.sliderIndex, -4, settings.home.images.length)) pos = 'left4';
-                                else if (i == utils.getListOffset(this.state.sliderIndex,  4, settings.home.images.length)) pos = 'right4';
-                                
+                                     if (offset == 0) pos = 'curr';
+                                else if (offset <  0) pos = 'left'  + (-offset);
+                                else if (offset >  0) pos = 'right' +   offset;
+
                                 return (
                                     <div className={`image ${pos}`} style={{ backgroundImage: `url("${image.url}")` }} />
                                 );
@@ -218,7 +214,7 @@ module.exports = class Home extends Component {
 
                     <footer className="footer">
                         <Button onClick={this.playIntro}>Play Intro</Button>
-                        <Button onClick={e => this.props.onRedirect(constants.pages.aboutUs)}>Explore More</Button>
+                        <Button onClick={e => commands.redirect.emit(constants.pages.aboutUs)}>Explore More</Button>
                     </footer>
                 </section>
 
@@ -278,7 +274,7 @@ module.exports = class Home extends Component {
                     </div>
 
                     <footer className="footer">
-                        <Button onClick={null}>Explore More</Button>
+                        <Button onClick={e => commands.redirect.emit(constants.pages.aboutUs, constants.sections.kids)}>Explore More</Button>
                     </footer>
                 </section>
 
@@ -294,7 +290,7 @@ module.exports = class Home extends Component {
                     </div>
 
                     <footer className="footer">
-                        <Button onClick={null}>Explore More</Button>
+                        <Button onClick={e => commands.redirect.emit(constants.pages.aboutUs, constants.sections.specialEvnts)}>Explore More</Button>
                     </footer>
                 </section>
 
@@ -338,58 +334,28 @@ module.exports = class Home extends Component {
                 <section className="join">
                     <header className="header">Join the Fitness Revolution</header>
                     <footer className="footer">
-                        <Button onClick={null}>See Pricing</Button>
+                        <Button onClick={e => commands.redirect.emit(constants.pages.joinUs)}>See Pricing</Button>
                     </footer>
                 </section>
 
-                <a href="http://maps.google.com/maps?q=6541+North+Orange+Blossom+Trail,+Suit+100+Orlando+Florida+32810" target="nfg-map" className="map">
-                    <div className="image-wrapper">
-                        <div className="image" style={{ backgroundImage: `url("./images/map3.jpg")`}} />
-                    </div>
-                </a>
+                <ContactMap 
+                    className="map"
+                    version="3" />
 
-                 <section className="contact">
+                <ContactForm title="Get In Touch">
                     <Background>
                         <TriangleLeft position="v-half bottom right" size="medium" />
                         <TriangleRight position="left v-full" />
                     </Background>
+                </ContactForm>
 
-                    <header className="header">Get In Touch</header>
+                <Popup
+                    open={this.state.showVideo}
+                    type="player">
+                    <CloseButton onClick={this.closePopup} />
 
-                    <div className="content">
-                        <Row>
-                            <Col>
-                                <TextBox maxLength={99} placeholder="First Name" />
-                            </Col>
-                            <Col>
-                                <TextBox maxLength={99} placeholder="Last Name" />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <TextBox maxLength={199} placeholder="Your Email" />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <TextArea maxLength={999} placeholder="Write Your Message Here..." />
-                            </Col>
-                        </Row>
-                    </div>
-
-                    <footer className="footer">
-                        <Button onClick={null}>Send</Button>
-                    </footer>
-                </section>
-
-                <div className={`popup${this.state.showVideo ? " open" : ""}`}>
-                    <div className="cover" />
-                    <div className="content player">
-                        <CloseButton onClick={this.closePopup} />
-
-                        {this.state.showVideo ? (<iframe className="frame" frameborder="0" src={this.state.showVideo} />) : null}
-                    </div>
-                </div>
+                    {this.state.showVideo ? (<iframe className="frame" frameborder="0" src={this.state.showVideo} />) : null}
+                </Popup>
             </Page>
         );
     }

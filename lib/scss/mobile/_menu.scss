@@ -141,7 +141,7 @@ $container: '#{$app} .app-menu';
     
 #{$container}.open {
     transition: z-index 0.01s ease-in-out 0.3s;
-    z-index: 5;
+    z-index: 1000;
     
     & + .page .menu-btn .bar {
         transition: transform 0.3s ease-in-out, opacity 0.15s ease-in-out 0.15s;

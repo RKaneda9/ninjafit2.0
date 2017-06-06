@@ -1,0 +1,25 @@
+@keyframes d-scroll-text-appear {
+    from { transform: translate(-50%, 0%); }
+      to { transform: translate(  0,  0%); }
+}
+
+@keyframes d-scroll-appear {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+
+@keyframes d-scroll-down-anim {
+     0% { transform: translateY( 0 ); }
+     5% { transform: translateY(30%); }
+    10% { transform: translateY( 0 ); }
+    15% { transform: translateY(30%); }
+    20% { transform: translateY( 0 ); }
+}
+
+@keyframes d-btn-bounce-anim {
+      0%, 10% { transform: scale(1);          top: -$btn-bounce-offset; }
+     15%      { transform: scale(0.97, 1.05); }
+     35%, 75% { transform: scale(0.83, 1.33); }
+     95%      { transform: scale(1.17, 0.67); }
+    100%      { transform: scale(1, 0.33);    top:  $btn-bounce-offset; }
+}

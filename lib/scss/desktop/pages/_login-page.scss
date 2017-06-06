@@ -1,12 +1,38 @@
 #{$app} .login-page .login {
+    flex: 1 0 auto;
     display: flex; 
     flex-flow: column;
     align-items: stretch;
     justify-content: center;
-    height: 80vh;
-    max-height: 600px;
     margin: 0 auto;
-    width: 500px;
+    width: 400px;
 
-    .header { text-align: center; }
+    .header { 
+        text-align: center; 
+        flex: 0 0 auto;
+        font-size: 1.6rem;
+    }
+
+    .content { 
+        flex: 0 0 auto; 
+        padding: $content-padding-v 0 0 0; 
+    }
+
+    .footer { 
+        display: flex;
+        flex-flow: row;
+        padding: $content-padding-v 0 0 0;
+        justify-content: flex-end; 
+
+        .col {
+            margin: 0;
+            padding: 0;
+            flex: 0 1 50%;
+            min-width:  $btn-width;
+            min-height: $btn-height;
+            justify-content: center;
+        }
+    }
+
+    .btn { flex: 0 0 auto; }
 }

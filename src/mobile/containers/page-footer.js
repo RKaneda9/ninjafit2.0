@@ -1,10 +1,10 @@
-const Inferno    = require('inferno');
-const utils      = require('helpers/utils');
-const pages      = require('helpers/constants').pages;
-const {commands} = require('services/event-system');
-const {Footer}   = require('mobile/components/app');
+const Inferno  = require('inferno');
+const utils    = require('helpers/utils');
+const pages    = require('helpers/constants').pages;
+const commands = require('services/event-system').commands;
 const {
     
+    Footer,
     NavTitle,
     MenuLinks,
     MenuLink,

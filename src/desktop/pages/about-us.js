@@ -37,7 +37,8 @@ module.exports = class AboutUs extends Component {
                             </svg>
                         </button>
                     </header>
-
+                </section>
+                <section className="about">
                     <header className="header">What is NinjaFit Gym?</header>
 
                     <div className="content">
@@ -49,7 +50,8 @@ module.exports = class AboutUs extends Component {
 
                 <section className="our-philosophy">
                     <div className="background">
-
+                        <div className="left" />
+                        <div className="right" />
                     </div>
 
                     <div className="image" style={{ backgroundImage: `url("https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/15802716_253884945025372_5272580072513994752_n.jpg")`}} />
@@ -82,19 +84,10 @@ module.exports = class AboutUs extends Component {
                                             </ul>
                                         </div>
                                     </header>
-
-                                    <div className="scroll-indicator up">
-                                        <span className="fa fa-angle-up" />
-                                    </div>
-
                                     <div className="content">
                                         {utils.map(member.bio.split('\n'), text => 
                                             <p>{text}</p>
                                         )}
-                                    </div>
-
-                                    <div className="scroll-indicator down">
-                                        <span className="fa fa-angle-down" />
                                     </div>
                                 </li>
                             )}

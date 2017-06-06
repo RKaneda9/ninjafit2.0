@@ -1,18 +1,15 @@
-const Inferno   = require('inferno');
-const Component = require('inferno-component');
-const utils                    = require('helpers/utils');
-const settings                 = require('helpers/settings');
-const {commands}               = require('services/event-system');
-const constants                = require('helpers/constants');
-const PageFooter               = require('mobile/containers/page-footer');
-const {Page}                   = require('mobile/components/pages/base');
-const {Row, Col}               = require('mobile/components/form');
-const {TextBox, TextArea}      = require('mobile/containers/inputs');
+const Inferno    = require('inferno');
+const Component  = require('inferno-component');
+const utils      = require('helpers/utils');
+const settings   = require('helpers/settings');
+const HeaderBar  = require('mobile/components/sections/header-bar');
+const PageFooter = require('mobile/containers/page-footer');
+const Page       = require('mobile/components/page');
+const Popup      = require('mobile/components/popup');
 
 const {
 
     Button,
-    MenuButton,
     CloseButton
 
 } = require('mobile/components/buttons');
@@ -29,84 +26,58 @@ module.exports = class WhatWeOffer extends Component {
     constructor(props) {
         super(props);
 
-        this.onResize     = this.onResize    .bind(this);
-        this.scrollDown   = this.scrollDown  .bind(this);
         this.view         = this.view        .bind(this);
         this.closePopup   = this.closePopup  .bind(this);
         this.prevSelected = this.prevSelected.bind(this);
         this.nextSelected = this.nextSelected.bind(this);
 
-        this.state = {
-
-        };
-    }
-
-    componentDidMount() {
-        //window.addEventListener('resize', this.onResize);
-
-        //setTimeout(this.onResize);
-    }
-
-    componentWillUnmount() {
-        //window.removeEventListener('resize', this.onResize);
-    }
-
-    onResize() {
-        
+        this.state = {};
     }
 
     view(item, i, parent) {
         item.index = i;
-        this.selectedEquipmentParent = parent;
+        this.selectedParent = parent;
 
-        this.setState({ selectedEquipment: item });
+        this.setState({ selected: item });
     }
 
     closePopup() {
-        this.setState({ selectedEquipment: null })
-    }
-
-    scrollDown(e) {
-        console.log("TODO");
+        this.setState({ selected: null })
     }
 
     prevSelected() {
-        if (this.state.selectedEquipment &&
-            this.selectedEquipmentParent) {
+        if (this.state.selected &&
+            this.selectedParent) {
 
-            let keys   = Object.keys(this.selectedEquipmentParent);
-            let index  = this.state.selectedEquipment.index - 1; if (index < 0) index = keys.length - 1;
-            let item   = this.selectedEquipmentParent[keys[index]];
+            let keys   = Object.keys(this.selectedParent);
+            let index  = this.state.selected.index - 1; if (index < 0) index = keys.length - 1;
+            let item   = this.selectedParent[keys[index]];
             item.index = index;
 
-            this.setState({ selectedEquipment: item });
+            this.setState({ selected: item });
         }
     }
 
     nextSelected() {
-        if (this.state.selectedEquipment &&
-            this.selectedEquipmentParent) {
+        if (this.state.selected &&
+            this.selectedParent) {
 
-            let keys   = Object.keys(this.selectedEquipmentParent);
-            let index  = (this.state.selectedEquipment.index + 1) % keys.length;
-            let item   = this.selectedEquipmentParent[keys[index]];
+            let keys   = Object.keys(this.selectedParent);
+            let index  = (this.state.selected.index + 1) % keys.length;
+            let item   = this.selectedParent[keys[index]];
             item.index = index;
 
-            this.setState({ selectedEquipment: item });
+            this.setState({ selected: item });
         }
     }
 
     render() {
         let i        = 0, 
-            selected = this.state.selectedEquipment || {};
+            selected = this.state.selected || {};
 
         return (
             <Page name="what-we-offer">
-            
-                <header className="header-bar">
-                    <p className="title">What We Offer</p>
-                    <MenuButton onClick={commands.openMenu.emit} />
-                </header>
+                <HeaderBar title="What We Offer"></HeaderBar>
 
                 <section className="ninja-training">
                     <header className="header">Ninja Warrior Training</header>
@@ -214,42 +185,42 @@ module.exports = class WhatWeOffer extends Component {
                     </div>
                 </section>
 
-                <div className={`popup ${this.state.selectedEquipment ? " open" : ""}`}>
-                    <div className="cover" />
-                    <div className="content equipment">
-                        <header className="header">
-                            <div className="title">{selected.title}</div>
-                            <CloseButton onClick={this.closePopup} />
-                        </header>
-                        <ul className="equipment-images">
-                            {utils.map(selected.images, image => 
-                                <li className="image-item">
-                                    <div className="image-wrapper">
-                                        <div className="image" style={{ backgroundImage: `url("${image}")`}} />
-                                    </div>
-                                </li>
-                            )}
-                        </ul>
+                <Popup 
+                    open={this.state.selected}
+                    type="equipment">
 
-                        <div className="content">
-                            {utils.map((selected.description || "").split('\n'), text => 
-                                <p>{text}</p>
-                            )}
-                        </div>
-
-                        <div className="footer">
-                            <button 
-                                className="option-btn fa fa-angle-left"
-                                onClick={this.prevSelected} />
-
-                            <div className="details">{`${(selected.index || 0) + 1}/${(this.selectedEquipmentParent || []).length}`}</div>
-
-                            <button 
-                                className="option-btn fa fa-angle-right"
-                                onClick={this.nextSelected} />
-                        </div>
+                    <header className="header">
+                        <div className="title">{selected.title}</div>
+                        <CloseButton onClick={this.closePopup} />
+                    </header>
+                    <ul className="equipment-images">
+                        {utils.map(selected.images, image => 
+                            <li className="image-item">
+                                <div className="image-wrapper">
+                                    <div className="image" style={{ backgroundImage: `url("${image}")`}} />
+                                </div>
+                            </li>
+                        )}
+                    </ul>
+                    
+                    <div className="content">
+                        {utils.map((selected.description || "").split('\n'), text => 
+                            <p>{text}</p>
+                        )}
                     </div>
-                </div>
+
+                    <div className="footer">
+                        <button 
+                            className="option-btn fa fa-angle-left"
+                            onClick={this.prevSelected} />
+
+                        <div className="details">{`${(selected.index || 0) + 1}/${(this.selectedParent || []).length}`}</div>
+
+                        <button 
+                            className="option-btn fa fa-angle-right"
+                            onClick={this.nextSelected} />
+                    </div>
+                </Popup>
             </Page>
         );
     }

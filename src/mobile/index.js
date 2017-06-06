@@ -1,15 +1,15 @@
-                    require('styles/mobile.scss');
-                    require('helpers/polyfill');
-const Inferno     = require('inferno');
-const Component   = require('inferno-component');
-const utils       = require('helpers/utils');
-const settings    = require('helpers/settings');
-const constants   = require('helpers/constants');
+                          require('styles/mobile.scss');
+                          require('helpers/polyfill');
+const Inferno           = require('inferno');
+const Component         = require('inferno-component');
+const utils             = require('helpers/utils');
+const settings          = require('helpers/settings');
+const constants         = require('helpers/constants');
 const Pages             = require('mobile/pages');
 const {events,commands} = require('services/event-system');
-const {App, Defs} = require('mobile/components/app');
-const Menu        = require('mobile/containers/menu');
-const Footer      = require('mobile/containers/page-footer');
+const App               = require('mobile/components/app');
+const Menu              = require('mobile/containers/menu');
+const Footer            = require('mobile/containers/page-footer');
 
 let rootElement, onReady, onError;
 
@@ -30,6 +30,24 @@ class Application extends Component {
             display:  this.getDisplayInfo(),
             menuOpen: false
         };
+    }
+
+    componentDidMount() {
+        commands. openMenu.subscribe(this. openMenu);
+        commands.closeMenu.subscribe(this.closeMenu);
+        commands. redirect.subscribe(this.redirect);
+
+        window.addEventListener("hashchange", this.onHashChanged);
+        window.addEventListener("resize",     this.onResize);
+    }
+
+    componentWillUnmount() {
+        commands. openMenu.unsubscribe(this. openMenu);
+        commands.closeMenu.unsubscribe(this.closeMenu);
+        commands. redirect.unsubscribe(this.redirect);
+
+        window.removeEventListener("hashchange", this.onHashChanged);
+        window.removeEventListener("resize",     this.onResize);
     }
 
     getDisplayInfo() {
@@ -58,24 +76,6 @@ class Application extends Component {
         if (!route.length || !Pages[route[0]]) route = [constants.pages.home];
 
         return route;
-    }
-
-    componentDidMount() {
-        commands. openMenu.subscribe(this. openMenu);
-        commands.closeMenu.subscribe(this.closeMenu);
-        commands. redirect.subscribe(this.redirect);
-
-        window.addEventListener("hashchange", this.onHashChanged);
-        window.addEventListener("resize",     this.onResize);
-    }
-
-    componentWillUnmount() {
-        commands. openMenu.unsubscribe(this. openMenu);
-        commands.closeMenu.unsubscribe(this.closeMenu);
-        commands. redirect.unsubscribe(this.redirect);
-
-        window.removeEventListener("hashchange", this.onHashChanged);
-        window.removeEventListener("resize",     this.onResize);
     }
 
     onHashChanged() {
@@ -125,8 +125,7 @@ class Application extends Component {
             <App 
                 scrolling={this.state.scrolling} 
                 offset={this.state.offset}>
-
-                <Defs />
+                
                 <Menu 
                     socialLinks={settings.social}
                     page={this.state.route[0]}

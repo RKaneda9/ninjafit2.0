@@ -7,15 +7,71 @@
     display:       block;
 }
 
-#{$app} .btn {
-    border:        none;
-    background:    #fff;
-    border-radius: 1.1em;
-    height:        2.2em;
-    text-align:    center;
-    cursor:        pointer;
-    font-weight:   bold;
-    color:         $color-primary-1;
+$button: '#{$app} .btn';
+
+#{$button} {
+    background-color: $btn-color-bg;
+    color:            $btn-color-text;
+    border-radius:    $btn-height / 2;
+    height:           $btn-height;
+    width:            $btn-width;
+
+    text-align:       center;
+    cursor:           pointer;
+    font-weight:      bold;
+    white-space:      nowrap;
+    position:         relative;
+    transition:       all 0.3s ease-in-out;
+}
+
+#{$button}.anim {
+
+    width:            $btn-bounce-size;
+    height:           $btn-bounce-size;
+    border-radius:    $btn-bounce-size;
+    top:             -$btn-bounce-offset;
+    background-color: $color-primary-12;
+
+    position:         relative;
+    animation:        m-btn-bounce-anim 0.5s cubic-bezier(.63,.09,.75,.46) 0.3s infinite alternate;
+    transform-origin: center;
+    cursor:           default;
+
+    * { opacity: 0; }
+}
+
+#{$button} .cover {
+    $offset: $btn-cover-offset;
+
+    line-height:   $btn-height + $offset;
+    height:        $btn-height + $offset;
+    width:         $btn-width  + $offset;
+    border-radius: $btn-width  + $offset;
+    color:         $btn-color-bg;
+
+    position:         absolute;
+    transform-origin: center;
+    text-align:       center;
+    transition:       z-index 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transform:        translate(-50%, -50%);
+    display:          flex;
+    flex-flow:        row;
+    align-items:      center;
+    justify-content:  center;
+
+    top:     50%;
+    left:    50%;
+    z-index: -1;
+    opacity:  0;
+
+    &.success { background-color: $color-green-1; }
+    &.error   { background-color: $color-red-1;   }
+}
+
+#{$button}.covered {
+    cursor: default;
+
+    .cover { opacity: 1; z-index: 100; }
 }
 
 #{$app} .menu-btn {

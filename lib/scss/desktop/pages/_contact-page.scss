@@ -1,23 +1,41 @@
 $container: '#{$app} .contact-page';
-$max-width: 500px;
+$padding-bottom: 3 * $content-padding-v;
 
-#{$container} > .contact {
+#{$container} > section > .header {
+    text-align: center;
+    padding: $content-padding-v 0;
+}
 
-    .header { 
-        margin-top: $general-padding-v;
-        text-align: left; 
-        padding-bottom: 0px;
-        max-width: $max-width;
-    }
+#{$container} .contact-map { 
+    margin: 0;
+}
+
+#{$container} .pricing {
+    padding-bottom: $padding-bottom;
+}
+
+#{$container} .visit-us {
+    width: 500px;
+    align-self: center;
+    padding-bottom: $padding-bottom;
+    overflow: visible;
 
     .content { 
         padding-top: 0px; 
-        max-width: $max-width;
+        padding-bottom: 0px; 
+        box-shadow: 0 0 15px 0 $color-primary-13;
     }
-
-    .footer { max-width: $max-width; }
 }
 
-#{$container} > .contact-map {
-    max-width: $max-width;
+#{$container} > .contact { 
+    flex: 1 0 auto;
+    width: 500px;
+    align-self: center;
+    padding-bottom: $padding-bottom;
+
+    & > .footer { 
+        justify-content: flex-end; 
+
+        .btn { margin: 0 auto; }
+    }
 }
