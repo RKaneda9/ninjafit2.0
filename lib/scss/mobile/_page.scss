@@ -63,14 +63,11 @@ $container: '#{$app} .page';
         }
     }
 
-    & > *:not(.background) { 
-        position: relative; 
-        z-index: 1; 
-    }
-
     & > .header {
         padding: $general-padding $general-padding $general-padding-half $general-padding;
         font-size: 1.6rem;
+        position: relative; 
+        z-index: 1; 
     }
 
     & > .image {
@@ -85,10 +82,15 @@ $container: '#{$app} .page';
         background-size:     cover;
         background-repeat:   no-repeat;
         transform-origin:    center;
+        position: relative; 
+        z-index: 1; 
     }
 
     & > .content {
         padding: $general-padding-half $general-padding;
+        position: relative; 
+        z-index: 1; 
+
         p { margin: 0 0 $general-padding 0; }
     }
 
@@ -96,6 +98,8 @@ $container: '#{$app} .page';
         display: flex;
         flex-flow: row;
         padding: 0 $general-padding-half $general-padding-half $general-padding-half;
+        position: relative; 
+        z-index: 1; 
 
         & > .btn {
             flex: 0 1 50%;

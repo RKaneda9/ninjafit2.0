@@ -7,7 +7,7 @@ $container: '#{$app} .wod-page';
 
 #{$container} .event-item {
 
-    .title     { text-align: center; }
+    .title     { text-align: center; padding-bottom: 10px; }
     .sub-title { color: $color-footer-menu-title; }
     .content   { margin-top: 3px; }
 }

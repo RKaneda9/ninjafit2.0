@@ -56,14 +56,14 @@ class Input extends Component {
     renderProps() {
         return {
             ref: e => (this.input = e),
+            className: this.props.hasError ? 'has-error' : null,
             tabIndex: isInteger(this.props.index) ? this.props.index : 0,
             placeholder: this.props.placeholder,
             maxlength: this.props.maxlength || 999,
             disabled: this.props.disabled,
             onBlur: this.blur,
             name: this.props.name,
-            onKeyUp: this.keyPress,
-            defaultValue: this.props.value
+            onKeyUp: this.keyPress
         }
     }
 }
@@ -82,9 +82,7 @@ export class Number extends Input {
     constructor (props) { super(props); }
 
     render() {
-        return (
-            <input type="number" {...this.renderProps()} />
-        );
+        return (<input type="number" {...this.renderProps()} />);
     }
 }
 
@@ -92,17 +90,13 @@ export class Password extends Input {
     constructor (props) { super(props); }
 
     render() {
-        return (
-            <input type="password" {...this.renderProps()} />
-        );
+        return (<input type="password" {...this.renderProps()} />);
     }
 }
 
 export class TextArea extends Input {
     constructor (props) { 
         super(props); 
-
-        //this.keyPress = this.keyPress.bind(this);
     }
 
     keyPress(e) {
@@ -113,12 +107,6 @@ export class TextArea extends Input {
     }
 
     render() {
-        return (
-            // let props = this.renderProps();
-
-            // this.onKeyUp = this.keyPress;
-
-            <textarea {...this.renderProps()} />
-        );
+        return (<textarea {...this.renderProps()} />);
     }
 }

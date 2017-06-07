@@ -20,6 +20,8 @@ $container: '#{$app} .loader';
     opacity:  1;
     z-index: 99;
 
+    .throwing-star { animation: m-star-spin 1.2s linear infinite normal; }
+
     //.text:after { animation: m-btn-bounce-text-anim 3s infinite; }
 }
 
@@ -28,7 +30,6 @@ $container: '#{$app} .loader';
     width:  $size;
     height: $size;
     transform-origin: center;
-    animation: m-star-spin 1.2s linear infinite normal;
 }
 
 #{$container} .bounce {

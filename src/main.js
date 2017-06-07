@@ -15,6 +15,8 @@ var utils        = require('./main/utils'),
 
 }(function () {
 
+    console.log("Main started");
+
     utils.addListener(window, 'resize', function () {
 
         if (resizeTimeoutId) clearTimeout(resizeTimeoutId);
@@ -28,6 +30,8 @@ var utils        = require('./main/utils'),
             oldId = appId;
 
         resizeTimeoutId = null;
+
+        console.log("Application determined. New Application: " + newId + ", old application: " + oldId);
 
         if (oldId == newId) return;
 

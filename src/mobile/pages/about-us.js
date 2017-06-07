@@ -30,15 +30,15 @@ module.exports = class AboutUs extends Component {
         this.viewBio    = this.viewBio   .bind(this);
         this.closePopup = this.closePopup.bind(this);
 
-        this.state = {};
+        this.state = { showPopup: false };
     }
 
-    viewBio   (member) { this.setState({ selected: member }); }
-    closePopup()       { this.setState({ selected: null   }); }
+    viewBio   (member) { this.setState({ showPopup: true, selected: member }); }
+    closePopup()       { this.setState({ showPopup: false }); }
 
     render() {
 
-        let member = this.state.selected || {};
+        let member = this.state.selected || { bio: '' };
 
         return (
             <Page name="about-us">
@@ -92,12 +92,13 @@ module.exports = class AboutUs extends Component {
                 </section>
 
                 <Popup 
-                    open={this.state.selected}
+                    open={this.state.showPopup}
                     type="staff-member">
                     <header className="header">
+                        
                         <div
                             className="image" 
-                            style={{ backgroundImage: `url("${member.image}")` }} />
+                            style={{ backgroundImage: member.image ? `url("${member.image}")` : null }} />
 
                         <div className="details">
                             <div className="name">{member.name}</div>

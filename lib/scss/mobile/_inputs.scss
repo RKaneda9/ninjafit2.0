@@ -5,6 +5,9 @@
     flex:          0 1 100%;
     background:    #fff;
     color:         $color-primary-1;
+    transition:    box-shadow 0.2s ease-in-out;
+
+    &.has-error { box-shadow: 0 0 0 2px #ee0000; }
 }
 
 #{$app} input[type=text],

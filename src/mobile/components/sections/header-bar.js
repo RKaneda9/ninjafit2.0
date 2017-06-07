@@ -1,5 +1,5 @@
 const Inferno    = require('inferno');
-const MenuButton = require('mobile/components/buttons/menu');
+const MenuButton = require('mobile/components/buttons').MenuButton;
 const commands   = require('services/event-system').commands;
 
 module.exports = ({ title }) => (
