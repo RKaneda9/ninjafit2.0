@@ -16,6 +16,6 @@ $container: '#{$app} .about-us-page';
     $inner-spacing: 2vw;
     margin: $margin-top 0 $margin-bottom 0;
 
-    .header { text-align: center; }
+    .header { text-align: center;   }
     .image  { padding-bottom: 100%; }
 }

@@ -1,11 +1,19 @@
-const Inferno     = require('inferno');
-const Component   = require('inferno-component');
-const constants   = require('helpers/constants');
-const utils       = require('helpers/utils');
-const settings    = require('helpers/settings');
-const PageFooter  = require('desktop/containers/page-footer');
-const Page        = require('desktop/components/page');
-const {commands}  = require('services/event-system');
+const Inferno        = require('inferno');
+const Component      = require('inferno-component');
+const constants      = require('helpers/constants');
+const utils          = require('helpers/utils');
+const settings       = require('helpers/settings');
+const PageFooter     = require('desktop/containers/page-footer');
+const Page           = require('desktop/components/page');
+const HeaderBar      = require('desktop/components/sections/header-bar');
+const Hours          = require('shared/components/sections/hours');
+const Selector       = require('shared/components/calendar/date-selector');
+const Loader         = require('shared/components/loaders/content');
+const ClockIcon      = require('shared/components/icons/clock');
+const HourGlassIcon  = require('shared/components/icons/hourglass');
+const ArrowRightIcon = require('shared/components/icons/arrow-long-right');
+const Section        = require('shared/components/section').Section;
+const calendar       = require('services/calendar-store');
 
 let today        = new Date(), 
     todayMonth   = today.getMonth(),
@@ -21,93 +29,25 @@ module.exports = class Schedule extends Component {
         this.showPrevMonth = this.showPrevMonth.bind(this);
 
         let date    = new Date();
-        this.month  = this.getMonth (date);
-        this.events = this.getEvents(date);
+        this.month  = this.getMonth(date);
 
-        this.state = { date: date };
+        this.state = { 
+            date:    date,
+            events:  this.getEvents(date),
+            loading: true
+        };
     }
 
     getEvents(date) {
-        return [
-            {
-                title:    "Group Training (WOD)",
-                start:    "0600",
-                end:      "0700",
-                duration: "0100"
-            },
-            {
-                title:    "Group Training (WOD)",
-                start:    "0700",
-                end:      "0800",
-                duration: "0100"
-            },
-            {
-                title:    "Group Training (WOD)",
-                start:    "0800",
-                end:      "0900",
-                duration: "0100"
-            },
-            {
-                title:    "Group Training (WOD)",
-                start:    "0900",
-                end:      "1000",
-                duration: "0100"
-            },
-            {
-                title:    "Group Training (WOD)",
-                start:    "1000",
-                end:      "1100",
-                duration: "0100"
-            },
-            {
-                title:    "Group Training (WOD)",
-                start:    "1100",
-                end:      "1200",
-                duration: "0100"
-            },
-            {
-                title:    "Private Events",
-                start:    "1200",
-                end:      "1300",
-                duration: "0100"
-            },
-            {
-                title:    "NinjaFit Kids",
-                start:    "1400",
-                end:      "1500",
-                duration: "0100"
-            },
-            {
-                title:    "NinjaFit Kids",
-                start:    "1500",
-                end:      "1600",
-                duration: "0100"
-            },
-            {
-                title:    "NinjaFit Kids",
-                start:    "1600",
-                end:      "1700",
-                duration: "0100"
-            },
-            {
-                title:    "NinjaFit Kids",
-                start:    "1700",
-                end:      "1800",
-                duration: "0100"
-            },
-            {
-                title:    "Group Training (WOD)",
-                start:    "1800",
-                end:      "1900",
-                duration: "0100"
-            },
-            {
-                title:    "Group Training (WOD)",
-                start:    "1900",
-                end:      "2000",
-                duration: "0100"
-            }
-        ];
+        calendar.fetch(date.getDateKey())
+            .then(day => {
+                this.setState({
+                    events:  day.events,
+                    loading: false
+                });
+            });
+
+        return [];
     }
 
     getMonth(date) {
@@ -119,7 +59,7 @@ module.exports = class Schedule extends Component {
 
         do { 
             days.push({
-                isOpen:    (settings.gymHours[temp.getDayText().toLowerCase()] || []).length,
+                isOpen:    (settings.hours[temp.getDayText().toLowerCase()] || []).length,
                 day:        temp,
                 dateKey:    temp.getDateKey()
             }); 
@@ -127,24 +67,6 @@ module.exports = class Schedule extends Component {
         } while ((temp = temp.getTomorrow()) <= end);
 
         return days;
-    }
-
-    getTimeText(timekey) {
-        let hour = parseInt(timekey.substr(0, 2)),
-            min  = parseInt(timekey.substr(2, 4)),
-            ampm = hour < 12 ? 'am' : 'pm',
-            str;
-
-             if (hour > 12) hour -= 12;
-        else if (hour == 0) hour = 12;
-
-        str = hour.toString();
-
-        if (min) str += ':' + min;
-
-        str += ampm;
-
-        return str;
     }
 
     changeToDate(date) {
@@ -161,49 +83,24 @@ module.exports = class Schedule extends Component {
     viewDay(day) { this.changeToDate(day.clone()); }
 
     render() {
-        let todayHours = (settings.gymHours[this.state.date.getDayText().toLowerCase()] || []),
+        let todayHours = (settings.hours[this.state.date.getDayText().toLowerCase()] || []),
             selectedDateKey = this.state.date.getDateKey(),
             selectedMonth   = this.state.date.getMonth();
 
         return (
             <Page {...this.props} name={constants.pages.schedule}>
-                <section className="landing">
-                    <header className="header-bar">
-                        <p className="title">Schedule</p>
-                        
-                        <button
-                            onClick={commands.openMenu.emit} 
-                            className="menu-btn">
-                            <svg className="background" viewBox="0 0 500 577.35">
-                                <path filter="url(#ds-s)" d="M500,0v577.35l-500-288.675z" />
-                            </svg>
-                            <svg className="bars" viewBox="0 0 96 60" stroke-width="12">
-                                <path d="M38,6h52" />
-                                <path d="M6,30h84" />
-                                <path d="M38,54h52" />
-                            </svg>
-                        </button>
-                    </header>
-                </section>
+                <Section name="landing">
+                    <HeaderBar title="Schedule" />
+                </Section>
                 
                 <div className="row">
                     <div className="col">
                         <div className="month-view">
-                            <div className="date-selector">
-                                <div className="row">
-                                    <button 
-                                        onClick={this.showPrevMonth}
-                                        className="option-btn fa fa-angle-left" />
-
-                                    <div className="details">
-                                        <p className="title">{this.state.date.getMonthText() + ', ' + this.state.date.getFullYear()}</p>
-                                    </div>
-
-                                    <button 
-                                        onClick={this.showNextMonth}
-                                        className="option-btn fa fa-angle-right" />
-                                </div>
-                            </div>
+                            
+                            <Selector 
+                                onPrev={this.showPrevMonth}
+                                onNext={this.showNextMonth}
+                                title={this.state.date.getMonthText() + ', ' + this.state.date.getFullYear()} />
 
                             <ul className="calendar">
                                 <li className="title">Sun</li>
@@ -234,50 +131,24 @@ module.exports = class Schedule extends Component {
                             </ul>
                         </div>
 
-                        <section className="weekly-hours">
-                            <header className="header">Gym Hours</header>
-
-                            <table className="content">
-                                <tbody>
-                                    {utils.map(settings.gymHours, (hours, day) => {
-                                        let text = utils.map(hours, span => `${this.getTimeText(span.start)} - ${this.getTimeText(span.end)}`).join(', ');
-
-                                        return (
-                                            <tr className="day-item">
-                                                <td className="title">{day[0].toUpperCase() + day.slice(1)}:</td>
-                                                <td className="hours">{text || "Closed"}</td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
-                        </section>
+                        <Hours />
                     </div>
 
                     <div className="col">
-                        <div className="date-selector">
-                            <div className="row">
-                                <button 
-                                    onClick={this.showYesterday}
-                                    className="option-btn fa fa-angle-left" />
-                                <div className="details">
-                                    <p className="title">{this.state.date.getDayText()}</p>
-                                    <p className="sub">{`${this.state.date.getMonthText()} ${this.state.date.getDateText()}, ${this.state.date.getFullYear()}`}</p>
-                                </div>
-                                <button 
-                                    onClick={this.showTomorrow}
-                                    className="option-btn fa fa-angle-right" />
-                            </div>
-                        </div>
+                        <Selector 
+                            onPrev={this.showYesterday}
+                            onNext={this.showTomorrow}
+                            title={this.state.date.getDayText()}
+                            subTitle={`${this.state.date.getMonthText()} ${this.state.date.getDateText()}, ${this.state.date.getFullYear()}`} />
 
                         <div className="calendar-separator">
                             <div className="title">{todayHours.length ? "Open:" : "Closed Today"}</div>
-                            <div className="value">{utils.map(todayHours, span => `${this.getTimeText(span.start)} - ${this.getTimeText(span.end)}`).join(', ')}</div>
+                            <div className="value">{utils.map(todayHours, span => `${utils.getTimeText(span.start)} - ${utils.getTimeText(span.end)}`).join(', ')}</div>
                         </div>
 
                         <div className="event-list">
 
-                            {utils.map(this.events, event => {
+                            {utils.map(this.state.events, event => {
 
                                 return (
                                     <div className="event-item">
@@ -285,11 +156,11 @@ module.exports = class Schedule extends Component {
                                             <div className="title">{event.title}</div>
                                             <div className="details">
                                                 <p className="prop">
-                                                    <span className="icon fa fa-clock-o" />
-                                                    <span className="value">{`${this.getTimeText(event.start)} - ${this.getTimeText(event.end)}`}</span>
+                                                    <ClockIcon />
+                                                    <span className="value">{`${utils.getTimeText(event.start)} - ${utils.getTimeText(event.end)}`}</span>
                                                 </p>
                                                 <p className="prop">
-                                                    <span className="icon fa fa-hourglass" />
+                                                    <HourGlassIcon />
                                                     <span className="value">{parseInt(event.end.substr(0,2)) - parseInt(event.start.substr(0,2))} hour</span>
                                                 </p>
                                             </div>
@@ -297,12 +168,16 @@ module.exports = class Schedule extends Component {
                                         <div className="options">
                                             <button className="btn">
                                                 <span>Attend</span>
-                                                <span className="icon fa fa-long-arrow-right" />
+                                                <ArrowRightIcon />
                                             </button>
                                         </div>
                                     </div>
                                 );
                             })}
+
+                            <Loader 
+                                show={this.state.loading}
+                                text="Retrieving events..." />
                         </div>
                     </div>
                 </div>

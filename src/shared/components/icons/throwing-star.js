@@ -1,7 +1,7 @@
 const Inferno = require('inferno');
 
 module.exports = () => (
-    <svg className="throwing-star" viewBox="0 0 500 500">
+    <svg className="throwing-star icon" viewBox="0 0 500 500">
         <path fill-rule="evenodd" fill="#e6e6e7" d="M250-14l46,141a40,40 0 10 58,41h148l-121,88a40,40 0 10-22,67l46.5,141l-120.5-87a40,40 0 10-70,0l-120.5,87l46.5-141a40,40 0 10-22-67l-121-88h148a40,40 0 10 58-41z M250,225a25,25 0 01 0,50 a25,25 0 01 0-50z" />
 
         <g fill="#dbdadd">

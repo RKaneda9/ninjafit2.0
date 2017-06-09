@@ -2,6 +2,15 @@ $container: '#{$app} .home-page';
 $bg-side-width: 5vw;
 $bg-side-offset: $bg-side-width / $sqrt-3;
 
+// kids & special events
+$short-section-offset: 10vw;
+$short-section-width: (100vw - (2 * $bg-side-width + 2 * $short-section-offset)) / 2;
+
+// map & contact us
+$offer-section-width: (100vw - 2 * $bg-side-width) / 2;
+$offer-section-content-width: 0.85;
+$offer-section-v-offset: (1 - $offer-section-content-width) * $offer-section-width / (2 * $sqrt-3);
+
 #{$container} {
     flex-flow: row wrap;
     justify-content: center;
@@ -113,14 +122,16 @@ $bg-side-offset: $bg-side-width / $sqrt-3;
             position: relative;
         }
         
-        .mouse {
+        // mouse
+        .icon:nth-child(1) {
             width: $icon-size;
             height: $icon-size;
             fill: #fff;
             z-index: 2;
         }
         
-        .arrow.down {
+        // arrow down 
+        .icon:nth-child(2) {
             width: $arrow-size;
             height:$arrow-size;
             fill: #fff;
@@ -147,20 +158,15 @@ $bg-side-offset: $bg-side-width / $sqrt-3;
     padding: (2 * $general-padding-v) $general-padding-h (3 * $general-padding-v) $general-padding-h;
 }
 
-%training-section {
+#{$container} > .main {
     $width: (100vw - 2 * $bg-side-width) / 3;
     $content-width: 0.8;
     $content-v-offset: (1 - $content-width) * $width / (2 * $sqrt-3);
-    flex: 0 1 $width;
-    padding-top: $bg-side-offset + $content-v-offset; //$bg-side-offset;// (1 - $content-width) / 2 * $bg-side-width / $sqrt-3 -> 3vw
-    padding-bottom: $bg-side-offset + $content-v-offset; //$bg-side-offset;
-    overflow: visible;
 
-    .background { 
-        width: $bg-side-width;
-        height: 100%;
-        top: 0;
-    }
+    flex:           0 1 $width;
+    padding-top:    $content-v-offset; 
+    padding-bottom: $content-v-offset; 
+    overflow:       visible;
 
     .image, .header, .content, .footer {
         width: $content-width * 100%;
@@ -168,72 +174,55 @@ $bg-side-offset: $bg-side-width / $sqrt-3;
     }
 }
 
-
-#{$container} > .ninja-training {
-    @extend %training-section;
-    padding-left: 5vw;
-
-    .background { left: 0; }
-}
-
-#{$container} > .obstacle-training {
-    @extend %training-section;
-}
-
-#{$container} > .functional-training {
-    @extend %training-section;
-    padding-right: 5vw;
-
-    .background { right: 0; }
-}
-
-#{$container} > .kids {
-    flex: 0 1 35vw;
-    padding-right: 10vw;
-    margin-top: 10vw;
-    margin-bottom: 10vw;
+#{$container} > .short1 {
+    flex:          0 1 $short-section-width;
+    padding-right: $short-section-offset;
+    margin-top:    $short-section-offset;
+    margin-bottom: $short-section-offset;
 
     .header, .content, .footer {
-        align-self: flex-end;
-        text-align: left;
+        align-self:      flex-end;
+        text-align:      left;
         justify-content: flex-start;
     }
 }
 
-#{$container} > .events {
-    flex: 0 1 35vw;
-    padding-left: 10vw;
-    margin-top: 10vw;
-    margin-bottom: 10vw;
+#{$container} > .short2 {
+    flex:          0 1 $short-section-width;
+    padding-left:  $short-section-offset;
+    margin-top:    $short-section-offset;
+    margin-bottom: $short-section-offset;
 
     .header, .content, .footer {
-        align-self: flex-start;
-        text-align: right;
+        align-self:      flex-start;
+        text-align:      right;
         justify-content: flex-end;
     }
 }
 
 #{$container} > .testimonials {
-    $width: 400px;
+    $width:              400px;
     $svg-viewbox-width: 1000px;
-    $svg-offset: 289px;
+    $svg-offset:         289px;
+
     text-align: center;
     max-width: $width;
     padding: ($svg-offset * $width / $svg-viewbox-width) 0;
     overflow-x: visible;
 
     .background {
-        left: 0;
+        left:   0;
         width: 100%;
-        top: 50%;
-        transform: translateY(-50%);
-        fill: $color-primary-3;
-        stroke: $color-primary-2;
+        top:   50%;
+
+        transform:    translateY(-50%);
+        fill:         $color-primary-3;
+        stroke:       $color-primary-2;
         stroke-width: $image-border-width * $svg-viewbox-width / $width;
     }
 
     .header, .content, .footer {
-        width: 80%;
+        width:  80%;
         margin: 0 auto;
     }
 }
@@ -249,47 +238,63 @@ $bg-side-offset: $bg-side-width / $sqrt-3;
     .footer { justify-content: center; }
 }
 
-%offer-section {
-    $width: (100vw - 2 * $bg-side-width) / 2;
-    $content-width: 0.85;
-    $content-v-offset: (1 - $content-width) * $width / (2 * $sqrt-3);
-    flex: 0 1 $width;
-    padding-top: $bg-side-offset + $content-v-offset;
-    padding-bottom: $bg-side-offset + $content-v-offset;
-
-    .background {
-        top: 0;
-        height: 100%;
-        width: $bg-side-width;
-    }
-
-    .header, .content, .image, .footer {
-        width: 85%;
-    }
-}
-
 #{$container} > .map {
-    @extend %offer-section;
-    padding-left: 5vw;
-
-    .background { left: 0; }
+    flex: 0 1       $offer-section-width;
+    padding-top:    $offer-section-v-offset;
+    padding-bottom: $offer-section-v-offset;
+    overflow:       visible;
 
     .image {
         flex: 1 1 auto;
         margin: 0 5% 0 10%;
         height: 100%;
+        width: $offer-section-content-width * 100%;
         background-color: #fff;
         padding-bottom: 0;
     }
 }
 
 #{$container} > .contact {
-    @extend %offer-section;
-    padding-right: 5vw;
-
-    .background { right: 0; }
+    flex: 0 1       $offer-section-width;
+    padding-top:    $offer-section-v-offset;
+    padding-bottom: $offer-section-v-offset;
+    overflow:       visible;
 
     .header, .content, .footer {
         margin: 0 10% 0 5%;
+        width:  $offer-section-content-width * 100%;
     }
 }
+
+#{$container} .background.left {
+    width: $bg-side-width;
+    right:  100%;
+    height: 100%;
+    top:      0;
+
+    .icon {
+        fill: $color-primary-2;
+        height: 100% * (1 + 1 / $sqrt-3);
+        top:    50%;
+        right:   0;
+        transform: translateY(-50%);
+        position: absolute;
+    }
+}
+
+#{$container} .background.right {
+    width: $bg-side-width;
+    left:   100%;
+    height: 100%;
+    top:      0;
+
+    .icon {
+        fill: $color-primary-2;
+        height: 100% * (1 + 1 / $sqrt-3);
+        top:    50%;
+        left:    0;
+        transform: translateY(-50%);
+        position: absolute;
+    }
+}
+

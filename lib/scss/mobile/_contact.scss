@@ -17,9 +17,9 @@
     justify-content: center;
 
     .icon { 
-        width: 2rem;
-        text-align: center;
-        font-size: 1.16rem;
+        fill: $color-footer-menu-title;
+        width: 1rem; 
+        margin-right: 0.5rem;
     }
 
     .value { 
@@ -30,13 +30,10 @@
 
 #{$app} .contact-map {
     flex: 0 0 auto;
-    height: 200px;
     background: $color-primary-13;
     box-shadow: 0 0 5px 0 #000;
     cursor: pointer;
     display: block;
-    //padding: 6px;
-    //background: $color-primary-2;
 
     .image-wrapper {
         width: 100%;
@@ -49,5 +46,6 @@
         background-repeat:   no-repeat;
         transform-origin:    center;
         height:              100%;
+        padding-bottom:      80%;
     }
 }

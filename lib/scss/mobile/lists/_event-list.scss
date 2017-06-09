@@ -2,7 +2,7 @@ $container: '#{$app} .event-list';
 $min-height: 150px;
 
 #{$container} {
-    flex: 1 0 30%;
+    flex: 0 0 auto;
     background: $color-primary-3;
     padding-bottom: 2px;
     min-height: $min-height;
@@ -67,6 +67,9 @@ $min-height: 150px;
     font-size: 0.8rem;
     color: $color-footer-menu-title; 
     flex: 1 1 50%;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
 }
 
 #{$container} .prop .icon {
@@ -75,11 +78,20 @@ $min-height: 150px;
     flex: 0 0 auto;
     margin-right: 5px;
     font-size: 0.7rem;
+    fill: $color-footer-menu-title; 
+    svg { width: 0.7rem; }
 }
 
 #{$container} .btn {
     background: none;
     color: #fff;
+    display: flex; 
+    flex-flow: row;
+    align-items: center;
+    line-height: 1rem;
+    width: auto;
 
-    span:not(:first-child) { margin-left: 5px; }
+    svg { width: 1rem; }
+
+    span:not(:last-child) { margin-right: 5px; }
 }

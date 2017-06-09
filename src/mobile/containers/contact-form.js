@@ -4,14 +4,9 @@ const utils               = require('helpers/utils');
 const Popover             = require('mobile/components/popover');
 const Popup               = require('mobile/components/popup');
 const {TextBox, TextArea} = require('shared/components/inputs'); 
-const ContactLinks        = require('mobile/components/contact/links');
-
-const messages = [
-    "Gonna need that {0}.",
-    "Let's get that {0} filled.",
-    "What's your {0}?",
-    "Let's get that {0} written down.",
-];
+const ContactLinks        = require('shared/components/contact/links');
+const CheckIcon           = require('shared/components/icons/check');
+const mailer              = require('services/mailer');
 
 const fields = {
     firstName: 'First Name',
@@ -29,7 +24,8 @@ module.exports = class ContactForm extends Component {
         this.updateEmail       = this.updateEmail      .bind(this);
         this.updateMessage     = this.updateMessage    .bind(this);
         this.send              = this.send             .bind(this);
-        this.closeNotification = this.closeNotification.bind(this);
+        this.clearNotification = this.clearNotification.bind(this);
+        this.showNotification  = this.showNotification .bind(this);
 
         this.state = {
 
@@ -41,6 +37,7 @@ module.exports = class ContactForm extends Component {
             showPopup:   false,
             hasResponse: false, 
             hasError:    false,
+            target:      null,
             responseMsg: ''
         };
     }
@@ -50,40 +47,40 @@ module.exports = class ContactForm extends Component {
     updateEmail    (val) { this.setState({     email: val }); }
     updateMessage  (val) { this.setState({   message: val }); }
 
-    showError(field, msg) {
-        this.setState({
-            hasError:    true,
-            hasResponse: true,
-            responseMsg: msg,
-            target:      field
-        });
-
-        clearTimeout(this.timeoutId);
-
-        this.timeoutId = setTimeout(() => {
-
-            this.setState({ 
-                hasResponse: false,
-                showPopup:   false 
-            });
-
-        }, 3000);
+    checkFocus(field) {
+        if (this.state.hasResponse && this.state.target == field) 
+            this.clearNotification();
     }
 
-    closeNotification() {
+    clearNotification() {
         clearTimeout(this.timeoutId);
 
-        this.setState({ 
+        this.setState({
             hasResponse: false,
-            showPopup:   false 
+            showPopup:   false
         });
+    }
+
+    showNotification(hasError, field, message) {
+        this.setState({
+            sending:     false,
+            hasResponse: true,
+            hasError:    hasError,
+            target:      field,
+            showPopup:  !field,
+            responseMsg: message
+        });
+
+        clearTimeout(this.timeoutId);
+
+        this.timeoutId = setTimeout(this.clearNotification, 3000);
     }
 
     send() {
 
         // if we're showing the previous response or we're in the 
         // middle of sending, do nothing.
-        if (this.hasResponse || this.sending) return;
+        if (this.state.hasResponse || this.state.sending) return;
 
         clearTimeout(this.timeoutId);
 
@@ -91,13 +88,13 @@ module.exports = class ContactForm extends Component {
             firstName: (this.state.firstName || "").trim().substr(0,  99),
             lastName:  (this.state.lastName  || "").trim().substr(0,  99),
             email:     (this.state.email     || "").trim().substr(0, 199),
-            message:   (this.state.message   || "").trim().substr(0, 999)
+            content:   (this.state.message   || "").trim().substr(0, 999)
         };
 
-        if (!props.firstName) return this.showError(fields.firstName, "Gonna need that first name.");
-        if (!props.lastName)  return this.showError(fields.lastName,  "Let's get that last name filled.");
-        if (!props.email)     return this.showError(fields.email,     "What's your email?");
-        if (!props.message)   return this.showError(fields.message,   "Let's get that question written down.");
+        if (!props.firstName) return this.showNotification(true, fields.firstName, "Gonna need that first name.");
+        if (!props.lastName)  return this.showNotification(true, fields.lastName,  "Let's get that last name filled.");
+        if (!props.email)     return this.showNotification(true, fields.email,     "What's your email?");
+        if (!props.content)   return this.showNotification(true, fields.message,   "Let's get that question written down.");
 
         this.setState({ 
             sending:     true,
@@ -106,45 +103,42 @@ module.exports = class ContactForm extends Component {
             responseMsg: ''
         });
 
-        setTimeout(() => {
-
-            let error = Math.random() > 0.5;
-
-            if (error) {
-                let keys    = Object.keys(fields);
-                let field   = fields[keys[Math.floor(Math.random() * keys.length)]];
-                let message = messages[Math.floor(Math.random() * messages.length)].split('{0}').join(field);
-
+        mailer.send(props)
+            .then (res => {
                 this.setState({
+                    firstName:   '',
+                    lastName:    '',
+                    email:       '',
+                    message:     '',
                     sending:     false,
                     hasResponse: true,
-                    hasError:    error,
-                    target:      null, //field,
-                    showPopup:   true,
-                    responseMsg: message
-                });
-            }
-            else {
-                this.setState({
-                    sending:     false,
-                    hasResponse: true,
-                    hasError:    error,
+                    hasError:    false,
                     target:      null,
-                    showPopup:   true,
-                    responseMsg: 'Message sent successfully!'
-                });
-            }
-
-            this.timeoutId = setTimeout(() => {
-
-                this.setState({ 
-                    hasResponse: false,
-                    showPopup:   false
+                    showPopup:   true
                 });
 
-            }, 3000);
+                clearTimeout(this.timeoutId);
 
-        }, 3000);
+                this.timeoutId = setTimeout(this.clearNotification, 3000);
+            })
+            .catch(res => {
+
+                let message = res.message, 
+                    target  = null;
+
+                switch (res.target) {
+                    case "firstName": target = fields.firstName; break;
+                    case "lastName":  target = fields.lastName;  break;
+                    case "email":     target = fields.email;     break;
+                    case "content":   target = fields.message;   break;
+                }
+
+                // only show a popover for a specific field if both the field is
+                // matched and the response has a message.
+                if (target && !res.message) target = null;
+
+                this.showNotification(true, target, message);
+            });
     }
 
     render() {
@@ -153,7 +147,7 @@ module.exports = class ContactForm extends Component {
             <section className="contact">
                 {this.props.children}
 
-                <header className="header">{this.props.title || "Questions? Let Us Help With That."}</header>
+                <header className="header">{this.props.title || "Questions? Let Us Help With That"}</header>
 
                 <div className="content">
                     <div className="row">
@@ -162,12 +156,13 @@ module.exports = class ContactForm extends Component {
                             <TextBox 
                                 placeholder="First Name" 
                                 maxlength={99} 
-                                hasError={this.state.hasError && this.state.target == fields.firstName}
+                                onFocus={() => this.checkFocus(fields.firstName)}
+                                hasError={this.state.hasResponse && this.state.target == fields.firstName}
                                 onKeyPress={this.updateFirstName}
                                 value={this.state.firstName} />
 
                             <Popover 
-                                show={this.state.hasError && this.state.target == fields.firstName}
+                                show={this.state.hasResponse && this.state.target == fields.firstName}
                                 text={this.state.target == fields.firstName ? this.state.responseMsg : ''} />
 
                         </div>
@@ -176,13 +171,14 @@ module.exports = class ContactForm extends Component {
                             <TextBox 
                                 placeholder="Last Name" 
                                 maxlength={99} 
-                                hasError={this.state.hasError && this.state.target == fields.lastName}
+                                onFocus={() => this.checkFocus(fields.lastName)}
+                                hasError={this.state.hasResponse && this.state.target == fields.lastName}
                                 onKeyPress={this.updateLastName}
                                 value={this.state.lastName} />
 
                             <Popover 
                                 align="right"
-                                show={this.state.hasError && this.state.target == fields.lastName}
+                                show={this.state.hasResponse && this.state.target == fields.lastName}
                                 text={this.state.target == fields.lastName ? this.state.responseMsg : ''} />
                         </div>
                     </div>
@@ -192,12 +188,13 @@ module.exports = class ContactForm extends Component {
                             <TextBox 
                                 placeholder="Your Email" 
                                 maxlength={199} 
-                                hasError={this.state.hasError && this.state.target == fields.email}
+                                onFocus={() => this.checkFocus(fields.email)}
+                                hasError={this.state.hasResponse && this.state.target == fields.email}
                                 onKeyPress={this.updateEmail}
                                 value={this.state.email} />
 
                             <Popover 
-                                show={this.state.hasError && this.state.target == fields.email}
+                                show={this.state.hasResponse && this.state.target == fields.email}
                                 text={this.state.target == fields.email ? this.state.responseMsg : ''} />
                         </div>
                     </div>
@@ -207,12 +204,13 @@ module.exports = class ContactForm extends Component {
                             <TextArea
                                 placeholder="What can we help you with?"
                                 maxlength={999}
-                                hasError={this.state.hasError && this.state.target == fields.message}
+                                onFocus={() => this.checkFocus(fields.message)}
+                                hasError={this.state.hasResponse && this.state.target == fields.message}
                                 onKeyPress={this.updateMessage}
                                 value={this.state.message} />
 
                             <Popover 
-                                show={this.state.hasError && this.state.target == fields.message}
+                                show={this.state.hasResponse && this.state.target == fields.message}
                                 text={this.state.target == fields.message ? this.state.responseMsg : ''} />
                         </div>
                     </div>
@@ -247,7 +245,7 @@ module.exports = class ContactForm extends Component {
 
                         <footer className="footer">
                             <button 
-                                onClick={this.closeNotification}
+                                onClick={this.clearNotification}
                                 className="btn">
                                 <span>Ok</span>
                             </button>
@@ -260,7 +258,7 @@ module.exports = class ContactForm extends Component {
                         type="notification success">
 
                         <div className="title-icon check">
-                            <span className="fa fa-check" />
+                            <CheckIcon />
                         </div>
 
                         <div className="title">Message Sent!</div>

@@ -2,8 +2,6 @@
                           require('helpers/polyfill');
 const Inferno           = require('inferno');
 const Component         = require('inferno-component');
-const utils             = require('helpers/utils');
-const settings          = require('helpers/settings');
 const constants         = require('helpers/constants');
 const Pages             = require('mobile/pages');
 const {events,commands} = require('services/event-system');
@@ -27,7 +25,6 @@ class Application extends Component {
         
         this.state = { 
             route:    this.getRoute(),
-            display:  this.getDisplayInfo(),
             menuOpen: false
         };
     }
@@ -50,17 +47,7 @@ class Application extends Component {
         window.removeEventListener("resize",     this.onResize);
     }
 
-    getDisplayInfo() {
-        return {
-            isMobile: window.innerWidth > 700
-        }
-    }
-
-    resize() {
-        this.setState({ display: this.getDisplayInfo() });
-
-        events.onWindowResize.emit();
-    }
+    resize() { events.onWindowResize.emit(); }
 
     onResize() {
         if (this.resizeTimeoutId) clearTimeout(this.resizeTimeoutId);
@@ -127,12 +114,11 @@ class Application extends Component {
                 offset={this.state.offset}>
                 
                 <Menu 
-                    socialLinks={settings.social}
                     page={this.state.route[0]}
                     opened={this.state.menuOpen} />
 
-                <Page display={this.state.display} />
-                <Footer socialLinks={settings.social} />
+                <Page />
+                <Footer/>
             </App>
         );
     }

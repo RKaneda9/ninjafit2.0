@@ -3,9 +3,10 @@ const utils      = require('helpers/utils');
 const pages      = require('helpers/constants').pages;
 const {commands} = require('services/event-system');
 const settings   = require('helpers/settings');
+const SocialIcons = require('shared/components/icons/social');
 
 // TODO: don't show current page
-module.exports = ({ }) => (
+module.exports = () => (
     <footer className="page-footer">
         <div className="logo">
             <div className="title">NinjaFit Gym</div>
@@ -55,12 +56,16 @@ module.exports = ({ }) => (
         <div className="nav">
             <div className="title">Connect With Us</div>
 
-            {utils.map(settings.social, (href, type, i) => 
-                <a className="link" target="nfg-social" href={href}>
-                    <span className={`fa fa-${type.toLowerCase()}`} />
-                    <span className="text">{type}</span>
-                </a>
-            )}                          
+            {utils.map(settings.social, (href, type) => {
+                let Icon = SocialIcons[type.toLowerCase()];
+
+                return (
+                    <a className="link" target="nfg-social" href={href}>
+                        <Icon />
+                        <span className="text">{type}</span>
+                    </a>
+                );
+            })}
         </div>
     </footer>
 );

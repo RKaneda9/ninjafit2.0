@@ -5,6 +5,8 @@
     &:not(.scrolling) { transition: transform 0.5s ease-in-out; }
 }
 
+#{$app} .icon { fill: #fff; }
+
 // TODO: forces portrait
 // @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
 //   html {

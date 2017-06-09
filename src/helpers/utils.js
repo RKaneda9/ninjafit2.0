@@ -3,7 +3,9 @@ const utils = module.exports = {
 
     pad: (val, length) => (("00000" + val).slice(-1 * (length || 2))),
 
-    trim: (val, maxlength) => {
+    toFixed: (val, accuracy) => parseFloat(val.toFixed(accuracy || 3)),
+
+    trim(val, maxlength) {
         val = val && typeof val === 'string' ? val.trim() : val;
 
         if (maxlength) { val = val.substr(0, maxlength); }
@@ -18,13 +20,25 @@ const utils = module.exports = {
         return Math.abs(i1) < Math.abs(i2) ? i1 : i2;
     },
 
-    toPath() { return "M" + utils.map(arguments, pos => pos.join(',')).join(' L') + ' Z'; },
+    getTimeText(timekey) {
+        let hour = parseInt(timekey.substr(0, 2)),
+            min  = parseInt(timekey.substr(2, 4)),
+            ampm = hour < 12 ? 'am' : 'pm',
+            str;
 
-    toBgUrl(url) { return `url("${url}")`},
+             if (hour > 12) hour -= 12;
+        else if (hour == 0) hour = 12;
 
-    toFixed: (val, accuracy) => parseFloat(val.toFixed(accuracy || 3)),
+        str = hour.toString();
 
-    foreach: (array, callback) => {
+        if (min) str += ':' + min;
+
+        str += ampm;
+
+        return str;
+    },
+
+    foreach(array, callback) {
 
         if (!array) { return; }
 
@@ -44,7 +58,7 @@ const utils = module.exports = {
             }
     },
 
-    first: (array, func, defVal) => {
+    first(array, func, defVal) {
 
         if (!(array instanceof Array)) { return defVal; }
 
@@ -59,7 +73,7 @@ const utils = module.exports = {
         return defVal;
     },
 
-    map: (array, func) => {
+    map(array, func) {
 
         if (typeof array != 'object') { return []; }
 
@@ -87,7 +101,7 @@ const utils = module.exports = {
         return mapped;
     },
 
-    mapObject: (obj, func) => {
+    mapObject(obj, func) {
 
         let mapped = {};
 
@@ -104,7 +118,7 @@ const utils = module.exports = {
         return mapped;
     },
 
-    extend: (obj, props, override) => {
+    extend(obj, props, override) {
         if (!obj) obj = {};
         if (!props) { return obj; }
 
@@ -134,7 +148,7 @@ const utils = module.exports = {
         return obj;
     },
 
-    clone: (obj) => {
+    clone(obj) {
         let copy;
 
         // handle the 3 simple types, and null or undefined

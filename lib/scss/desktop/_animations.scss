@@ -23,3 +23,8 @@
      95%      { transform: scale(1.17, 0.67); }
     100%      { transform: scale(1, 0.33);    top:  $btn-bounce-offset; }
 }
+
+@keyframes d-star-spin {
+    from { transform: rotate(  0deg); }
+      to { transform: rotate(360deg); }
+}

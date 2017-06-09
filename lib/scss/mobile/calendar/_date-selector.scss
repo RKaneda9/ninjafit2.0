@@ -5,6 +5,7 @@ $container: '#{$app} .date-selector';
     flex-flow: column;
     transition: height 0.2s ease-in-out;
     height: 175px;
+    flex: 0 0 auto;
 }
 
 #{$container} .row {
@@ -15,6 +16,8 @@ $container: '#{$app} .date-selector';
 #{$container} .option-btn {
     flex: 0 0 15%;
     font-size: 2.5rem;
+
+    svg { width: 1.5rem; margin: auto; }
 }
 
 #{$container} .details {

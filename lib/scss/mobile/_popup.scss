@@ -6,37 +6,64 @@ $close-btn-size: 20px * 0.813 + $padding * 2;
 $show-anim-time: 0.2s;
 $offset: 20px;
 
-#{$container}:not(.open) > .cover {
+#{$container} {
+    position: fixed;
+    top:      0;
+    left:     0;
+    right:    0;
+    bottom:   0;
+    opacity:  1;
+
+    z-index:    100;
+    background: rgba(0,0,0,0.7);
+    transition: opacity 0.2s;
+
+    display:         flex;
+    flex-flow:       column;
+    align-items:     center;
+    justify-content: center;
+}
+
+#{$container}:not(.show) {
     z-index: -2;
     opacity:  0;
-    transition: z-index 0.1s ease-in-out $show-anim-time, opacity $show-anim-time ease-in-out; 
+    transform: scale(0);
+    transition: z-index 0.1s ease-in-out $show-anim-time, opacity $show-anim-time ease-in-out, transform 0.1s ease-in-out $show-anim-time; 
 }
 
-#{$container}:not(.open) > .content {
-    z-index: -1;
-    opacity:  0;
-    transition: z-index 0.1s ease-in-out $show-anim-time, opacity $show-anim-time ease-in-out; 
-}
+// #{$container}:not(.show) > .cover {
+//     z-index: -2;
+//     opacity:  0;
+//     transform: scale(0);
+//     transition: z-index 0.1s ease-in-out $show-anim-time, opacity $show-anim-time ease-in-out, transform 0.1s ease-in-out $show-anim-time; 
+// }
 
-#{$container} > .cover {
-    position: fixed;
-    top:    0;
-    left:   0;
-    right:  0;
-    bottom: 0;
-    background: rgba(0,0,0,0.7);
-    z-index:    98;
-    opacity:     1;
-    transition: opacity 0.2s;
-}
+// #{$container}:not(.show) > .content {
+//     z-index: -1;
+//     opacity:  0;
+//     transform: scale(0);
+//     transition: z-index 0.1s ease-in-out $show-anim-time, opacity $show-anim-time ease-in-out, transform 0.1s ease-in-out $show-anim-time; 
+// }
+
+// #{$container} > .cover {
+//     position: fixed;
+//     top:    0;
+//     left:   0;
+//     right:  0;
+//     bottom: 0;
+//     background: rgba(0,0,0,0.7);
+//     z-index:    98;
+//     opacity:     1;
+//     transition: opacity 0.2s;
+// }
 
 #{$content} {
-    position: fixed;
-    z-index:   99;
-    opacity:    1;
+    // position: fixed;
+    // z-index:   99;
+    // opacity:    1;
+    // transition: opacity 0.2s;
     background: $color-primary-4;
     color:      #fff;
-    transition: opacity 0.2s ease-in-out 0.1s;
     display: flex;
     flex-flow: column;
     align-items: stretch;
@@ -53,22 +80,28 @@ $offset: 20px;
 }
 
 #{$content}.center {
-    top: 50%;
-    left: 50%;
-    transform:  translate(-50%, -50%);
-    max-width:  unquote("calc(100% - #{2 * $offset})");
-    max-height: unquote("calc(100% - #{2 * $offset})");
+    // top: 50%;
+    // left: 50%;
+    // max-width:  unquote("calc(100% - #{2 * $offset})");
+    // max-height: unquote("calc(100% - #{2 * $offset})");
+    max-width:  100%;
+    max-height: 100%;
+    margin:     $offset;
     padding:    $offset (1.5 * $offset);
     min-width:  220px;
     border:     1px solid $color-primary-3;
+    //transform:  translate(-50%, -50%);
 }
 
 #{$content}.full {
     box-shadow: 0 0 1px 2px $color-primary-11;
-    top:    $offset;
-    left:   $offset;
-    bottom: $offset;
-    right:  $offset;
+    // top:    $offset;
+    // left:   $offset;
+    // bottom: $offset;
+    // right:  $offset;
+    align-self: stretch;
+    flex: 1 1 100%;
+    margin: $offset;
     
     .header {
         flex: 0 0 auto;
@@ -147,6 +180,10 @@ $offset: 20px;
         @include background-image();
         padding-bottom: 60%;
     }
+
+    .footer { line-height: 1rem; }
+
+    .option-btn .icon { width: 0.75rem; margin: auto; }
 }
 
 #{$content}.staff-member {
@@ -162,11 +199,10 @@ $offset: 20px;
 
     .image {
         @include background-image();
-        margin: $padding $padding 0 $padding;
-        flex: 0 0 auto;
-        //background: $color-primary-3;
-        width: 160px;
-        max-width: 40%;
+        margin:    $padding $padding 0 $padding;
+        flex:      0 0 auto;
+        width:        160px;
+        max-width:      40%;
         padding-bottom: 45%;
     }
 
@@ -198,8 +234,7 @@ $offset: 20px;
         }
 
         .social-link {
-            $size: 2em;
-            font-size: 1.16rem;
+            $size: 2rem;
             flex: 0 0 auto;
             width:  $size;
             height: $size;
@@ -209,6 +244,9 @@ $offset: 20px;
             justify-content: center;
             text-align: center;
             cursor: pointer;
+            fill: #fff;
+
+            .icon { width: 1.16rem; }
         }
     }
 
@@ -217,11 +255,12 @@ $offset: 20px;
 
 #{$content}.player {
     $offset: 3rem;
-    top:    0;
-    left:   0;
-    right:  0;
-    bottom: 0;
-    background: #000;
+    // top:    0;
+    // left:   0;
+    // right:  0;
+    // bottom: 0;
+    margin:      0px;
+    background:  #000;
     padding-top: $offset;
     
     .frame {
@@ -248,6 +287,11 @@ $offset: 20px;
         width: $icon-size;
         height: $icon-size;
         position: relative;
+
+        .icon {
+            width:  $icon-size;
+            height: $icon-size;
+        }
     }
 
     .title-icon.close {
@@ -271,12 +315,6 @@ $offset: 20px;
             &:nth-child(1) { transform: rotate( 45deg); }
             &:nth-child(2) { transform: rotate(-45deg); }
         }
-    }
-
-    .title-icon.check {
-        font-size: $icon-size;
-        text-align: center;
-        line-height: $icon-size;
     }
 
     .title {
@@ -304,6 +342,9 @@ $offset: 20px;
         flex-flow: row;
         align-items: center;
         justify-content: center;
+        max-width: 100%;
+
+        .btn { color: $color-primary-4; }
     }
 
     &.success { border: 2px solid $color-green-1; }

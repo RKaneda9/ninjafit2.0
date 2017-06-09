@@ -83,7 +83,6 @@ $container: '#{$app} .app-menu';
 
     .link {
         flex: 0 0 auto;
-        color: #888;
         font-size: 1.16rem;
         padding: 0 2px;
         display: flex;
@@ -93,26 +92,34 @@ $container: '#{$app} .app-menu';
         cursor: pointer;
         transform-origin: center;
 
-        .fa {
-            $size: 2.5em;
-            width: $size;
+        .item {
+            $size: 2.5rem;
+            width:  $size;
             height: $size;
             display: flex;
             flex-flow: row;
             align-items: center;
             justify-content: center;
             border-radius: $size;
-            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .icon {
+            $size:  16px;
+            width:  $size;
+            height: $size;
+            fill:   $color-primary-10;
+
+            transition: fill 0.3s ease-in-out;
         }
 
         &:hover {
-            .fa { color: #fff; }
+            .icon { fill: #fff; }
 
-            .fa-instagram    { background-color: $color-instagram; }
-            .fa-facebook     { background-color: $color-facebook;  }
-            .fa-youtube-play { background-color: $color-youtube;   }
-            .fa-twitter      { background-color: $color-twitter;   }
-
+            &[type="instagram"] .item { background-color: $color-instagram; }
+            &[type="facebook"]  .item { background-color: $color-facebook;  }
+            &[type="youtube"]   .item { background-color: $color-youtube;   }
+            &[type="twitter"]   .item { background-color: $color-twitter;   }
         }
     }
 }

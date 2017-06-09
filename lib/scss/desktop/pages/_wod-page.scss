@@ -1,5 +1,9 @@
 $container: '#{$app} .wod-page';
 
+#{$container} .landing {
+    margin-bottom: -0.5 * $triangle-size;
+}
+
 #{$container} .wod {
     flex: 1 0 auto;
 }
@@ -11,10 +15,6 @@ $container: '#{$app} .wod-page';
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-}
-
-#{$container} .date-selector {
-    padding-top: $content-padding-v;
 }
 
 #{$container} .calendar-separator {

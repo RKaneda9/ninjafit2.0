@@ -9,6 +9,11 @@
 
 $container: '#{$app} .page';
 
+#{$container} {
+    position: relative;
+    z-index: 2;
+}
+
 #{$container} > .header-bar {
     background: $color-primary-3;
     height:     $menu-btn-size / 2;

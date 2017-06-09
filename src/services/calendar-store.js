@@ -47,7 +47,8 @@ const service = module.exports = {
                         store.save(data);
 
                         resolve(store.get(datekey));
-                    });
+                    })
+                    .catch(function () { reject(); });
             }
             catch (ex) { reject(ex); }
         });

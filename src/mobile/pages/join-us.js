@@ -2,7 +2,7 @@ const Inferno     = require('inferno');
 const Component   = require('inferno-component');
 const Page        = require('mobile/components/page');
 const HeaderBar   = require('mobile/components/sections/header-bar');
-const VisitUs     = require('mobile/components/sections/visit-us');
+const VisitUs     = require('shared/components/sections/visit-us');
 const Pricing     = require('shared/containers/pricing-section');
 const ContactForm = require('mobile/containers/contact-form');
 

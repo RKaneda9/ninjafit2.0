@@ -1,0 +1,28 @@
+@keyframes appear {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+
+@keyframes throwing-star1-transform {
+    from { transform: translate(80vw, -30vw); }
+      to { transform: translate( 0,     0);   }
+}
+
+@keyframes throwing-star2-transform {
+    from { transform: translate(-80vw, -30vw); }
+      to { transform: translate(  0,     0);   }
+}
+
+@keyframes throwing-star1-rotate {
+      0% { transform: rotate( 33deg); }
+      9% { transform: rotate(  0deg); }
+     10% { transform: rotate(359deg); }
+    100% { transform: rotate( 33deg); }
+}
+
+@keyframes throwing-star2-rotate {
+      0% { transform: rotate( 17deg); }
+     94% { transform: rotate(359deg); }
+     95% { transform: rotate(  0deg); }
+    100% { transform: rotate( 17deg); }
+}

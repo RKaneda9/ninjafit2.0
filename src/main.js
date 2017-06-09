@@ -31,9 +31,9 @@ var utils        = require('./main/utils'),
 
         resizeTimeoutId = null;
 
-        console.log("Application determined. New Application: " + newId + ", old application: " + oldId);
-
         if (oldId == newId) return;
+
+        console.log("onResize() - New Application: " + newId + ", old application: " + oldId);
 
         appId = newId;
 
@@ -41,11 +41,11 @@ var utils        = require('./main/utils'),
 
         if (oldId) {
 
-            console.log('removing previous application: ', oldId);
+            console.log('onResize() - Removing previous application: ', oldId);
             applications.remove(oldId);
         }
 
-        console.log('showing application: ', newId);
+        console.log('onResize() - Showing application: ', newId);
 
         applications.show(newId)
             .then (function (   ) { loader.hide(); })

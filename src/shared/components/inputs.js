@@ -14,6 +14,11 @@ class Input extends Component {
         this.state = {};
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.input && !nextProps.value) 
+            this.input.value = '';
+    }
+
     componentDidMount() {
         if (this.props.autofocus) this.focus(); 
     }
@@ -62,6 +67,7 @@ class Input extends Component {
             maxlength: this.props.maxlength || 999,
             disabled: this.props.disabled,
             onBlur: this.blur,
+            onFocus: this.props.onFocus,
             name: this.props.name,
             onKeyUp: this.keyPress
         }

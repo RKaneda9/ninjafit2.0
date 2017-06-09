@@ -10,6 +10,7 @@ $container: '#{$app} .calendar-separator';
     box-shadow: 0 0 5px 0 #000;
     position: relative;
     z-index: 1;
+    min-height: 1.5em;
 }
 
 #{$container} .title { 
@@ -19,12 +20,13 @@ $container: '#{$app} .calendar-separator';
     text-transform: uppercase; 
     margin-right: 10px; 
     font-size: 0.9rem;
-    min-height: 1.5em;
+    line-height: 1rem;
 }
 
 #{$container} .value {
     flex: 1 1 auto;
     font-size: 0.9rem;
+    line-height: 1rem;
 }
 
 #{$container} .btn {

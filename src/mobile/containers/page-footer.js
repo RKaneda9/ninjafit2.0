@@ -1,7 +1,9 @@
-const Inferno  = require('inferno');
-const utils    = require('helpers/utils');
-const pages    = require('helpers/constants').pages;
-const commands = require('services/event-system').commands;
+const Inferno     = require('inferno');
+const utils       = require('helpers/utils');
+const pages       = require('helpers/constants').pages;
+const commands    = require('services/event-system').commands;
+const social      = require('helpers/settings').social;
+const SocialIcons = require('shared/components/icons/social');
 const {
     
     Footer,
@@ -14,7 +16,7 @@ const {
 
 } = require('mobile/components/nav');
 
-const PageFooter = module.exports = ({ onRedirect, socialLinks }) => (
+const PageFooter = module.exports = () => (
     <Footer>
         <MenuLinks>
             <NavTitle>Menu</NavTitle>
@@ -53,12 +55,16 @@ const PageFooter = module.exports = ({ onRedirect, socialLinks }) => (
         <MenuLinks>
             <NavTitle>Connect With Us</NavTitle>
 
-            {utils.map(socialLinks, (href, type, i) => 
-                <SocialLink href={href}>
-                    <span className={`fa fa-${type.toLowerCase()}`} />
-                    <Text>{type}</Text>
-                </SocialLink>
-            )}
+            {utils.map(social, (href, type) => {
+                let Icon = SocialIcons[type.toLowerCase()];
+
+                return (
+                    <SocialLink href={href}>
+                        <Icon />
+                        <Text>{type}</Text>
+                    </SocialLink>
+                );
+            })}
         </MenuLinks>
     </Footer>
 );

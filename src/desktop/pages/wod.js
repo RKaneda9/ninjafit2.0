@@ -3,9 +3,13 @@ const Component   = require('inferno-component');
 const constants   = require('helpers/constants');
 const utils       = require('helpers/utils');
 const settings    = require('helpers/settings');
+const HeaderBar   = require('desktop/components/sections/header-bar');
 const PageFooter  = require('desktop/containers/page-footer');
 const Page        = require('desktop/components/page');
-const {commands}  = require('services/event-system');
+const Selector    = require('shared/components/calendar/date-selector');
+const Loader      = require('shared/components/loaders/content');
+const Section     = require('shared/components/section').Section;
+const wods        = require('services/wod-store');
 
 module.exports = class WOD extends Component {
     constructor(props) {
@@ -14,10 +18,33 @@ module.exports = class WOD extends Component {
         this.showTomorrow  = this.showTomorrow .bind(this);
         this.showYesterday = this.showYesterday.bind(this);
 
+        let date = new Date();
 
-        this.state = {
-            date: new Date()
+        this.state = { 
+            date:     date,
+            workouts: this.getWorkouts(date),
+            loading:  true
         };
+    }
+
+    getWorkouts(date) {
+        wods.fetch(date.getDateKey())
+            .then(wod => {
+                this.setState({
+                    workouts: wod.workouts,
+                    loading:  false
+                });
+            });
+
+        return [];
+    }
+
+    changeDay(date) {
+        this.setState({
+            workouts: this.getWorkouts(date),
+            date:     date,
+            loading:  true
+        });
     }
 
     showTomorrow () { this.setState({ date: this.state.date.getTomorrow () }); }
@@ -26,68 +53,40 @@ module.exports = class WOD extends Component {
     render() {
         return (
             <Page {...this.props} name={constants.pages.wod}>
-                <section className="landing">
-                    <header className="header-bar">
-                        <p className="title">WOD</p>
-                        
-                        <button
-                            onClick={commands.openMenu.emit} 
-                            className="menu-btn">
-                            <svg className="background" viewBox="0 0 500 577.35">
-                                <path filter="url(#ds-s)" d="M500,0v577.35l-500-288.675z" />
-                            </svg>
-                            <svg className="bars" viewBox="0 0 96 60" stroke-width="12">
-                                <path d="M38,6h52" />
-                                <path d="M6,30h84" />
-                                <path d="M38,54h52" />
-                            </svg>
-                        </button>
-                    </header>
-                </section>
+                <Section name="landing">
+                    <HeaderBar title="WOD" />
+                </Section>
 
-                <section className="wod">
-                    <div className="date-selector">
-                        <div className="row">
-                            <button 
-                                onClick={this.showYesterday}
-                                className="option-btn fa fa-angle-left" />
-                            <div className="details">
-                                <p className="title">{this.state.date.getDayText()}</p>
-                                <p className="sub">{`${this.state.date.getMonthText()} ${this.state.date.getDateText()}, ${this.state.date.getFullYear()}`}</p>
-                            </div>
-                            <button 
-                                onClick={this.showTomorrow}
-                                className="option-btn fa fa-angle-right" />
-                        </div>
-                    </div>
+                <Section name="wod">
+                    <Selector 
+                        onPrev={this.showYesterday}
+                        onNext={this.showTomorrow}
+                        title={this.state.date.getDayText()}
+                        subTitle={`${this.state.date.getMonthText()} ${this.state.date.getDateText()}, ${this.state.date.getFullYear()}`} />
+
                     <div className="calendar-separator">
-                        <span className="title">2 Workouts Found</span>
+                        <span className="title">
+                            {this.state.loading ? '' : `${this.state.workouts.length} Workouts Found`}
+                        </span>
                     </div>
                     <div className="event-list">
-                        <div className="event-item">
-                            <div className="title">Strength</div>
-                            <div className="sub-title">Deadlift</div>
-                            <div className="content">
-                                <p>1x8</p>
-                                <p>1x8</p>
-                                <p>1x8</p>
+                        {utils.map(this.state.workouts, workout => (
+                            <div className="event-item">
+                                <div className="title">{workout.title}</div>
+                                <div className="sub-title">{workout.subtitle}</div>
+                                <div className="content">
+                                    {utils.map(workout.contents, prop => 
+                                        <p>{prop}</p>
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                        <div className="event-item">
-                            <div className="title">WOD</div>
-                            <div className="sub-title">170508B</div>
-                            <div className="content">
-                                <p>3RFT</p>
-                                <p>6 Deadlifts</p>
-                                <p>5 hang Power Cleans</p>
-                                <p>4 Front Squats</p>
-                                <p>3 shoulder to overhead</p>
-                                <p>2 thrusters</p>
-                                <p>1 Muscle Up</p>
-                            </div>
-                        </div>
+                        ))}
+
+                        <Loader 
+                            show={this.state.loading}
+                            text="Retrieving your workouts..." />
                     </div>
-                </section>
+                </Section>
 
                 <PageFooter />
             </Page>

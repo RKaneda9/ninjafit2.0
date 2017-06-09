@@ -40,9 +40,12 @@ $container: '#{$app} .page-footer';
         &:hover .text { color: $color-nav-link-hover; }
         &:hover .text:after { transform: scaleX(1); }
 
-        .fa {
-            width: 2rem;
-            text-align: center;
+        .icon {
+            $size: 0.9rem;
+            width:  $size;
+            height: $size;
+            fill:   #fff;
+            margin-right: 8px;
         }
     }
 }

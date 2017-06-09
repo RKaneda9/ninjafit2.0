@@ -1,5 +1,9 @@
 $container: '#{$app} .schedule-page';
 
+#{$container} .landing {
+    margin-bottom: -0.5 * $triangle-size;
+}
+
 #{$container} > .row {
     margin: 0;
     padding: 0;

@@ -37,12 +37,13 @@ const service = module.exports = {
 
                 if (wod) return resolve(wod);
 
-                http.get(settings.api.wod, { datekey: datekey })
+                http.get(settings.api.getWod, { datekey: datekey })
                     .then(function (data) {
                         wod = store.save(data);
 
                         resolve(wod);
-                    });
+                    })
+                    .catch(function () { reject(); });
             }
             catch (ex) { reject(ex); }
         });

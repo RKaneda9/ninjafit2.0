@@ -1,19 +1,16 @@
-const Inferno    = require('inferno');
-const Component  = require('inferno-component');
-const utils      = require('helpers/utils');
-const settings   = require('helpers/settings');
-const HeaderBar  = require('mobile/components/sections/header-bar');
-const PageFooter = require('mobile/containers/page-footer');
-const Page       = require('mobile/components/page');
-const Loader     = require('shared/components/loaders/content');
-const calendar   = require('services/calendar-store');
-
-const {
-
-    Button,
-    CloseButton
-
-} = require('mobile/components/buttons');
+const Inferno        = require('inferno');
+const Component      = require('inferno-component');
+const utils          = require('helpers/utils');
+const settings       = require('helpers/settings');
+const HeaderBar      = require('mobile/components/sections/header-bar');
+const Page           = require('mobile/components/page');
+const Hours          = require('shared/components/sections/hours');
+const Selector       = require('shared/components/calendar/date-selector');
+const Loader         = require('shared/components/loaders/content');
+const ClockIcon      = require('shared/components/icons/clock');
+const HourGlassIcon  = require('shared/components/icons/hourglass');
+const ArrowRightIcon = require('shared/components/icons/arrow-long-right');
+const calendar       = require('services/calendar-store');
 
 const views = {
     month: 'month',
@@ -69,7 +66,7 @@ module.exports = class Schedule extends Component {
 
         do { 
             days.push({
-                isOpen: (settings.gymHours[temp.getDayText().toLowerCase()] || []).length,
+                isOpen: (settings.hours[temp.getDayText().toLowerCase()] || []).length,
                 day:     temp,
                 dateKey: temp.getDateKey()
             }); 
@@ -77,24 +74,6 @@ module.exports = class Schedule extends Component {
         } while ((temp = temp.getTomorrow()) <= end);
 
         return days;
-    }
-
-    getTimeText(timekey) {
-        let hour = parseInt(timekey.substr(0, 2)),
-            min  = parseInt(timekey.substr(2, 4)),
-            ampm = hour < 12 ? 'am' : 'pm',
-            str;
-
-             if (hour > 12) hour -= 12;
-        else if (hour == 0) hour = 12;
-
-        str = hour.toString();
-
-        if (min) str += ':' + min;
-
-        str += ampm;
-
-        return str;
     }
 
     showNextMonth () {
@@ -134,7 +113,7 @@ module.exports = class Schedule extends Component {
     }
 
     render() {
-        let todayHours      = (settings.gymHours[this.state.date.getDayText().toLowerCase()] || []),
+        let todayHours      = (settings.hours[this.state.date.getDayText().toLowerCase()] || []),
             selectedDateKey = this.state.date.getDateKey(),
             selectedMonth   = this.state.date.getMonth();
 
@@ -145,21 +124,11 @@ module.exports = class Schedule extends Component {
                 {this.state.view == views.month ? (
 
                     <div className="month-view">
-                        <div className="date-selector">
-                            <div className="row">
-                                <button 
-                                    onClick={this.showPrevMonth}
-                                    className="option-btn fa fa-angle-left" />
 
-                                <div className="details">
-                                    <p className="title">{this.state.date.getMonthText() + ', ' + this.state.date.getFullYear()}</p>
-                                </div>
-
-                                <button 
-                                    onClick={this.showNextMonth}
-                                    className="option-btn fa fa-angle-right" />
-                            </div>
-                        </div>
+                        <Selector 
+                            onPrev={this.showPrevMonth}
+                            onNext={this.showNextMonth}
+                            title={this.state.date.getMonthText() + ', ' + this.state.date.getFullYear()} />
 
                         <ul className="calendar">
                             <li className="title">Sun</li>
@@ -193,24 +162,15 @@ module.exports = class Schedule extends Component {
                 ) : (
 
                     <div className="day-view">
-                        <div className="date-selector">
-                            <div className="row">
-                                <button 
-                                    onClick={this.showYesterday}
-                                    className="option-btn fa fa-angle-left" />
-                                <div className="details">
-                                    <p className="title">{this.state.date.getDayText()}</p>
-                                    <p className="sub">{`${this.state.date.getMonthText()} ${this.state.date.getDateText()}, ${this.state.date.getFullYear()}`}</p>
-                                </div>
-                                <button 
-                                    onClick={this.showTomorrow}
-                                    className="option-btn fa fa-angle-right" />
-                            </div>
-                        </div>
+                        <Selector 
+                            onPrev={this.showYesterday}
+                            onNext={this.showTomorrow}
+                            title={this.state.date.getDayText()}
+                            subTitle={`${this.state.date.getMonthText()} ${this.state.date.getDateText()}, ${this.state.date.getFullYear()}`} />
 
                         <div className="calendar-separator">
                             <div className="title">{todayHours.length ? "Open:" : "Closed Today"}</div>
-                            <div className="value">{utils.map(todayHours, span => `${this.getTimeText(span.start)} - ${this.getTimeText(span.end)}`).join(', ')}</div>
+                            <div className="value">{utils.map(todayHours, span => `${utils.getTimeText(span.start)} - ${utils.getTimeText(span.end)}`).join(', ')}</div>
                             <button 
                                 onClick={this.viewMonth}
                                 className="btn">View Month</button>
@@ -226,11 +186,11 @@ module.exports = class Schedule extends Component {
                                             <div className="title">{event.title}</div>
                                             <div className="details">
                                                 <p className="prop">
-                                                    <span className="icon fa fa-clock-o" />
-                                                    <span className="value">{`${this.getTimeText(event.start)} - ${this.getTimeText(event.end)}`}</span>
+                                                    <ClockIcon />
+                                                    <span className="value">{`${utils.getTimeText(event.start)} - ${utils.getTimeText(event.end)}`}</span>
                                                 </p>
                                                 <p className="prop">
-                                                    <span className="icon fa fa-hourglass" />
+                                                    <HourGlassIcon />
                                                     <span className="value">{parseInt(event.end.substr(0,2)) - parseInt(event.start.substr(0,2))} hour</span>
                                                 </p>
                                             </div>
@@ -238,7 +198,7 @@ module.exports = class Schedule extends Component {
                                         <div className="options">
                                             <button className="btn">
                                                 <span>Attend</span>
-                                                <span className="icon fa fa-long-arrow-right" />
+                                                <ArrowRightIcon />
                                             </button>
                                         </div>
                                     </div>
@@ -250,27 +210,9 @@ module.exports = class Schedule extends Component {
                                 text="Retrieving events..." />
                         </div>
                     </div>
-
                 )}
 
-                <section className="weekly-hours">
-                    <header className="header">Gym Hours</header>
-
-                    <table className="content">
-                        <tbody>
-                            {utils.map(settings.gymHours, (hours, day) => {
-                                let text = utils.map(hours, span => `${this.getTimeText(span.start)} - ${this.getTimeText(span.end)}`).join(', ');
-
-                                return (
-                                    <tr className="day-item">
-                                        <td className="title">{day[0].toUpperCase() + day.slice(1)}:</td>
-                                        <td className="hours">{text || "Closed"}</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </section>
+                <Hours />
             </Page>
         );
     }

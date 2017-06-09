@@ -2,12 +2,11 @@ $container: '#{$app} .home-page';
 
 #{$container} > .landing {
     $header-height: 180px;
-    z-index: 3;
     text-shadow: 0 -1px rgba(0,0,0,0.3);
     display: flex;
     flex-flow: column;
     height: $app-height;
-    max-height: 2 * $app-width;
+    max-height: 1.8 * $app-width;
     min-height: 320px;
 
     .header {
@@ -33,53 +32,43 @@ $container: '#{$app} .home-page';
 
     .menu-btn { bottom: 0; }
 
-    .scroll-down-btn {
-        position: absolute;
-        bottom:   $general-padding;
-        left:     $general-padding;
-        z-index:  3;
-    }
-
-    // .scroll-btn {
-    //     position: absolute;
-    //     bottom:   $general-padding;
-    //     left:     $general-padding;
-    //     z-index:  3;
-    // }
-
     .image-selectors {
         position: absolute;
-        bottom:   $header-height;// / 2;
+        bottom:   $header-height;
         width:    $header-height * 2;
         left:     0;
-        z-index:  3;
+        z-index:  1;
         transform-origin: left bottom;
         transform: rotate(30deg);
     }
 
     .footer {
         $icon-size: 3em;
+        $offset:    50px;
 
         position: absolute;
-        bottom: $header-height / 3;
-        left:   $header-height * $sqrt-3 / 6;
-        z-index: 3;
+        bottom: $offset;
+        left:   $offset;
+        z-index: 1;
         opacity: 0;
         animation: m-scroll-appear 0.5s ease-in-out forwards 0.75s;
 
-        .touch {
+        // touch icon
+        .icon:nth-child(1) {
             position: absolute;
-            left: 0;
-            top:  0;
-            width: $icon-size;
-            height: $icon-size;
-            fill: #fff;
+            left:     0;
+            top:      0;
+            z-index:  2;
+            fill:     #fff;
+            width:    $icon-size;
+            height:   $icon-size;
+
             margin-left: -$icon-size / 2;
             margin-top:  -$icon-size / 2;
-            z-index: 2;
         }
 
-        .arrow.down {
+        // arrow down
+        .icon:nth-child(2) {
             $size: 1.5em;
             position: absolute;
             width: $size;
@@ -104,40 +93,6 @@ $container: '#{$app} .home-page';
         }
     }
 
-    // .footer {
-    //     $size: 20px;
-    //     $footer-size: $size * 3;
-    //     display: flex;
-    //     flex-flow: row;
-    //     position: absolute;
-    //     justify-content: center;
-    //     align-items: center;
-    //     bottom: 30px;
-    //     left: 30px;
-    //     background: #fff;
-    //     width: $footer-size;
-    //     height: $footer-size;
-    //     border-radius: $footer-size;
-    //     padding: 0px;
-
-
-    //     .icon-btn {
-    //         flex: 0 0 auto;
-    //         width: $size;
-    //         height: $size;
-    //         fill: none;
-    //         stroke: $color-primary-1;
-    //         transform-origin: center;
-
-    //         .icon { height: 60%; margin: 0 20%; }
-
-    //         &:nth-child(1) { transform: rotate(90deg); }
-    //         &:nth-child(2) { align-self: flex-end; }
-    //         &:nth-child(3) { transform: rotate(-90deg); }
-    //     }
-        
-    // }
-
     .image-slider {
         z-index: 1;
         position: absolute;
@@ -147,7 +102,6 @@ $container: '#{$app} .home-page';
         transform: translate(-50%, -50%) rotate(30deg);
         box-shadow: 0 0 ($app-width / 50) 0 #000;
         overflow: hidden;
-        //margin-top: 45px;
     }
 
     .image-wrapper {
@@ -191,13 +145,11 @@ $container: '#{$app} .home-page';
 }
 
 #{$container} > .about {
-    z-index: 2;
     padding: ($general-padding * 3) 0;
     margin-top: $app-width / 5;
 }
 
 #{$container} > .main-section1 {
-    z-index: 1;
     padding-top: $general-padding-half;
         
     .content {        
@@ -207,13 +159,11 @@ $container: '#{$app} .home-page';
 }
 
 #{$container} > .main-section2 {
-    z-index: 1;
     text-align: right;
     padding-top: $general-padding-half;
 }
 
 #{$container} > .main-section3 {
-    z-index: 1;
     padding-top: $general-padding-half;
     min-height: $app-width * $sqrt-3 / 1.9;
     padding-bottom: $app-width * 0.25;
@@ -247,12 +197,13 @@ $container: '#{$app} .home-page';
     }
 
     .icon-btn {
-        $size:   30px;
-        display: block;
-        width:  $size;
-        height: $size;
+        $size:    30px;
+        display:  block;
+        width:    $size;
+        height:   $size;
         position: relative;
-        flex: 0 0 auto;
+        flex:     0 0 auto;
+        cursor:   pointer;
 
         svg {
             $icon-size: 0.8em;
@@ -312,12 +263,13 @@ $container: '#{$app} .home-page';
     $height: 300px;
     $offset1: ($height / $sqrt-3) - ($height / 2);
     $offset2: $app-width / (2 * $sqrt-3);
-    z-index: 2;
-    position: relative;
-    height: $height;
+
+    z-index:       1;
+    position:      relative;
+    height:        $height;
     margin-bottom: unquote("calc(#{$offset1} - #{$offset2})");
-    margin-top: unquote("calc(#{$offset2} - #{$offset1})");
-    display: block;
+    margin-top:    unquote("calc(#{$offset2} - #{$offset1})");
+    display:       block;
 
     .image-wrapper {
         margin: auto;
@@ -335,10 +287,8 @@ $container: '#{$app} .home-page';
     }
 
     .image {
-        @include background-image("https://scontent-atl3-1.xx.fbcdn.net/v/t31.0-8/16903117_1844616032419052_2489319948486629962_o.jpg?oh=6eebec213f686c5aae1b76e1f3433cd7&oe=59944936");
         position: absolute;
         top:      50%;
-        //bottom:  -50%;
         left:     20%;
         right:    20%;
         padding-top: 50%;
@@ -356,7 +306,7 @@ $container: '#{$app} .home-page';
     $btn-width: 115px;
     height:  $app-width * 1.3;
     min-height: 600px;
-    z-index: 1;
+    z-index: 10;
 
     display:         flex;
     flex-flow:       column;

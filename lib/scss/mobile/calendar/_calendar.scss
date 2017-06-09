@@ -53,6 +53,8 @@ $child-width: (100% / 7);
         z-index:    1;
     }
 
+    &:not(.selected) { cursor: pointer; }
+
     &.selected:not(.today) .text {
         background: $color-primary-12;
     }

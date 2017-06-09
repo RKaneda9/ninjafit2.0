@@ -13,6 +13,7 @@ $container: '#{$app} .loader';
     display: flex;
     flex-flow: row;
     justify-content: center;
+    align-items: flex-start;
     padding-top: 50px;
 }
 
@@ -21,8 +22,6 @@ $container: '#{$app} .loader';
     z-index: 99;
 
     .throwing-star { animation: m-star-spin 1.2s linear infinite normal; }
-
-    //.text:after { animation: m-btn-bounce-text-anim 3s infinite; }
 }
 
 #{$container} .throwing-star {
@@ -52,6 +51,7 @@ $container: '#{$app} .loader';
 #{$container} .text {
 
     font-size: 1.34rem;
+    line-height: 2rem;
 
     &:not(:first-child) { margin-left: 15px; }
 }

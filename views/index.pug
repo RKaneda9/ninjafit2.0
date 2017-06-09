@@ -7,10 +7,46 @@ html
         title NinjaFit Gym
         meta(charset="utf-8")
         meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
-        link(href=`https://fonts.googleapis.com/css?family=Titillium+Web` rel="stylesheet")
         link(href=`https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css` rel="stylesheet")
         link(href=`./css/main${ext}.css` rel="stylesheet")
         script(async type="text/javascript" src=`./js/main${ext}.js`)
 
     body
+        svg(class="defs" xmlns="http://www.w3.org/2000/svg")
+            defs
+                filter#ds-s(height="150%")
+                    feGaussianBlur(in="SourceAlpha" stdDeviation="25")
+                    feMerge
+                        feMergeNode
+                        feMergeNode(in="SourceGraphic")
+
+                filter#ds-m(height="150%")
+                    feGaussianBlur(in="SourceAlpha" stdDeviation="15")
+                    feMerge
+                        feMergeNode
+                        feMergeNode(in="SourceGraphic")
+
+                filter#ds-l(height="150%")
+                    feGaussianBlur(in="SourceAlpha" stdDeviation="5")
+                    feMerge
+                        feMergeNode
+                        feMergeNode(in="SourceGraphic")
+
+                svg#throwing-star(viewBox="0 0 500 500")
+                    path(fill-rule="evenodd" fill="#e6e6e7" d="M250-14l46,141a40,40 0 10 58,41h148l-121,88a40,40 0 10-22,67l46.5,141l-120.5-87a40,40 0 10-70,0l-120.5,87l46.5-141a40,40 0 10-22-67l-121-88h148a40,40 0 10 58-41z M250,225a25,25 0 01 0,50 a25,25 0 01 0-50z")
+
+                    g(fill="#dbdadd")
+                        path(d="M250-14v70l-28,90a40,40 0 00-18-19z")
+                        path(d="M502,168l-67,22h-91.6a40,40 0 0010.6-22z")
+                        path(d="M405.5,464l-41.5-57l-29.8-87.6a40,40 0 00 24.8,3.6z")
+                        path(d="M94.5,464l41.5-57l74.5-56a40,40 0 00 4.5,26z")
+                        path(d="M-2,168l67,22l77,54a40,40 0 00-23,12z")
+
+                    g(fill="#ebeaeb")
+                        path(d="M250-14v70l28,90a40,40 0 01 18-19z")
+                        path(d="M502,168l-67,22l-77,54a40,40 0 01 23,12z")
+                        path(d="M405.5,464l-41.5-57l-74.5-56a40,40 0 01-4.5,26z")
+                        path(d="M94.5,464l41.5-57l29.5-87.4a40,40 0 01-24.5,3.4z")
+                        path(d="M-2,168l67,22h91.6a40,40 0 01-10.6-22z")
         div#app
+        div#app-loader

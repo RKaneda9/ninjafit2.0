@@ -68,10 +68,10 @@ $container: '#{$app} .app-menu';
         &:last-child { border-bottom: 1px solid $color-primary-8; }
     }
 
-    .fa { 
-        width: 3em; 
-        font-size: 1.3em; 
-        text-align: center;
+    .icon { 
+        width: 1.4rem;
+        height: 1.4rem;
+        margin: 0 18px;
     }
 
     .text { font-size: 1.2em; }
@@ -95,18 +95,21 @@ $container: '#{$app} .app-menu';
     .social-item {
         position: relative;
         background: #fff;
-        color: $color-primary-2;
         border-radius: 100px; 
         width:  2.25em;
         height: 2.25em;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: center;
     }
 
-    .fa {
-        position: absolute;
-        top:  50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 1.4em;
+    // because the icon is in a rounded container, you want to use px instead of em
+    // to make sure it's completely centered.
+    .icon {
+        fill:   $color-primary-2;
+        width:  18px; 
+        height: 18px;
     }
 }
 

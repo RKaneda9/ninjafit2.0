@@ -139,54 +139,11 @@ $button: '#{$app} .btn';
     }
 }
 
-#{$app} .scroll-down-btn {
-    $size: 2em;
-    // height:   1.75em;
-    // width:    1.75em;
-    //fill:     #fff;
-    width: $size;
-    height: $size;
-    stroke:   #fff;
-    border-radius: 2em;
-    cursor: pointer;
-}
-
 #{$app} .option-btn {
     width: $menu-btn-size / 2;
     text-align: center;
     font-size: 1.34rem;
     color: #fff;
+    fill: #fff;
     cursor: pointer;
 }
-
-// $container: '.scroll-btn';
-// $thickness: 3px;
-// $short-length: 60%;
-// $long-length:  80%;
-
-// #{$container} {
-//     $size: 1.75em;
-//     width: $size;
-//     height: $size;
-//     position: relative;
-//     cursor: pointer;
-
-//     .bar { 
-//         position: absolute;
-//         background: #fff;
-//         border-radius: $thickness;
-//     }
-// }
-
-// #{$container}.down .bar {
-//     transform-origin: center bottom;
-//     height:         $short-length;
-//     width:          $thickness;
-//     margin-left:   -$thickness / 2;
-//     left:           50%;
-//     bottom:        (100% - $long-length) / 2;
-
-//     &:nth-child(1) { transform: rotate(-45deg); }
-//     &:nth-child(2) { height: $long-length; }
-//     &:nth-child(3) { transform: rotate( 45deg); }
-// }

@@ -15,6 +15,7 @@ $padding-bottom: 3 * $content-padding-v;
 }
 
 #{$container} .visit-us {
+    margin-top: 2 * $content-padding-v;
     width: 500px;
     align-self: center;
     padding-bottom: $padding-bottom;

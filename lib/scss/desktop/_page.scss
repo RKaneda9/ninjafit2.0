@@ -24,7 +24,6 @@ $container: '#{$app} .page';
     top:  0;
     left: 0;
     transform-origin: top center;
-    //box-shadow: $bx 0 (2 * $bx) (-1 * $bx) #232323, -$bx 0 (2 * $bx) (-1 * $bx) #232323;
     z-index: 0;
     transition: transform 0.4s linear, opacity 0.4s linear;
     display: flex;
@@ -40,7 +39,7 @@ $container: '#{$app} .page';
 }
 
 #{$container} .landing {
-    min-height: $triangle-size * 1.5;
+    min-height: $triangle-size * 1.25;
 }
 
 #{$container} .header-bar {
@@ -66,7 +65,7 @@ $container: '#{$app} .page';
         left:   $general-padding-h / 2;
         bottom: 0;
 
-        .logo-image { 
+        .icon { 
             $size: 70px;
             position: relative;
             top: 2px;

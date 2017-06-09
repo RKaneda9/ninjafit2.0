@@ -18,6 +18,7 @@ $container: '#{$app} .price-selector-list';
     flex-flow: row;
     justify-content: center;
     align-items: center;
+    &:not(:active) { cursor: pointer; }
 
     &:before {
         content: '';

@@ -1,106 +1,27 @@
 const Inferno   = require('inferno');
 const Component = require('inferno-component');
 const utils     = require('helpers/utils');
-
-const items = [
-    {
-        title: "Unlimited",
-        price: "$20",
-        unit:  "month",
-        desc:  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        props: [
-            "1 hour access",
-            "Access to entire gym",
-            "Personal trainer available",
-            "Daily WOD"
-        ]
-    },
-
-    {
-        title: "Unlimited",
-        price: "$20",
-        unit:  "month",
-        desc:  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        props: [
-            "1 hour access",
-            "Access to entire gym",
-            "Personal trainer available",
-            "Daily WOD"
-        ]
-    },
-
-    {
-        title: "Unlimited",
-        price: "$20",
-        unit:  "month",
-        desc:  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        props: [
-            "1 hour access",
-            "Access to entire gym",
-            "Personal trainer available",
-            "Daily WOD"
-        ]
-    },
-
-    {
-        title: "Unlimited",
-        price: "$20",
-        unit:  "month",
-        desc:  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        props: [
-            "1 hour access",
-            "Access to entire gym",
-            "Personal trainer available",
-            "Daily WOD"
-        ]
-    },
-
-    {
-        title: "Unlimited",
-        price: "$20",
-        unit:  "month",
-        desc:  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        props: [
-            "1 hour access",
-            "Access to entire gym",
-            "Personal trainer available",
-            "Daily WOD"
-        ]
-    },
-
-    {
-        title: "Unlimited",
-        price: "$20",
-        unit:  "month",
-        desc:  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        props: [
-            "1 hour access",
-            "Access to entire gym",
-            "Personal trainer available",
-            "Daily WOD"
-        ]
-    }
-]
+const items     = require('helpers/settings').pricePackages;
 
 module.exports = class PricingSection extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { currPriceIndex: 0 };
+        this.state = { index: 1 };
     }
 
     nextPriceItem() {
-        this.setState({ currPriceIndex: (this.state.currPriceIndex + 1) % items.length });
+        this.setState({ index: (this.state.index + 1) % items.length });
     }
 
     prevPriceItem() {
-        let i = this.state.currPriceIndex - 1; if (i < 0) i = items.length - 1;
+        let i = this.state.index - 1; if (i < 0) i = items.length - 1;
 
-        this.setState({ currPriceIndex: i });
+        this.setState({ index: i });
     }
 
     selectPriceItem(i) {
-        this.setState({ currPriceIndex: i });
+        this.setState({ index: i });
     }
 
     render() {
@@ -110,11 +31,11 @@ module.exports = class PricingSection extends Component {
 
                 <ul className="pricing-list">
                     {utils.map(items, (props, key, i) => {
-                        let pos, offset = utils.getListOffset(i, this.state.currPriceIndex, items.length);
-
+                        let pos, offset = i - this.state.index;
+                        
                              if (offset == 0) pos = 'curr';
-                        else if (offset <  0) pos = 'left'  + (-offset);
-                        else if (offset >  0) pos = 'right' +   offset;
+                        else if (offset <  0) pos = 'left'  + Math.min(-offset, 4);
+                        else if (offset >  0) pos = 'right' + Math.min( offset, 4);
 
                         return (
                             <li className={`pricing-item ${pos}`}>
@@ -145,7 +66,7 @@ module.exports = class PricingSection extends Component {
                     {utils.map(items, (props, key, i) => 
                         <li 
                             onClick={() => this.selectPriceItem(i)}
-                            className={`price-selector${i == this.state.currPriceIndex ? ' active' : ''}`} />
+                            className={`price-selector${i == this.state.index ? ' active' : ''}`} />
                     )}
                 </ul>
             </section>

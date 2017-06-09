@@ -1,7 +1,19 @@
 const Inferno  = require('inferno');
 const utils    = require('helpers/utils');
+const settings = require('helpers/settings');
 const pages    = require('helpers/constants').pages;
 const commands = require('services/event-system').commands;
+
+const HomeIcon       = require('shared/components/icons/home');
+const KettlebellIcon = require('shared/components/icons/kettlebell');
+const CalendarIcon   = require('shared/components/icons/calendar');
+const HeartbeatIcon  = require('shared/components/icons/heartbeat');
+const ThumbsUpIcon   = require('shared/components/icons/thumbs-up');
+const RunningIcon    = require('shared/components/icons/running');
+const EnvelopeIcon   = require('shared/components/icons/envelope');
+const LoginIcon      = require('shared/components/icons/sign-in');
+const SocialIcons    = require('shared/components/icons/social');
+
 const {
     
     Menu,
@@ -13,59 +25,63 @@ const {
 
 } = require('mobile/components/nav');
 
-module.exports = ({ opened, page, socialLinks }) => (
+module.exports = ({ opened, page }) => (
     <Menu
         opened={opened}
         onClose={commands.closeMenu.emit}>
 
         <MenuLinks>
             <MenuLink selected={page == pages.home} onClick={() => commands.redirect.emit(pages.home)}>
-                <span className="fa fa-home"></span>
+                <HomeIcon />
                 <Text>Home</Text>
             </MenuLink>
 
             <MenuLink selected={page == pages.aboutUs} onClick={() => commands.redirect.emit(pages.aboutUs)}>
-                <span className="fa fa-users"></span>
+                <RunningIcon />
                 <Text>About Us</Text>
             </MenuLink>
 
             <MenuLink selected={page == pages.whatWeOffer} onClick={() => commands.redirect.emit(pages.whatWeOffer)}>
-                <span className="fa fa-building"></span>
+                <KettlebellIcon />
                 <Text>What We Offer</Text>
             </MenuLink>
 
             <MenuLink selected={page == pages.schedule} onClick={() => commands.redirect.emit(pages.schedule)}>
-                <span className="fa fa-calendar"></span>
+                <CalendarIcon />
                 <Text>Schedule</Text>
             </MenuLink>
 
             <MenuLink selected={page == pages.wod} onClick={() => commands.redirect.emit(pages.wod)}>
-                <span className="fa fa-heartbeat"></span>
+                <HeartbeatIcon />
                 <Text>WOD</Text>
             </MenuLink>
 
             <MenuLink selected={page == pages.contact} onClick={() => commands.redirect.emit(pages.contact)}>
-                <span className="fa fa-envelope"></span>
+                <EnvelopeIcon />
                 <Text>Contact</Text>
             </MenuLink>
 
             <MenuLink selected={page == pages.joinUs} onClick={() => commands.redirect.emit(pages.joinUs)}>
-                <span className="fa fa-thumbs-up"></span>
+                <ThumbsUpIcon />
                 <Text>Join Us</Text>
             </MenuLink>
 
             <MenuLink selected={page == pages.login} onClick={() => commands.redirect.emit(pages.login)}>
-                <span className="fa fa-sign-in"></span>
+                <LoginIcon />
                 <Text>Login</Text>
             </MenuLink>
         </MenuLinks>
 
         <SocialLinks>
-            {utils.map(socialLinks, (href, type, i) => 
-                <SocialLink key={type} href={href}>
-                    <span className={`fa fa-${type.toLowerCase()}`} />
-                </SocialLink>
-            )}
+            {utils.map(settings.social, (href, type) => {
+                let Icon = SocialIcons[type.toLowerCase()];
+
+                return (
+                    <SocialLink href={href}>
+                        <Icon />
+                    </SocialLink>
+                );
+            })}
         </SocialLinks>
     </Menu>
 );

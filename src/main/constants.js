@@ -5,7 +5,7 @@ module.exports = {
     resizeTimeout:       0,
 
     elements: {
-        loader: 'loader',
+        loader: 'app-loader',
         app:    'app'
     }
 };

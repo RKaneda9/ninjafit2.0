@@ -51,6 +51,13 @@ let service = module.exports = {
                         loader: 'babel-loader'
                     },
                     {
+                        test: /\.pug/,
+                        use: [
+                            { loader: 'raw-loader'      },
+                            { loader: 'pug-html-loader' }
+                        ]
+                    },
+                    {
                         test: /\.css$/,
                         use: ExtractTextPlugin.extract({
                             fallback: "style-loader", 
@@ -68,7 +75,8 @@ let service = module.exports = {
                                 options: { includePaths: ['./lib/scss'] }
                             }
                         ]
-                    }
+                    },
+                    { test: /\.(woff2?|ttf|otf|eot|svg)$/, use: 'file-loader?name=fonts/[name].[ext]' }
                 ]
             },
             resolve: {

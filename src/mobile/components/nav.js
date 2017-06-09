@@ -1,5 +1,5 @@
-const Inferno       = require('inferno');
-const {CloseButton} = require('mobile/components/buttons');
+const Inferno     = require('inferno');
+const CloseButton = require('shared/components/buttons').CloseButton;
 
 export const Menu = ({ onClose, opened, children }) => (
     <div className={`app-menu${opened ? ' open' : ''}`}>

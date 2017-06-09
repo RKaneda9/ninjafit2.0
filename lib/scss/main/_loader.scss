@@ -1,0 +1,116 @@
+$container: '#app-loader';
+$appear-time: 0.7s;
+$appear-delay: 0.2s;
+$stars-appear-delay: 1.5s;
+$stars-move-time: 1s;
+$stars-rot-count: 3;
+$stars-rot-time: $stars-move-time / $stars-rot-count;
+
+#{$container} {
+    position: absolute;
+    top:      0;
+    left:     0;
+    opacity:  0;
+    width:  100%;
+    height: 100%;
+    z-index:100;
+
+    background: $color-primary-1;
+
+    display:           flex;
+    flex-flow:       column;
+    align-items:     center;
+    justify-content: center;
+
+    animation: appear $appear-time linear $appear-delay forwards;
+}
+
+#{$container}.show {
+    transition: opacity $appear-time linear;
+    animation:  none;
+    opacity:    1;
+    z-index:  100;
+}
+
+#{$container}.hidden {
+    transition: opacity $appear-time linear, z-index 0.01s linear $appear-time;
+    animation:  none;
+    opacity:    0;
+    z-index:   -1;
+}
+
+#{$container} .text {
+    font-size:     2rem;
+    margin-bottom: 20px;
+    text-align:  center;
+}
+
+#{$container} .image {
+    flex: 0 0 auto;
+    position: relative;
+
+    &:before,
+    &:after {
+        content:        '';
+        margin-top:   40px;
+        width:        40px;
+        height:        3px;
+        border-radius: 3px;
+        border-top:    3px solid #212121;
+        background:    #323232;
+        position:      absolute;
+        top:           100%;
+        z-index:       2;
+        opacity:       0;
+        animation:     appear 0.1s linear ($stars-appear-delay + $stars-move-time - 0.1s) forwards;
+    } 
+
+    &:before { left:  -5px; }
+    &:after  { right: -5px; animation-delay: $stars-appear-delay + 2 * $stars-move-time - 0.1s; }
+}
+
+#{$container} .ninja {
+    width:  100px;
+    height: 100px;
+}
+
+#{$container} .star {
+    $size: 30px;
+
+    width:     $size;
+    height:    $size;
+    top:        100%;
+    margin-top: 15px;
+
+    position:       absolute;
+    transform-origin: center;
+
+    .icon { 
+        width:  100%; 
+        height: 100%; 
+
+        transform-origin: center;
+    }
+
+    &:nth-child(1) { 
+
+        left: 0; 
+        animation: throwing-star1-transform $stars-move-time linear $stars-appear-delay forwards;
+        transform: translate(80vw, -30vw);
+
+        .icon {
+            animation: throwing-star1-rotate $stars-rot-time linear $stars-appear-delay $stars-rot-count normal forwards;
+        }
+    }
+
+    &:nth-child(2) { 
+
+        right:     0;
+        animation: throwing-star2-transform $stars-move-time linear ($stars-appear-delay + $stars-move-time) forwards; 
+        transform: translate(-80vw, -30vw);
+     
+        .icon {
+            animation: throwing-star2-rotate $stars-rot-time linear ($stars-appear-delay + $stars-move-time) $stars-rot-count normal forwards;
+        }
+    }
+}

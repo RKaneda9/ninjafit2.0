@@ -84,7 +84,6 @@ $container: '#{$app} .staff-list';
     }
 
     .social-link { 
-        font-size: 1.16rem;
         flex: 0 0 auto;
         width: $social-link-size;
         height: $social-link-size;
@@ -94,6 +93,13 @@ $container: '#{$app} .staff-list';
         justify-content: center;
         text-align: center;
         cursor: pointer;
+        fill: #fff;
+    }
+
+    .icon {
+        $size: 1rem;
+        width:  $size;
+        height: $size;
     }
 
     .content {

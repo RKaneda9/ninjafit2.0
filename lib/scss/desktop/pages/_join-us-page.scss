@@ -11,6 +11,7 @@ $padding-bottom: 3 * $content-padding-v;
 }
 
 #{$container} .pricing {
+    margin-top: 2 * $content-padding-v;
     padding-bottom: $padding-bottom;
 }
 

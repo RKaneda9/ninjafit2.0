@@ -1,19 +1,11 @@
-const Inferno    = require('inferno');
-const Component  = require('inferno-component');
-const wods       = require('services/wod-store');
-const utils      = require('helpers/utils');
-const Page       = require('mobile/components/page');
-const Loader     = require('shared/components/loaders/content');
-const HeaderBar  = require('mobile/components/sections/header-bar');
-const PageFooter = require('mobile/containers/page-footer');
-
-const {
-
-    Button,
-    CloseButton
-
-} = require('mobile/components/buttons');
-
+const Inferno   = require('inferno');
+const Component = require('inferno-component');
+const wods      = require('services/wod-store');
+const utils     = require('helpers/utils');
+const Page      = require('mobile/components/page');
+const Selector  = require('shared/components/calendar/date-selector');
+const Loader    = require('shared/components/loaders/content');
+const HeaderBar = require('mobile/components/sections/header-bar');
 
 module.exports = class WOD extends Component {
     constructor(props) {
@@ -59,23 +51,15 @@ module.exports = class WOD extends Component {
             <Page name="wod">
                 <HeaderBar title="WOD"></HeaderBar>
 
-                <div className="date-selector">
-                    <div className="row">
-                        <button 
-                            onClick={this.showYesterday}
-                            className="option-btn fa fa-angle-left" />
-                        <div className="details">
-                            <p className="title">{this.state.date.getDayText()}</p>
-                            <p className="sub">{`${this.state.date.getMonthText()} ${this.state.date.getDateText()}, ${this.state.date.getFullYear()}`}</p>
-                        </div>
-                        <button 
-                            onClick={this.showTomorrow}
-                            className="option-btn fa fa-angle-right" />
-                    </div>
-                </div>
+                <Selector 
+                    onPrev={this.showYesterday}
+                    onNext={this.showTomorrow}
+                    title={this.state.date.getDayText()}
+                    subTitle={`${this.state.date.getMonthText()} ${this.state.date.getDateText()}, ${this.state.date.getFullYear()}`} />
+
                 <div className="calendar-separator">
                     <span className="title">
-                            {this.state.loading ? '' : `${this.state.workouts.length} Workouts Found`}
+                        {this.state.loading ? '' : `${this.state.workouts.length} Workouts Found`}
                     </span>
                 </div>
                 <div className="event-list">
@@ -89,7 +73,6 @@ module.exports = class WOD extends Component {
                                 )}
                             </div>
                         </div>
-
                     ))}
 
                     <Loader 

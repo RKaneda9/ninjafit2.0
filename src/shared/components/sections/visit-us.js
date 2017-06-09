@@ -1,6 +1,6 @@
 const Inferno      = require('inferno');
-const ContactMap   = require('mobile/components/contact/map');
-const ContactLinks = require('mobile/components/contact/links');
+const ContactMap   = require('shared/components/contact/map');
+const ContactLinks = require('shared/components/contact/links');
 const settings     = require('helpers/settings');
 
 module.exports = () => {

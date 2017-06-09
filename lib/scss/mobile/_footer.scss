@@ -7,6 +7,8 @@ $container: '#{$app} .app-footer';
     flex-flow: column;
     justify-content: center;
     flex: 0 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
 #{$container} .logo {
@@ -26,7 +28,8 @@ $container: '#{$app} .app-footer';
         padding-bottom: $general-padding-half;
     }
     
-    .link {
+    .link,
+    .social-item {
         display:         flex;
         flex-flow:       row;
         justify-content: center;
@@ -35,8 +38,8 @@ $container: '#{$app} .app-footer';
         padding: 3px;
     }
 
-    .fa {
-        width: 2em;
-        text-align: center;
+    .icon {
+        width: 0.9rem;
+        margin-right: 5px;
     }
 }

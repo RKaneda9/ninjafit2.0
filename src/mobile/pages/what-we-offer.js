@@ -7,12 +7,25 @@ const PageFooter = require('mobile/containers/page-footer');
 const Page       = require('mobile/components/page');
 const Popup      = require('mobile/components/popup');
 
+const AngleLeftIcon  = require('shared/components/icons/angle-left');
+const AngleRightIcon = require('shared/components/icons/angle-right');
+
+const {
+
+    Section,
+    Header,
+    Content,
+    Image,
+    Footer
+
+} = require('shared/components/section');
+
 const {
 
     Button,
     CloseButton
 
-} = require('mobile/components/buttons');
+} = require('shared/components/buttons');
 
 const {
 
@@ -79,111 +92,82 @@ module.exports = class WhatWeOffer extends Component {
             <Page name="what-we-offer">
                 <HeaderBar title="What We Offer"></HeaderBar>
 
-                <section className="ninja-training">
-                    <header className="header">Ninja Warrior Training</header>
-                    <div className="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-                </section>
+                <Section name="ninja-training">
+                    <Header  text={settings.offerPage.ninja.header}  />
+                    <Content text={settings.offerPage.ninja.content} />
+                </Section>
 
-                <section className="obstacle-training">
+                <Section name="obstacle-training">
                     <Background>
                         <TriangleRight position="v-full left" size="large" />
                     </Background>
 
-                    <header className="header">Obstacle Training</header>
-                    <div className="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
+                    <Header  text={settings.offerPage.obstacle.header}  />
+                    <Content text={settings.offerPage.obstacle.content} />
 
                     <ul className="image-list">
                         {utils.map(settings.obstacles, (props, key, i) =>
                             <li className="image-item">
                                 <div className="image-wrapper">
-                                    <div 
-                                        className="image" 
-                                        style={{ backgroundImage: `url("${props.images[0]}")`}} />
+                                    <Image url={props.images[0]} />
                                 </div>
 
                                 <div className="title">{props.title}</div>
-                                <footer className="footer">
+                                <Footer>
                                     <Button onClick={e => this.view(props, i, settings.obstacles)}>View</Button>
-                                </footer>
+                                </Footer>
                             </li>
                         )}
                     </ul>
-                </section>
+                </Section>
 
-                <section className="functional-training">
+                <Section name="functional-training">
 
-                    <header className="header">Functional Training</header>
-                    <div className="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
+                    <Header  text={settings.offerPage.functional.header}  />
+                    <Content text={settings.offerPage.functional.content} />
 
                     <ul className="image-list">
                         {utils.map(settings.functionalEquipment, (props, key, i) =>
                             <li className="image-item">
                                 <div className="image-wrapper">
-                                    <div 
-                                        className="image" 
-                                        style={{ backgroundImage: `url("${props.images[0]}")`}} />
+                                    <Image url={props.images[0]} />
                                 </div>
 
                                 <div className="title">{props.title}</div>
-                                <footer className="footer">
+                                <Footer>
                                     <Button onClick={e => this.view(props, i, settings.functionalEquipment)}>View</Button>
-                                </footer>
+                                </Footer>
                             </li>
                         )}
                     </ul>
-                </section>
+                </Section>
 
-                <section className="kids">
+                <Section name="kids">
                     <Background>
-                        <TriangleRight  position="top small left" size="small" />
+                        <TriangleRight position="top small left" size="small" />
                         <TriangleLeft position="v-full right" size="large" />
                     </Background>
 
-                    <div className="image" style={{ backgroundImage: `url("https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg")`}} />
-                
-                    <header className="header">NinjaFit Kids</header>
-                    <div className="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                </section>
+                    <Image    url={settings.offerPage.kids.image}   />
+                    <Header  text={settings.offerPage.kids.header}  />
+                    <Content text={settings.offerPage.kids.content} />
+                </Section>
 
-                <section className="hourly-workout">
-                    <div className="image" style={{ backgroundImage: `url("https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg")`}} />
-                
-                    <header className="header">Get an Hour Workout With a Trainer</header>
-                    <div className="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                </section>
+                <Section name="hourly-workout">
+                    <Image    url={settings.offerPage.workout.image}   />
+                    <Header  text={settings.offerPage.workout.header}  />
+                    <Content text={settings.offerPage.workout.content} />
+                </Section>
 
-                <section className="special-events">
+                <Section name="special-events">
                     <Background>
                         <TriangleLeft  position="v-half bottom right" size="medium" />
                         <TriangleRight position="v-full left" size="large" />
                     </Background>
-                    <div className="image" style={{ backgroundImage: `url("https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg")`}} />
-                
-                    <header className="header">Special Events</header>
-                    <div className="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                </section>
+                    <Image    url={settings.offerPage.events.image}   />
+                    <Header  text={settings.offerPage.events.header}  />
+                    <Content text={settings.offerPage.events.content} />
+                </Section>
 
                 <Popup 
                     open={this.state.selected}
@@ -202,24 +186,24 @@ module.exports = class WhatWeOffer extends Component {
                             </li>
                         )}
                     </ul>
-                    
-                    <div className="content">
-                        {utils.map((selected.description || "").split('\n'), text => 
-                            <p>{text}</p>
-                        )}
-                    </div>
 
-                    <div className="footer">
+                    <Content text={selected.description} />
+
+                    <Footer>
                         <button 
-                            className="option-btn fa fa-angle-left"
-                            onClick={this.prevSelected} />
+                            className="option-btn"
+                            onClick={this.prevSelected}>
+                            <AngleLeftIcon />
+                        </button>
 
                         <div className="details">{`${(selected.index || 0) + 1}/${(this.selectedParent || []).length}`}</div>
 
                         <button 
-                            className="option-btn fa fa-angle-right"
-                            onClick={this.nextSelected} />
-                    </div>
+                            className="option-btn"
+                            onClick={this.nextSelected}>
+                            <AngleRightIcon />
+                        </button>
+                    </Footer>
                 </Popup>
             </Page>
         );
