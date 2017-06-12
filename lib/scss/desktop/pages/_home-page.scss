@@ -201,7 +201,7 @@ $offer-section-v-offset: (1 - $offer-section-content-width) * $offer-section-wid
 }
 
 #{$container} > .testimonials {
-    $width:              400px;
+    $width:              420px;
     $svg-viewbox-width: 1000px;
     $svg-offset:         289px;
 
@@ -209,6 +209,31 @@ $offer-section-v-offset: (1 - $offer-section-content-width) * $offer-section-wid
     max-width: $width;
     padding: ($svg-offset * $width / $svg-viewbox-width) 0;
     overflow-x: visible;
+
+    .header { 
+        display: flex;
+        flex-flow: row;
+        align-items: stretch;
+        justify-content: center;
+    }
+
+    .icon-btn {
+        cursor: pointer;
+        fill:   #fff;
+        flex: 1 1 auto;
+
+        transition: fill 0.2s ease-in-out;
+
+        &:hover { fill: $color-primary-12; }
+
+        .icon { 
+            width:  1rem;
+            height: 1rem;
+            margin: 0 auto;
+        }
+    }
+
+    .title { flex: 0 0 auto; }
 
     .background {
         left:   0;
@@ -221,9 +246,30 @@ $offer-section-v-offset: (1 - $offer-section-content-width) * $offer-section-wid
         stroke-width: $image-border-width * $svg-viewbox-width / $width;
     }
 
-    .header, .content, .footer {
-        width:  80%;
-        margin: 0 auto;
+    .quotes {
+        position: relative;
+        z-index: 2;
+        padding: $content-padding-v 15% 0 15%;
+        overflow: hidden;
+        text-align: center;
+        display: flex;
+        flex-flow: row;
+        align-items: stretch;
+        justify-content: center;
+    }
+
+    .quote {
+        $width: 100%;
+        flex: 0 0 100%;
+        text-align: center;
+        width: 100%;
+        margin: 0 -50%;
+        opacity: 0;
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
+        &.curr  { opacity: 1; transform: translate(0,0);             z-index: 2; }
+        &.left  { opacity: 0; transform: translate(-1 * $width, 0%); z-index: 1; transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, z-index 0.1s ease-in-out 0.3s; }
+        &.right { opacity: 0; transform: translate(     $width, 0%); z-index: 1; transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, z-index 0.1s ease-in-out 0.3s; }
     }
 }
 
@@ -243,6 +289,18 @@ $offer-section-v-offset: (1 - $offer-section-content-width) * $offer-section-wid
     padding-top:    $offer-section-v-offset;
     padding-bottom: $offer-section-v-offset;
     overflow:       visible;
+    position:       relative;
+
+    .background {
+        position: absolute;
+        z-index: 0;
+        fill: $color-primary-2;
+    }
+
+    .image-wrapper {
+        width:  100%;
+        height: 100%;
+    }
 
     .image {
         flex: 1 1 auto;
@@ -251,6 +309,8 @@ $offer-section-v-offset: (1 - $offer-section-content-width) * $offer-section-wid
         width: $offer-section-content-width * 100%;
         background-color: #fff;
         padding-bottom: 0;
+        border: $image-border-width solid $color-primary-2; 
+        box-shadow: 0 0 15px 0 #212121;
     }
 }
 
@@ -260,7 +320,16 @@ $offer-section-v-offset: (1 - $offer-section-content-width) * $offer-section-wid
     padding-bottom: $offer-section-v-offset;
     overflow:       visible;
 
-    .header, .content, .footer {
+    .col { position: relative; }
+
+    .popover { 
+        margin-left:  $content-padding-h / 2; 
+        margin-right: $content-padding-h / 2;
+    }
+
+    & > .header, 
+    & > .content, 
+    & > .footer {
         margin: 0 10% 0 5%;
         width:  $offer-section-content-width * 100%;
     }

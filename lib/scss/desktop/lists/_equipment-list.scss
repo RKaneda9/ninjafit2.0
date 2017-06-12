@@ -1,0 +1,92 @@
+$container: '#{$app} .equipment-list';
+$padding: 30px;
+$padding-half: $padding / 2;
+
+#{$container} {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#{$container} .equipment-item {
+    $width: 400px;
+
+    box-shadow: 0 0 5px 2px $color-primary-3;
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+    position: relative;
+    background: $color-primary-4;
+    flex: 0 0 auto;
+    max-width: $width;
+    margin-right: -($width / 2);
+    margin-left:  -($width / 2);
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transform-origin: center;
+    opacity: 0;
+
+    &.curr  { opacity: 1; transform: translate(0,0); }
+    
+    &.left1 { opacity: 1; transform: translate(-1    * $width, 0%) scale(0.83);   }
+    &.left2 { opacity: 1; transform: translate(-1.83 * $width, 0%) scale(0.6889); }
+    &.left3 { opacity: 1; transform: translate(-2.52 * $width, 0%) scale(0.5718); }
+    &.left4 { opacity: 1; transform: translate(-3.1  * $width, 0%) scale(0.4746); }
+
+    &.right1 { opacity: 1; transform: translate(       $width, 0%) scale(0.83);   }
+    &.right2 { opacity: 1; transform: translate(1.83 * $width, 0%) scale(0.6889); }
+    &.right3 { opacity: 1; transform: translate(2.52 * $width, 0%) scale(0.5718); }
+    &.right4 { opacity: 1; transform: translate(3.1  * $width, 0%) scale(0.4746); }
+
+    &.hidden {
+        display: none;
+        opacity: 0;
+        transform: translate(2 * $width, 0%) scale(0,0);
+    }
+}
+
+#{$container} .equipment-images {
+    flex: 0 0 auto;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+    justify-content: center;
+    margin: $padding-half $padding-half 0 $padding-half;
+}
+
+#{$container} .item-header {
+    flex: 0 0 auto;
+    text-align: center;
+    padding: (0.75 * $content-padding-v) $content-padding-h 0 $content-padding-h;
+}
+
+#{$container} .item-title {
+    font-size: 1.67rem; 
+    line-height: 1em;
+}
+
+#{$container} .image-wrapper {
+    margin: 0 $padding-half $padding-half $padding-half;
+    padding: $image-border-width;
+    background: $color-primary-5;
+}
+
+#{$container} .image-item {
+    flex: 0 1 50%;
+
+    &:first-child { flex: 1 0 100%; }
+}
+
+#{$container} .image {
+    background-position: center;
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    transform-origin:    center;
+    padding-bottom: 60%;
+}
+
+#{$container} .content {
+    border-top: 1px solid $color-primary-11;
+    margin: $padding-half $padding $padding $padding;
+    padding-top: $padding;
+}

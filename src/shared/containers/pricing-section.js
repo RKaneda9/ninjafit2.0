@@ -10,16 +10,6 @@ module.exports = class PricingSection extends Component {
         this.state = { index: 1 };
     }
 
-    nextPriceItem() {
-        this.setState({ index: (this.state.index + 1) % items.length });
-    }
-
-    prevPriceItem() {
-        let i = this.state.index - 1; if (i < 0) i = items.length - 1;
-
-        this.setState({ index: i });
-    }
-
     selectPriceItem(i) {
         this.setState({ index: i });
     }

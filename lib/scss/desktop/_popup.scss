@@ -1,10 +1,11 @@
 $container: '#{$app} .popup';
 $content:   '#{$container} > .content';
-$padding: 15px;
-$padding-half: $padding / 2;
+
+$padding:        15px;
+$padding-half:   $padding / 2;
 $close-btn-size: 20px * 0.813 + $padding * 2;
 $show-anim-time: 0.2s;
-$offset: 20px;
+$offset:         20px;
 
 #{$container} {
     position: fixed;
@@ -28,7 +29,7 @@ $offset: 20px;
     z-index: -2;
     opacity:  0;
     transform: scale(0);
-    transition: z-index 0.1s ease-in-out $show-anim-time, opacity $show-anim-time ease-in-out, transform 0.1s ease-in-out $show-anim-time; 
+    transition: z-index 0.01s ease-in-out $show-anim-time, opacity $show-anim-time ease-in-out, transform 0.01s ease-in-out $show-anim-time; 
 }
 
 #{$content} {
@@ -134,8 +135,8 @@ $offset: 20px;
 
     .image-wrapper {
         margin: 0 $padding-half;
-        padding: $image-border-size;
-        background: $color-primary-5;
+        padding: 6px;
+        background: $color-primary-2;
     }
 
     .image {
@@ -151,7 +152,7 @@ $offset: 20px;
 #{$content}.staff-member {
 
     .header {
-        padding-bottom: $general-padding-half;
+        padding-bottom: $content-padding-v;
     }
 
     .close-btn { 
@@ -238,11 +239,12 @@ $offset: 20px;
     $icon-size: 4rem;
 
     padding-top: $offset / 1.5;
+    max-width:   400px;
 
     .title-icon {
         flex: 0 0 auto;
         align-self: center;
-        width:  $icon-size;
+        width: $icon-size;
         height: $icon-size;
         position: relative;
 
@@ -289,10 +291,9 @@ $offset: 20px;
     .contact-items {
         flex-flow: row wrap;
         justify-content: center;
-        padding-top: 15px;
+        margin-top: 15px;
+        padding: 1px;
     }
-
-    .contact-item { padding: 5px 0; }
 
     .footer {
         margin-top: 20px;
@@ -305,6 +306,6 @@ $offset: 20px;
         .btn { color: $color-primary-4; }
     }
 
-    &.success { border: 2px solid $color-green-1; }
-    &.error   { border: 2px solid $color-red-2; }
+    &.success { border: 4px solid $color-green-1; }
+    &.error   { border: 4px solid $color-red-2; }
 }

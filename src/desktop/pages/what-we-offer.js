@@ -5,131 +5,170 @@ const utils       = require('helpers/utils');
 const settings    = require('helpers/settings');
 const PageFooter  = require('desktop/containers/page-footer');
 const Page        = require('desktop/components/page');
-const {commands}  = require('services/event-system');
+const HeaderBar   = require('desktop/components/sections/header-section');
+
+const {
+
+    HexHalfLeft,
+    HexHalfRight
+
+} = require('desktop/components/backgrounds');
+
+const {
+
+    Section,
+    Header,
+    Content,
+    Image,
+    Footer
+
+} = require('shared/components/section');
 
 module.exports = class WhatWeOffer extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            
+              obstacleIndex: 1,
+            functionalIndex: 1
         };
+    }
+
+    selectObstacle(i) {
+        this.setState({ obstacleIndex: i });
+    }
+
+    selectFunctional(i) {
+        this.setState({ functionalIndex: i });
     }
 
     render() {
         return (
             <Page {...this.props} name={constants.pages.whatWeOffer}>
-                <section className="landing">
-                    <header className="header-bar">
-                        <p className="title">What We Offer</p>
-                        
-                        <button
-                            onClick={commands.openMenu.emit} 
-                            className="menu-btn">
-                            <svg className="background" viewBox="0 0 500 577.35">
-                                <path filter="url(#ds-s)" d="M500,0v577.35l-500-288.675z" />
-                            </svg>
-                            <svg className="bars" viewBox="0 0 96 60" stroke-width="12">
-                                <path d="M38,6h52" />
-                                <path d="M6,30h84" />
-                                <path d="M38,54h52" />
-                            </svg>
-                        </button>
-                    </header>
-                </section>
+                <HeaderBar title="What We Offer" />
 
-                <section className="ninja-training">
-                    <header className="header">Ninja Warrior Training</header>
-                    <div className="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-                </section>
+                <Section name="ninja-training">
+                    <Image    url={settings.offerPage.ninja.image}   />
+                    <Header  text={settings.offerPage.ninja.header}  />
+                    <Content text={settings.offerPage.ninja.content} />
+                </Section>
 
-                <section className="obstacle-training">
-                    <header className="header">Obstacle Training</header>
-                    <div className="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
+                <Section name="obstacle-training">
+                    <Header  text={settings.offerPage.obstacle.header}  />
+                    <Content text={settings.offerPage.obstacle.content} />
 
-                    <ul className="image-list">
-                        {utils.map(settings.obstacles, (props, key, i) =>
-                            <li className="image-item">
-                                <div className="image-wrapper">
-                                    <div 
-                                        className="image" 
-                                        style={{ backgroundImage: `url("${props.images[0]}")`}} />
-                                </div>
+                    <ul className="equipment-list">
+                        {utils.map(settings.obstacles, (props, key, i) => {
 
-                                <div className="title">{props.title}</div>
-                                <footer className="footer">
-                                    <button className="btn" onClick={e => this.view(props, i, settings.obstacles)}>View</button>
-                                </footer>
-                            </li>
+                            let className = "equipment-item",
+                                offset    = i - this.state.obstacleIndex;
+
+                                 if (offset == 0) className += ' curr';
+                            else if (offset <  0) className += ' left'  + Math.min(-offset, 4);
+                            else if (offset >  0) className += ' right' + Math.min( offset, 4);
+
+
+                            return (
+                                <li className={className}>
+
+                                    <div className="item-header">
+                                        <div className="item-title">{props.title}</div>
+                                    </div>
+
+                                    <ul className="equipment-images">
+                                        {utils.map(props.images, image => 
+                                            <li className="image-item">
+                                                <div className="image-wrapper">
+                                                    <div className="image" style={{ backgroundImage: `url("${image}")`}} />
+                                                </div>
+                                            </li>
+                                        )}
+                                    </ul>
+
+                                    <Content text={props.description} />
+                                </li>
+                            );
+                        })}
+                    </ul>
+
+                    <ul className="equipment-selector-list">
+                        {utils.map(settings.obstacles, (props, key, i) => 
+                            <li 
+                                onClick={() => this.selectObstacle(i)}
+                                className={`equipment-selector${i == this.state.obstacleIndex ? ' active' : ''}`} />
                         )}
                     </ul>
-                </section>
+                </Section>
 
-                <section className="functional-training">
+                <Section name="functional-training">
+                    <Header  text={settings.offerPage.functional.header}  />
+                    <Content text={settings.offerPage.functional.content} />
 
-                    <header className="header">Functional Training</header>
-                    <div className="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
+                    <ul className="equipment-list">
+                        {utils.map(settings.functionalEquipment, (props, key, i) => {
 
-                    <ul className="image-list">
-                        {utils.map(settings.functionalEquipment, (props, key, i) =>
-                            <li className="image-item">
-                                <div className="image-wrapper">
-                                    <div 
-                                        className="image" 
-                                        style={{ backgroundImage: `url("${props.images[0]}")`}} />
-                                </div>
+                            let className = "equipment-item",
+                                offset    = i - this.state.functionalIndex;
 
-                                <div className="title">{props.title}</div>
-                                <footer className="footer">
-                                    <button className="btn" onClick={e => this.view(props, i, settings.functionalEquipment)}>View</button>
-                                </footer>
-                            </li>
+                                 if (offset == 0) className += ' curr';
+                            else if (offset <  0) className += ' left'  + Math.min(-offset, 4);
+                            else if (offset >  0) className += ' right' + Math.min( offset, 4);
+
+
+                            return (
+                                <li className={className}>
+
+                                    <div className="item-header">
+                                        <div className="item-title">{props.title}</div>
+                                    </div>
+
+                                    <ul className="equipment-images">
+                                        {utils.map(props.images, image => 
+                                            <li className="image-item">
+                                                <div className="image-wrapper">
+                                                    <div className="image" style={{ backgroundImage: `url("${image}")`}} />
+                                                </div>
+                                            </li>
+                                        )}
+                                    </ul>
+
+                                    <Content text={props.description} />
+                                </li>
+                            );
+                        })}
+                    </ul>
+
+                    <ul className="equipment-selector-list">
+                        {utils.map(settings.functionalEquipment, (props, key, i) => 
+                            <li 
+                                onClick={() => this.selectFunctional(i)}
+                                className={`equipment-selector${i == this.state.functionalIndex ? ' active' : ''}`} />
                         )}
                     </ul>
-                </section>
+                </Section>
 
-                <section className="kids">
-                    <div className="image" style={{ backgroundImage: `url("https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg")`}} />
-                
-                    <header className="header">NinjaFit Kids</header>
-                    <div className="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                </section>
+                <Section name="details"> 
+                    <HexHalfLeft />
+                    <HexHalfRight />
 
-                <section className="hourly-workout">
-                    <div className="image" style={{ backgroundImage: `url("https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg")`}} />
-                
-                    <header className="header">Get an Hour Workout With a Trainer</header>
-                    <div className="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                </section>
+                    <Section name="kids">
+                        <Image    url={settings.offerPage.kids.image}   />
+                        <Header  text={settings.offerPage.kids.header}  />
+                        <Content text={settings.offerPage.kids.content} />
+                    </Section>
 
-                <section className="special-events">
-                    <div className="image" style={{ backgroundImage: `url("https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg")`}} />
-                
-                    <header className="header">Special Events</header>
-                    <div className="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                </section>
+                    <Section name="hourly-workout">
+                        <Image    url={settings.offerPage.workout.image}   />
+                        <Header  text={settings.offerPage.workout.header}  />
+                        <Content text={settings.offerPage.workout.content} />
+                    </Section>
+
+                    <Section name="special-events">   
+                        <Image    url={settings.offerPage.events.image}   />
+                        <Header  text={settings.offerPage.events.header}  />
+                        <Content text={settings.offerPage.events.content} />
+                    </Section>
+                </Section>
 
                 <PageFooter />
             </Page>

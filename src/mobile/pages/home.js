@@ -6,7 +6,8 @@ const {events,commands} = require('services/event-system');
 const constants         = require('helpers/constants');
 const ContactForm       = require('mobile/containers/contact-form');
 const Page              = require('mobile/components/page');
-const Popup             = require('mobile/components/popup');
+const Player            = require('shared/containers/popups/player');
+const MenuButton        = require('mobile/components/buttons').MenuButton;
 const ContactMap        = require('shared/components/contact/map');
 const TouchIcon         = require('shared/components/icons/touch');
 const ArrowDownIcon     = require('shared/components/icons/arrow-down');
@@ -20,13 +21,7 @@ const {
 
 } = require('shared/components/section');
 
-const {
-
-     MenuButton,
-    CloseButton,
-         Button
-
-} = require('shared/components/buttons');
+const Button = require('shared/components/buttons').Button;
 
 const {
 
@@ -44,11 +39,11 @@ module.exports = class Home extends Component {
     constructor(props) {
         super(props);
 
-        this.resize     = this.resize    .bind(this);
-        this.nextImage  = this.nextImage .bind(this);
-        this.goToImage  = this.goToImage .bind(this);
-        this.closePopup = this.closePopup.bind(this);
-        this.playIntro  = this.playIntro .bind(this);
+        this.resize      = this.resize     .bind(this);
+        this.nextImage   = this.nextImage  .bind(this);
+        this.goToImage   = this.goToImage  .bind(this);
+        this.playIntro   = this.playIntro  .bind(this);
+        this.closePlayer = this.closePlayer.bind(this);
 
         this.nextTestimonial = this.nextTestimonial.bind(this);
         this.prevTestimonial = this.prevTestimonial.bind(this);
@@ -60,11 +55,11 @@ module.exports = class Home extends Component {
     }
 
     componentDidMount() {
+        events.onWindowResize.subscribe(this.resize);
+
         this.         resizeTimeoutId = setTimeout(this.resize,          100);
         this.      nextImageTimeoutId = setTimeout(this.nextImage,       constants.imageSliderTimeout);
         this.nextTestimonialTimeoutId = setTimeout(this.nextTestimonial, constants.testimonialTimeout);
-
-        events.onWindowResize.subscribe(this.resize);
     }
 
     componentWillUnmount() {
@@ -105,14 +100,8 @@ module.exports = class Home extends Component {
         this.nextTestimonialTimeoutId = setTimeout(this.nextTestimonial, constants.testimonialTimeout);
     }
 
-    playIntro() {
-        if (settings.about.introVideo) 
-            this.setState({ showVideo: settings.about.video });
-    }
-
-    closePopup() {
-        this.setState({ showVideo: false });
-    }
+    playIntro  () { this.setState({ showVideo: true  }); }
+    closePlayer() { this.setState({ showVideo: false }); }
 
     resize() {
         if (this.header) {
@@ -146,8 +135,6 @@ module.exports = class Home extends Component {
     }
 
     render() {
-        let i = 0;
-
         return (
             <Page name="home">
                <Section name="landing">
@@ -204,6 +191,11 @@ module.exports = class Home extends Component {
                 <Section name="about">
                     <Header  text={settings.about.header} />
                     <Content text={settings.about.content} />
+
+                    <Player 
+                        show={this.state.showVideo}
+                        url={settings.about.video}
+                        onClose={this.closePlayer} />
 
                     <Footer>
                         <Button onClick={this.playIntro}>Play Intro</Button>
@@ -287,16 +279,15 @@ module.exports = class Home extends Component {
 
                     <div className="quotes">
                         {utils.map(settings.testimonials, (testimonial, i) => {
-                            let pos;
-
-                                 if (i == this.state.testimonialIndex)                                                        { pos = 'curr'; }
-                            else if (i == utils.getListOffset(this.state.testimonialIndex, -1, settings.testimonials.length)) { pos = 'prev'; }
-                            else if (i == utils.getListOffset(this.state.testimonialIndex,  1, settings.testimonials.length)) { pos = 'next'; }
-
-                            if (!pos) { return (<div className="quote" />); }
+                            let offset    = utils.getListOffset(i, this.state.testimonialIndex, settings.testimonials.length),
+                                className = "quote ";
+                                
+                                 if (offset ==  0) className += 'curr';
+                            else if (offset <   0) className += 'left';
+                            else if (offset >   0) className += 'right';
                             
                             return (
-                                <div className={`quote ${pos}`}>
+                                <div className={className}>
                                     <div className="text">{testimonial.quote}</div>
                                     <div className="author">{testimonial.author}</div>
                                 </div>
@@ -318,18 +309,10 @@ module.exports = class Home extends Component {
 
                 <ContactForm title="Get In Touch">
                     <Background>
-                        <TriangleLeft  position="v-half bottom right" size="medium" />
+                        <TriangleLeft  position="v-half bottom right" size="x" />
                         <TriangleRight position="left v-full" />
                     </Background>
                 </ContactForm>
-
-                <Popup
-                    open={this.state.showVideo}
-                    type="player">
-                    <CloseButton onClick={this.closePopup} />
-
-                    {this.state.showVideo ? (<iframe className="frame" frameborder="0" src={this.state.showVideo} />) : null}
-                </Popup>
             </Page>
         );
     }

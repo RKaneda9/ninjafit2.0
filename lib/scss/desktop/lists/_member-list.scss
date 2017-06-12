@@ -12,7 +12,7 @@ $container: '#{$app} .staff-list';
 }
 
 #{$container} .staff-member {
-    box-shadow: 0 0 15px 0 #212121;
+    box-shadow: 0 0 5px 2px $color-primary-3;
     display: flex;
     flex-flow: row;
     align-items: stretch;
@@ -84,9 +84,10 @@ $container: '#{$app} .staff-list';
     }
 
     .social-link { 
+        $size: $social-link-size * 1.2;
         flex: 0 0 auto;
-        width: $social-link-size;
-        height: $social-link-size;
+        width:  $size;
+        height: $size;
         display: flex;
         flex-flow: row;
         align-items: center;
@@ -94,6 +95,16 @@ $container: '#{$app} .staff-list';
         text-align: center;
         cursor: pointer;
         fill: #fff;
+        border-radius: $size;
+        margin: 0 auto;
+        transition: background-color 0.5s ease-in-out;
+
+        &:hover {
+            &[type="instagram"] { background-color: $color-instagram; }
+            &[type="facebook"]  { background-color: $color-facebook;  }
+            &[type="youtube"]   { background-color: $color-youtube;   }
+            &[type="twitter"]   { background-color: $color-twitter;   }
+        }
     }
 
     .icon {

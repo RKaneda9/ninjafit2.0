@@ -64,8 +64,8 @@
     ],
 
     "api": {
-        "getWod":"http://localhost:5100/workouts/wod",
-        "calendarDay":"http://localhost:5100/schedule/calendar/day",
+        "getWod":"http://api.ninjafitgyms.com/workouts/wod",
+        "calendarDay":"http://api.ninjafitgyms.com/schedule/calendar/day",
         "sendMessage":"http://localhost:5100/contact/message"
     },
 
@@ -93,6 +93,26 @@
     },
 
     "obstacles": [
+        {
+            "title": "50ft Rig",
+            "images": [
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg" 
+            ],
+
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        },
+        {
+            "title": "2nd Rig",
+            "images": [
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
+                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg" 
+            ],
+
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        },
         {
             "title": "Rock Wall",
             "images": [
@@ -124,17 +144,7 @@
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
         },
         {
-            "title": "50ft Rig",
-            "images": [
-                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
-                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
-                "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg" 
-            ],
-
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-        },
-        {
-            "title": "2nd Rig",
+            "title": "150ft Rope Climb",
             "images": [
                 "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
                 "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
@@ -205,26 +215,26 @@
         "about": {
             "video": "https://www.youtube.com/embed/Eugn8dCR26Q?feature=player_embedded&rel=0&autoplay=1",
             "header": "What is NinjaFit Gym?",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            "content": "NinjaFit Gym is Orlando’s destination for Ninja Warrior and Obstacle Course Race (OCR) training! Are you looking to become the next breakout star on American Ninja Warrior? Do you want to take your OCR training to the next level? Or do you just want a functional fitness program that will help you live your life to the max? Our state-of-the-art facilities and expertly trained staff can get you there!\nFrom rope walls, cargo nets, and obstacle rigs to free weights, kettlebells, TRX equipment, and squat racks, we have something for everyone! Our Spartan SGX Certified coach, the official training certification of Spartan Race, provides purpose built programming to help you level up for that next race while our highly qualified coaches will help you get fit for life through our boot camp style functional fitness classes."
         },
         "main1": {
             "header": "Ninja Warrior Training",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "content": "If you’ve ever had any interest in competing on the next season of American Ninja Warrior or thought to yourself, “I would love to try some of those obstacles”, our facility is a must-visit! We are Central Florida’s destination for Ninja Warrior Training. In face, quite a few previous and current competitors on American Ninja Warrior train in our gym and we feel quite privileged to have them. If you’re ready for the spotlight and challenge of auditioning for American Ninja Warrior then we’d love to train with you!",
             "image": "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg"  
         },
         "main2": {
             "header": "Obstacle Training",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "content": "Have you signed up for your first obstacle course race (OCR) and wondering where you can go to prepare? Are you already a seasoned obstacle course racer, elite or otherwise? Regardless of your experience or skill level, our Spartan SGX Certified head trainer will provide you with purpose built fitness programming to help you get ready for your next race!",
             "image": "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/15802716_253884945025372_5272580072513994752_n.jpg"
         },
         "main3": {
             "header": "Functional Training",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "content": "Functional fitness training is a great way to improve overall fitness levels and here at NinjaFit Gym our boot camp style classes utilize a combination of free weights, kettlebells, ropes, medicine balls, balance boards, TRX equipment, plyometrics / bodyweight exercise, and much more to get you into shape from head to toe! Through our classes you will burn calories, improve your cardiovascular performance, increase strength, and gain flexibility resulting in an increased ability to handle your activities of daily living and whatever else life throws your way!",
             "image": "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg"
         },
         "short1": {
             "header": "NinjaFit Kids",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            "content": "NinjaFit Kids is our hit program that progresses kids through the use of a belt system, similar to a martial arts. They learn obstacle skill development, run through our very own obstacle course, and through these experiences, gain general fitness, improved self-esteem, and of course, new friends!"
         },
         "short2": {
             "header": "Special Events",
@@ -255,13 +265,14 @@
 
     "aboutPage": {
         "landing": {
+            "image": "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/15802716_253884945025372_5272580072513994752_n.jpg",
             "header": "What is NinjaFit Gym?",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            "content": "NinjaFit Gym is Orlando’s destination for Ninja Warrior and Obstacle Course Race (OCR) training! Are you looking to become the next breakout star on American Ninja Warrior? Do you want to take your OCR training to the next level? Or do you just want a functional fitness program that will help you live your life to the max? Our state-of-the-art facilities and expertly trained staff can get you there!\nFrom rope walls, cargo nets, and obstacle rigs to free weights, kettlebells, TRX equipment, and squat racks, we have something for everyone! Our Spartan SGX Certified coach, the official training certification of Spartan Race, provides purpose built programming to help you level up for that next race while our highly qualified coaches will help you get fit for life through our boot camp style functional fitness classes."
         },
         "philosophy": {
             "image": "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/15802716_253884945025372_5272580072513994752_n.jpg",
             "header": "Our Philosophy",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            "content": "NinjaFit Gym believes that everyone can improve their quality of life by achieving their own optimal level of fitness. Our comprehensive, full body fitness programs are designed for athletes of all experience levels and ages- novice or elite; young or mature. We thrive on seeing our members grow and succeed at achieving their personal health and fitness goals!"
         },
         "staff": {
             "header": "Meet the Team"
@@ -270,21 +281,24 @@
 
     "offerPage": {
         "ninja": {
+            "image": "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
             "header": "Ninja Warrior Training",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            "content": "If you’ve ever had any interest in competing on the next season of American Ninja Warrior or thought to yourself, “I would love to try some of those obstacles”, our facility is a must-visit! We are Central Florida’s destination for Ninja Warrior Training. In face, quite a few previous and current competitors on American Ninja Warrior train in our gym and we feel quite privileged to have them. If you’re ready for the spotlight and challenge of auditioning for American Ninja Warrior then we’d love to train with you!"
         },
         "obstacle": {
+            "image": "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
             "header": "Obstacle Training",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            "content": "Have you signed up for your first obstacle course race (OCR) and wondering where you can go to prepare? Are you already a seasoned obstacle course racer, elite or otherwise? Regardless of your experience or skill level, our Spartan SGX Certified head trainer will provide you with purpose built fitness programming to help you get ready for your next race!"
         },
         "functional": {
+            "image": "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
             "header": "Functional Training",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            "content": "Functional fitness training is a great way to improve overall fitness levels and here at NinjaFit Gym our boot camp style classes utilize a combination of free weights, kettlebells, ropes, medicine balls, balance boards, TRX equipment, plyometrics / bodyweight exercise, and much more to get you into shape from head to toe! Through our classes you will burn calories, improve your cardiovascular performance, increase strength, and gain flexibility resulting in an increased ability to handle your activities of daily living and whatever else life throws your way!"
         },
         "kids": {
             "image": "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",
-            "header": "NinjaFit Kids",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            "header": "NinjaFit Kids (ages 5 & up)",
+            "content": "NinjaFit Kids is our hit program that progresses kids through the use of a belt system, similar to a martial arts. They learn obstacle skill development, run through our very own obstacle course, and through these experiences, gain general fitness, improved self-esteem, and of course, new friends!\n"
         },
         "workout": {
             "image": "https://scontent-atl3-1.cdninstagram.com/t51.2885-15/e35/16229014_645122905690048_6995751145289285632_n.jpg",

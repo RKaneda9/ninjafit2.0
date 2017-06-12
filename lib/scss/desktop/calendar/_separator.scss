@@ -10,6 +10,7 @@ $container: '#{$app} .calendar-separator';
     box-shadow: 0 0 0 2px $color-primary-3;
     position: relative;
     z-index: 1;
+    min-height: 1.34em;
 }
 
 #{$container} .title { 

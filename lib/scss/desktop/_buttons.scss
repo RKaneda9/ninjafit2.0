@@ -1,5 +1,14 @@
 $button: '#{$app} .btn';
 
+#{$app} %menu-btn-bar {
+    height:        3px;
+    border-radius: 5px;
+    position:      relative;
+    z-index:       1;
+    background:    #fff;
+    display:       block;
+}
+
 #{$button} {
     background-color: $btn-color-bg;
     border-radius:    $btn-height / 2;
@@ -100,6 +109,28 @@ $button: '#{$app} .btn';
         right: 15%;
         width: 24px;
         transform: translateY(-50%);
+    }
+}
+
+#{$app} .close-btn {
+    cursor:   pointer;
+    width:    $triangle-size / 2;
+    height:   $triangle-size / 2;
+    z-index:  3;
+    transform-origin: top right;
+    position: relative;
+
+    .bar {
+        @extend %menu-btn-bar;
+        transform-origin: center;
+        position: absolute;
+        top:  50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+
+        &:nth-child(1) { transform: translate(-50%, -50%) rotate( 45deg); }
+        &:nth-child(2) { transform: translate(-50%, -50%) rotate(-45deg); }
     }
 }
 

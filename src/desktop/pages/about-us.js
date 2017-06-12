@@ -3,7 +3,7 @@ const Component  = require('inferno-component');
 const constants  = require('helpers/constants');
 const utils      = require('helpers/utils');
 const settings   = require('helpers/settings');
-const HeaderBar  = require('desktop/components/sections/header-bar');
+const HeaderBar  = require('desktop/components/sections/header-section');
 const PageFooter = require('desktop/containers/page-footer');
 const Page       = require('desktop/components/page');
 const Social     = require('shared/components/icons/social');
@@ -18,6 +18,8 @@ const {
 
 } = require('shared/components/section');
 
+const Hex = require('desktop/components/backgrounds').Hex;
+
 module.exports = class AboutUs extends Component {
     constructor(props) {
         super(props);
@@ -28,19 +30,28 @@ module.exports = class AboutUs extends Component {
     render() {
         return (
             <Page {...this.props} name={constants.pages.aboutUs}>
-                <Section name="landing">
-                    <HeaderBar title="About Us" />
-                </Section>
+                <HeaderBar title="About Us" />
+
                 <Section name="about">
+                    <Image    url={settings.aboutPage.landing.image} />
                     <Header  text={settings.aboutPage.landing.header} />
                     <Content text={settings.aboutPage.landing.content} />
                 </Section>
 
                 <Section name="our-philosophy">
-                    
-                    <Image    url={settings.aboutPage.philosophy.image} />
-                    <Header  text={settings.aboutPage.philosophy.header} />
-                    <Content text={settings.aboutPage.philosophy.content} />
+                    <div className="image-item">
+                        <Image url={settings.aboutPage.philosophy.image} />
+                    </div>
+
+                    <div className="container">
+                        <Hex />
+                        <Header  text={settings.aboutPage.philosophy.header} />
+                        <Content text={settings.aboutPage.philosophy.content} />
+                    </div>
+
+                    <div className="image-item">
+                        <Image url={settings.aboutPage.philosophy.image} />
+                    </div>
                 </Section>
 
                 <Section name="team">
@@ -62,7 +73,12 @@ module.exports = class AboutUs extends Component {
                                                     let Icon = Social[type];
 
                                                     return (
-                                                        <a className="social-link" href={href} target="social">
+                                                        <a 
+                                                            className="social-link" 
+                                                            type={type}
+                                                            href={href} 
+                                                            target="social">
+
                                                             <Icon />
                                                         </a>
                                                     );

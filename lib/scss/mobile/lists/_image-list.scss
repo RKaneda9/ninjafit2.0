@@ -23,7 +23,7 @@ $container: '#{$app} .image-list';
 #{$container} .image-wrapper {
     margin: $outer-spacing $outer-spacing $inner-spacing $outer-spacing;
     background: $color-primary-2;
-    padding: $inner-spacing;
+    padding: $image-border-size;
 }
 
 #{$container} .image {

@@ -44,3 +44,7 @@
     align-items: stretch;
     padding: 0 ($content-padding-h / 2);
 }
+
+#{$app} .icon {
+    fill: #fff;
+}

@@ -5,7 +5,7 @@ const utils          = require('helpers/utils');
 const settings       = require('helpers/settings');
 const PageFooter     = require('desktop/containers/page-footer');
 const Page           = require('desktop/components/page');
-const HeaderBar      = require('desktop/components/sections/header-bar');
+const HeaderBar      = require('desktop/components/sections/header-section');
 const Hours          = require('shared/components/sections/hours');
 const Selector       = require('shared/components/calendar/date-selector');
 const Loader         = require('shared/components/loaders/content');
@@ -89,9 +89,7 @@ module.exports = class Schedule extends Component {
 
         return (
             <Page {...this.props} name={constants.pages.schedule}>
-                <Section name="landing">
-                    <HeaderBar title="Schedule" />
-                </Section>
+                <HeaderBar title="Schedule" />
                 
                 <div className="row">
                     <div className="col">

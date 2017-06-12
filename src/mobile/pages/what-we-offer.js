@@ -48,14 +48,14 @@ module.exports = class WhatWeOffer extends Component {
     }
 
     view(item, i, parent) {
-        item.index = i;
+        this.index          = i;
         this.selectedParent = parent;
 
-        this.setState({ selected: item });
+        this.setState({ showPopup: true, selected: item });
     }
 
     closePopup() {
-        this.setState({ selected: null })
+        this.setState({ showPopup: false });
     }
 
     prevSelected() {
@@ -63,9 +63,9 @@ module.exports = class WhatWeOffer extends Component {
             this.selectedParent) {
 
             let keys   = Object.keys(this.selectedParent);
-            let index  = this.state.selected.index - 1; if (index < 0) index = keys.length - 1;
+            let index  = this.index - 1; if (index < 0) index = keys.length - 1;
             let item   = this.selectedParent[keys[index]];
-            item.index = index;
+            this.index = index;
 
             this.setState({ selected: item });
         }
@@ -76,9 +76,9 @@ module.exports = class WhatWeOffer extends Component {
             this.selectedParent) {
 
             let keys   = Object.keys(this.selectedParent);
-            let index  = (this.state.selected.index + 1) % keys.length;
+            let index  = (this.index + 1) % keys.length;
             let item   = this.selectedParent[keys[index]];
-            item.index = index;
+            this.index = index;
 
             this.setState({ selected: item });
         }
@@ -161,8 +161,8 @@ module.exports = class WhatWeOffer extends Component {
 
                 <Section name="special-events">
                     <Background>
-                        <TriangleLeft  position="v-half bottom right" size="medium" />
-                        <TriangleRight position="v-full left" size="large" />
+                        <TriangleLeft  position="v-half bottom right" size="x" />
+                        <TriangleRight position="v-full left" />
                     </Background>
                     <Image    url={settings.offerPage.events.image}   />
                     <Header  text={settings.offerPage.events.header}  />
@@ -170,7 +170,7 @@ module.exports = class WhatWeOffer extends Component {
                 </Section>
 
                 <Popup 
-                    open={this.state.selected}
+                    open={this.state.showPopup}
                     type="equipment">
 
                     <header className="header">
@@ -196,7 +196,7 @@ module.exports = class WhatWeOffer extends Component {
                             <AngleLeftIcon />
                         </button>
 
-                        <div className="details">{`${(selected.index || 0) + 1}/${(this.selectedParent || []).length}`}</div>
+                        <div className="details">{`${(this.index || 0) + 1}/${(this.selectedParent || []).length}`}</div>
 
                         <button 
                             className="option-btn"

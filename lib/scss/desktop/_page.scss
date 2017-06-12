@@ -38,8 +38,9 @@ $container: '#{$app} .page';
     &[active] { z-index: 10; overflow-y: auto; }
 }
 
-#{$container} .landing {
+#{$container} > .header {
     min-height: $triangle-size * 1.25;
+    margin-bottom: -$triangle-size / 2;
 }
 
 #{$container} .header-bar {

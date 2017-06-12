@@ -3,7 +3,7 @@ const Component   = require('inferno-component');
 const constants   = require('helpers/constants');
 const utils       = require('helpers/utils');
 const settings    = require('helpers/settings');
-const HeaderBar   = require('desktop/components/sections/header-bar');
+const HeaderBar   = require('desktop/components/sections/header-section');
 const PageFooter  = require('desktop/containers/page-footer');
 const Page        = require('desktop/components/page');
 const Selector    = require('shared/components/calendar/date-selector');
@@ -47,15 +47,13 @@ module.exports = class WOD extends Component {
         });
     }
 
-    showTomorrow () { this.setState({ date: this.state.date.getTomorrow () }); }
-    showYesterday() { this.setState({ date: this.state.date.getYesterday() }); }
+    showTomorrow () { this.changeDay(this.state.date.getTomorrow ()); }
+    showYesterday() { this.changeDay(this.state.date.getYesterday()); }
 
     render() {
         return (
             <Page {...this.props} name={constants.pages.wod}>
-                <Section name="landing">
-                    <HeaderBar title="WOD" />
-                </Section>
+                <HeaderBar title="WOD" />
 
                 <Section name="wod">
                     <Selector 

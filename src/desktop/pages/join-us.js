@@ -1,10 +1,10 @@
 const Inferno     = require('inferno');
 const Component   = require('inferno-component');
 const constants   = require('helpers/constants');
-const HeaderBar   = require('desktop/components/sections/header-bar');
-const ContactForm = require('desktop/containers/contact-form');
+const HeaderBar   = require('desktop/components/sections/header-section');
 const PageFooter  = require('desktop/containers/page-footer');
 const Page        = require('desktop/components/page');
+const ContactForm = require('shared/containers/contact-form');
 const Pricing     = require('shared/containers/pricing-section');
 const VisitUs     = require('shared/components/sections/visit-us');
 

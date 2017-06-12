@@ -1,4 +1,4 @@
-$container: '#{$app} .price-selector-list';
+$container: '#{$app} .equipment-selector-list';
 
 #{$container} {
     display: flex;
@@ -9,7 +9,7 @@ $container: '#{$app} .price-selector-list';
     margin-top: $content-padding-v / 2;
 }
 
-#{$container} .price-selector {
+#{$container} .equipment-selector {
     $size: 30px;
     flex: 0 0 auto;
     width: $size;

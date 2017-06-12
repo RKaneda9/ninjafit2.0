@@ -1,19 +1,106 @@
 $container: '#{$app} .what-we-offer-page';
 $padding: $app-width / $sqrt-3;
+$bg-side-width: 5vw;
+$bg-side-offset: $bg-side-width / $sqrt-3;
 
-#{$container} > .landing {
-    .header { text-align: center; }
+#{$container} .equipment-list {
+    margin-top: $content-padding-v * 5;
 }
 
-#{$container} > .obstacle-training {
-
-    .image-wrapper { background: $color-primary-12; }
+#{$container} > section > .image {
+    padding-bottom: 20%; 
 }
 
+#{$container} > .ninja-training,
+#{$container} > .obstacle-training,
 #{$container} > .functional-training {
-
-    .header { text-align: right; }
+    padding: 6rem 5vw;
 }
+
+#{$container} > .obstacle-training,
+#{$container} > .functional-training { 
+    box-shadow: inset 0 1px 0 0 #434343;
+}
+
+#{$container} > .details {
+    display: flex;
+    flex-flow: row;
+    align-items: stretch;
+    justify-content: center;
+    margin-top:     6rem;
+    overflow: visible;
+    padding-top:    $bg-side-offset / 2;
+    padding-bottom: $bg-side-offset / 2;
+
+    .background {
+        $width: 5vw;
+        width: 5vw;
+        height: 100%;
+        top: 0;
+        z-index: 2;
+
+        .icon {
+            fill: $color-primary-2;
+            height: 100% * (1 + 1 / $sqrt-3);
+            top:    50%;
+            right:   0;
+            transform: translateY(-50%);
+            position: absolute;
+        }
+
+        &.left  { left:  0; .icon { right: 0; } }
+        &.right { right: 0; .icon { left:  0; } }
+    }
+
+    & > section {
+        flex: 0 0 24%;
+        padding: 0 3%;
+
+        .header {  
+            flex: 0 0 auto;
+            position: relative;
+            align-self: center;
+            z-index: 2;
+            font-size: 1.6rem;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .content {
+            flex: 0 0 auto;
+            position: relative;
+            align-self: center;
+            z-index: 2;
+            padding: $content-padding-v 0 0 0;
+            max-width: 800px;
+            width: 100%;
+
+            p {
+                margin: 0;
+
+                &:not(:first-child) { margin-top:     1rem; }
+                &:last-child        { padding-bottom: 1rem; }
+            }
+        }
+
+        .image {
+            align-self: center;
+            position: relative;
+            z-index:  1;
+            height:   0;
+            padding-bottom: 60%; // aspect
+            margin-bottom: $content-padding-v;
+            border: $image-border-width solid $color-primary-2;
+            background-position: center;
+            background-size:     cover;
+            background-repeat:   no-repeat;
+            transform-origin:    center;
+
+        }
+    }
+}
+
+
 
 #{$container} > .kids {
 

@@ -4,13 +4,14 @@ const constants         = require('helpers/constants');
 const utils             = require('helpers/utils');
 const HeaderBar         = require('desktop/components/sections/header-bar');
 const PageFooter        = require('desktop/containers/page-footer');
-const ContactForm       = require('desktop/containers/contact-form');
+const ContactForm       = require('shared/containers/contact-form');
 const MouseIcon         = require('shared/components/icons/mouse');
 const ArrowDownIcon     = require('shared/components/icons/arrow-down');
 const ContactMap        = require('shared/components/contact/map');
 const Page              = require('desktop/components/page');
 const {events,commands} = require('services/event-system');
 const settings          = require('helpers/settings').homePage;
+const Player            = require('shared/containers/popups/player');
 const {
 
     Section,
@@ -23,26 +24,32 @@ const {
 
 const {
 
+    TriangleLeft,
+    TriangleRight
+
+} = require('shared/components/icons/triangles');
+
+const {
+
     Hex,
     HexHalfLeft,
     HexHalfRight
 
 } = require('desktop/components/backgrounds');
 
-const {
-
-    CloseButton,
-         Button
-
-} = require('desktop/components/buttons');
+const Button = require('shared/components/buttons').Button;
 
 module.exports = class HomePage extends Component {
     constructor(props) {
         super(props);
 
-        this.   resize = this.   resize.bind(this);
-        this.playIntro = this.playIntro.bind(this);
-        this.nextImage = this.nextImage.bind(this);
+        this.resize      = this.resize     .bind(this);
+        this.playIntro   = this.playIntro  .bind(this);
+        this.nextImage   = this.nextImage  .bind(this);
+        this.closePlayer = this.closePlayer.bind(this);
+
+        this.nextTestimonial = this.nextTestimonial.bind(this);
+        this.prevTestimonial = this.prevTestimonial.bind(this);
 
         this.els = {};
         this.prevSliderIndex = 0;
@@ -56,10 +63,11 @@ module.exports = class HomePage extends Component {
     componentDidMount() {
         events.onWindowResize.subscribe(this.resize);
 
-        this.nextImageTimeoutId = setTimeout(this.nextImage, constants.imageSliderTimeout);
-        
         // TODO: wait for images to load
-        this.resize();
+
+        this.         resizeTimeoutId = setTimeout(this.resize,          100);
+        this.      nextImageTimeoutId = setTimeout(this.nextImage,       constants.imageSliderTimeout);
+        this.nextTestimonialTimeoutId = setTimeout(this.nextTestimonial, constants.testimonialTimeout);
     }
 
     componentWillUnmount() {
@@ -97,10 +105,26 @@ module.exports = class HomePage extends Component {
         this.setState(state);
     }
 
-    playIntro() {
-        // TODO:
-        console.log("TODO");
+    nextTestimonial() {
+        clearTimeout(this.nextTestimonialTimeoutId);
+
+        this.setState({ testimonialIndex: (this.state.testimonialIndex + 1) % settings.testimonials.length });
+
+        this.nextTestimonialTimeoutId = setTimeout(this.nextTestimonial, constants.testimonialTimeout);
     }
+
+    prevTestimonial() {
+        clearTimeout(this.nextTestimonialTimeoutId);
+
+        let i = this.state.testimonialIndex - 1; if (i < 0) i = settings.testimonials.length - 1;
+
+        this.setState({ testimonialIndex: i });
+
+        this.nextTestimonialTimeoutId = setTimeout(this.nextTestimonial, constants.testimonialTimeout);
+    }
+
+    playIntro  () { this.setState({ showVideo: true  }); }
+    closePlayer() { this.setState({ showVideo: false }); }
 
     nextImage() {
         this.prevSliderIndex = this.state.sliderIndex;
@@ -196,6 +220,11 @@ module.exports = class HomePage extends Component {
                 <Section name="about">
                     <Header  text={settings.about.header} />
                     <Content text={settings.about.content} />
+                    
+                    <Player 
+                        show={this.state.showVideo}
+                        url={settings.about.video}
+                        onClose={this.closePlayer} />
 
                     <Footer>
                         <Button onClick={this.playIntro}>Play Intro</Button>
@@ -246,13 +275,34 @@ module.exports = class HomePage extends Component {
                 <Section name="testimonials">
                     <Hex />
 
-                    <header className="header">Testimonials</header>
+                    <header className="header">
+                        <button className="icon-btn" onClick={this.prevTestimonial}>
+                            <TriangleLeft />
+                        </button>
 
-                    <div className="content">
-                        <div className="quote">
-                            <div className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
-                            <div className="author">Marguerite Torrenga</div>
-                        </div>
+                        <span className="title">Testimonials</span>
+
+                        <button className="icon-btn" onClick={this.nextTestimonial}>
+                            <TriangleRight />
+                        </button>
+                    </header>
+
+                    <div className="quotes">
+                        {utils.map(settings.testimonials, (testimonial, i) => {
+                            let offset    = utils.getListOffset(i, this.state.testimonialIndex, settings.testimonials.length),
+                                className = "quote ";
+                                
+                                 if (offset ==  0) className += 'curr';
+                            else if (offset <   0) className += 'left';
+                            else if (offset >   0) className += 'right';
+                            
+                            return (
+                                <div className={className}>
+                                    <div className="text">{testimonial.quote}</div>
+                                    <div className="author">{testimonial.author}</div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </Section>
 
