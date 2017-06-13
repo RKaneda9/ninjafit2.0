@@ -22,7 +22,7 @@ $offer-section-v-offset: (1 - $offer-section-content-width) * $offer-section-wid
 #{$container} > .landing {
     $footer-height: $triangle-size * 1.2;
     height: 100vh;
-    max-height: 100vw;
+    max-height: 70vw;
     display: flex;
     flex-flow: column;
     align-items: stretch;

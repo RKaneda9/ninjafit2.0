@@ -6,7 +6,7 @@ $container: '#{$app} .home-page';
     display: flex;
     flex-flow: column;
     height: $app-height;
-    max-height: 1.8 * $app-width;
+    max-height: 700px;
     min-height: 320px;
 
     .header {
