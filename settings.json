@@ -64,9 +64,9 @@
     ],
 
     "api": {
-        "getWod":"http://api.ninjafitgyms.com/workouts/wod",
-        "calendarDay":"http://api.ninjafitgyms.com/schedule/calendar/day",
-        "sendMessage":"http://localhost:5100/contact/message"
+        "getWod":"http://ninjafitgyms.com/api/workouts/wod",
+        "calendarDay":"http://ninjafitgyms.com/api/schedule/calendar/day",
+        "sendMessage":"http://ninjafitgyms.com/api/contact/message"
     },
 
     "contact": {
