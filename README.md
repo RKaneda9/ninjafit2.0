@@ -75,3 +75,5 @@ For contact links, there are some things you can do to make the link more functi
 </a>
 ```
 
+### Icons
+Lastly, of course, all icons that I create are availble [here](https://codepen.io/Kaneda9/pen/LWEdmr). I'm always adding to this list as I have a need for new ones.
